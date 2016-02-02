@@ -15,6 +15,12 @@
     <%= f.label :published %><br>
     <%= f.check_box :published %>
   </div>
+  <div class='images'>
+    <%= f.fields_for :images do |image_form| %>
+      <%= render 'image_fields', f: image_form %>
+    <% end %>
+    <%= link_to_add_association 'add an image', f, :images %>
+  </div>
   <div class="field">
     <%= f.label :title %><br>
     <%= f.text_field :title %>
@@ -22,12 +28,6 @@
   <div class="field">
     <%= f.label :body %><br>
     <%= f.text_area :body, rows: 16 %>
-  </div>
-  <div class='images'>
-    <%= f.fields_for :images do |image_form| %>
-      <%= render 'image_fields', f: image_form %>
-    <% end %>
-    <%= link_to_add_association 'add an image', f, :images %>
   </div>
   <div class="actions">
     <%= f.submit %>

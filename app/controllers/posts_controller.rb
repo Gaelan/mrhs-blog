@@ -76,7 +76,7 @@ class PostsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = User.find(params[:user_id])
+      @user = params[:user_id] ? User.find(params[:user_id]) : current_user
     end
 
     def set_post
