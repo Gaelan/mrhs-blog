@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MRHS Photo Blog</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+
+<body>
+
+<%= navbar do %>
+  <%= navbar_header brand: 'MRHS Photo Blog', brand_link: '/' %>
+  <%= navbar_collapse do %>
+    <%= navbar_group align: 'right' do %>
+      <% if user_signed_in? %>
+        <%= navbar_item 'Logout', destroy_user_session_path, :method => :delete %>
+      <% else %>
+        <%= navbar_item 'Login', user_omniauth_authorize_path(:google_oauth2) %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+<div class='container'>
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
+
+<%= yield %>
+</div>
+</body>
+</html>

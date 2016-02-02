@@ -1,0 +1,33 @@
+<div class='post'>
+<h1>
+  <%= @post.title %>
+</h1>
+
+<p>
+  By <%= @post.user.name %>
+</p>
+
+<% if @post.parent%>
+<p>
+  <strong>Parent:</strong>
+  <%= @post.parent %>
+</p>
+<% end %>
+
+<div class='images'>
+<% @post.images.each do |image| %>
+  <%= image_tag image.file.url, width: '25%' %>
+  <br><%= image.caption %> <br>
+  <% if image.maker %> By <%= image.maker %> <br> <% end %>
+  <% if image.src %><%= link_to 'Image Source', image.src %> <%end%>
+<% end %>
+</div>
+<hr>
+<% unless @post.published %> <strong> Unpublished </strong> <% end %>
+
+<p>
+  <%= @post.body %>
+</p>
+</div>
+<%= link_to 'Edit', [:edit, @user, @post] %> |
+<%= link_to 'Back', [@user, :posts] %>

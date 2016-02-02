@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 
+  parent_id: 
+  published: false
+  level: 1
+  title: MyString
+  body: MyString
+
+two:
+  user_id: 
+  parent_id: 
+  published: false
+  level: 1
+  title: MyString
+  body: MyString
