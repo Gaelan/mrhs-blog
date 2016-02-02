@@ -1,0 +1,24 @@
+<div class='image_field nested-fields'>
+<% if f.object.file.exists? %>
+  <%= image_tag f.object.file.url, width: "100px" %>
+<% else %>
+  <div class="field">
+    <%= f.label :file %>
+    <%= f.file_field :file %>
+  </div>
+<% end %>
+<div class="field">
+  <%= f.label :caption %>
+  <%= f.text_field :caption %>
+</div>
+<div class="field">
+  <%= f.label :maker %>
+  <%= f.text_field :maker %>
+</div>
+<div class="field">
+  <%= f.label :src, "Source URL" %>
+  <%= f.text_field :src %>
+</div>
+
+<%= link_to_remove_association "remove this image", f %>
+</div>

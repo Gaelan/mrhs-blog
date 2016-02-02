@@ -21,13 +21,11 @@ class PostsController < ApplicationController
   def new
     @post = @user.posts.create
     authorize @post
-    @post.images.build
   end
 
   # GET /users/1/posts/1/edit
   def edit
     authorize @post
-    @post.images.build
   end
 
   # POST /users/1/posts
