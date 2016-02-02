@@ -19,7 +19,7 @@ class PostsController < ApplicationController
 
   # GET /users/1/posts/new
   def new
-    @post = @user.posts.create
+    @post = @user.posts.build
     authorize @post
   end
 
