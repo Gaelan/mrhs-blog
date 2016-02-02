@@ -1,4 +1,6 @@
 <h1>All Blogs</h1>
+<ul>
 <% @users.each do |user| %>
-<%= link_to user.name, user_posts_path(user) %>
+<li><%= link_to user.name, user_posts_path(user) %></li>
 <% end %>
+</ul>
