@@ -1,3 +1,1 @@
-<h2>Log in</h2>
-
-<%= render "devise/shared/links" %>
+<%= link_to "Sign in with Google", omniauth_authorize_path(:user, :google_oauth2), :class => "btn btn-large btn-primary" %>
