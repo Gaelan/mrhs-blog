@@ -1,6 +1,43 @@
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.0/bootstrap-table.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.0/bootstrap-table.min.js"></script>
+
+<!-- Latest compiled and minified Locales -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.0/locale/bootstrap-table-zh-CN.min.js"></script>
+
 <h1>All Blogs</h1>
-<ul>
-<% @users.each do |user| %>
-<li><%= link_to user.name, user_posts_path(user) %> (<%= render 'status_report', user: user %>)</li>
-<% end %>
-</ul>
+
+<div class="bootstrap-table">
+  <div class="fixed-table-container">
+    <div class="fixed-table-header">
+      <table class="table table-condensed table-hover">
+        <thead>
+          <tr>
+            <th>
+              <div class="th-inner sortable both desc">Name</div>
+            </th>
+            <th>
+              <div class="th-inner sortable both desc">Last Active</div>
+            </th>
+            <th>
+              <div class="th-inner sortable both desc">Published</div>
+            </th>
+            <th>
+              <div class="th-inner sortable both desc">Unpublished</div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= link_to user.name, user_posts_path(user) %></td>
+            <%= render 'status_report', user: user %>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
