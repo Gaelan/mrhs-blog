@@ -1,3 +1,15 @@
 <td><%= user.last_active_time %></td>
-<td class="pub"><%= user.posts.published.count %></td>
-<td class="warning"><%= user.posts.unpublished.count %></td>
+<% if user.posts.published.count > 0 %>
+  <td class="success"><%= user.posts.published.count %></td>
+<% elsif user.posts.unpublished.count > 0 %>
+  <td class="warning"><%= user.posts.published.count %></td>
+<% else %>
+  <td class="danger"><%= user.posts.published.count %></td>
+<% end %>
+<% if user.posts.unpublished.count > 0 %>
+  <td class="warning"><%= user.posts.unpublished.count %></td>
+<% elsif user.posts.published.count > 0 %>
+  <td class=""><%= user.posts.unpublished.count %></td>
+<% else %>
+  <td class="danger"><%= user.posts.unpublished.count %></td>
+<% end %>
