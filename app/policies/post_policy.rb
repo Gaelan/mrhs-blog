@@ -1,5 +1,5 @@
 class PostPolicy < ApplicationPolicy
-  alias_method :post, :record
+  alias post record
 
   class Scope < Scope
     def resolve
