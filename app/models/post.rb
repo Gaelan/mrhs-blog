@@ -1,3 +1,5 @@
+# Post model definition
+#
 class Post < ActiveRecord::Base
   belongs_to :user
   belongs_to :parent, class_name: Post, inverse_of: :children

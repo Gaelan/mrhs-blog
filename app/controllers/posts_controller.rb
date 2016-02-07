@@ -1,3 +1,4 @@
+#
 class PostsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user
@@ -38,7 +39,10 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
-        format.html { redirect_to [@user, @post], notice: 'Post was successfully created.' }
+        format.html {
+          redirect_to [@user, @post],
+                      notice: 'Post was successfully created.'
+        }
         format.json { render :show, status: :created, location: @post }
       else
         format.html { render :new }
@@ -53,7 +57,8 @@ class PostsController < ApplicationController
     authorize @post
     respond_to do |format|
       if @post.update(post_params)
-        format.html { redirect_to [@user, @post], notice: 'Post was successfully updated.' }
+        format.html { redirect_to [@user, @post],
+          notice: 'Post was successfully updated.' }
         format.json { render :show, status: :ok, location: @post }
       else
         format.html { render :edit }
@@ -68,7 +73,8 @@ class PostsController < ApplicationController
     authorize @post
     @post.destroy
     respond_to do |format|
-      format.html { redirect_to [@user, :posts], notice: 'Post was successfully destroyed.' }
+      format.html { redirect_to [@user, :posts],
+        notice: 'Post was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -83,8 +89,10 @@ class PostsController < ApplicationController
       @post = Post.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    # Never trust parameters from the scary Internet,
+    # only allow the white list through.
     def post_params
-      params.require(:post).permit(:published, :title, :body, images_attributes: [:id, :file, :caption, :maker, :src, :_destroy])
+      params.require(:post).permit(:published, :title, :body,
+        images_attributes: [:id, :file, :caption, :maker, :src, :_destroy])
     end
 end

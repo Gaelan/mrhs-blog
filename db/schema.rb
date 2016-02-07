@@ -11,7 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160203204400) do
+ActiveRecord::Schema.define(version: 20160207012611) do
+
+  create_table "courses", force: :cascade do |t|
+    t.string   "title"
+    t.string   "short_title"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "enrollments", force: :cascade do |t|
+    t.integer  "course_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_enrollments_on_course_id"
+    t.index ["user_id"], name: "index_enrollments_on_user_id"
+  end
 
   create_table "images", force: :cascade do |t|
     t.string   "caption"
@@ -40,16 +56,20 @@ ActiveRecord::Schema.define(version: 20160203204400) do
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
-  create_table "roles", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "role"
+  create_table "sections", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "year"
+    t.integer  "session"
+    t.integer  "period"
+    t.integer  "course_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_roles_on_user_id"
+    t.index ["course_id"], name: "index_sections_on_course_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
