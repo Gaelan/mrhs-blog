@@ -5,11 +5,12 @@
     link_to user.name, [user, :posts]
   end
   grid.column name: "Section" do |user|
-    if user.sections.any?
+    text = if user.sections.any?
       user.sections.map(&:name).join ', '
     else
-      link_to "Assign", edit_user_path(user.id)
+      "Assign"
     end
+    link_to text, edit_user_path(user.id)
   end
   grid.column name: "Last Active" do  |user|
     if user.last_active_time
