@@ -8,6 +8,6 @@ class CreateEnrollments < ActiveRecord::Migration[5.0]
     end
 
     add_index(:enrollments, :student_id, {})
-    add_foreign_key(:enrollments, :users, column: :user_id)
+    add_foreign_key(:enrollments, :users, column: :student_id)
   end
 end
