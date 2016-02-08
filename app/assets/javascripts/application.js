@@ -15,4 +15,5 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require cocoon
+//= require wice_grid
 //= require_tree .
