@@ -1,0 +1,13 @@
+<h1>Editing <%= @user.name %></h1>
+
+<%= simple_form_for(@user, html: { class: 'form-horizontal' }, wrapper: :horizontal_form) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.association :sections, include_blank: true %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

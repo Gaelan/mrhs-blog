@@ -1,0 +1,29 @@
+<h1>List of Courses</h1>
+
+<%= link_to 'Add a course', new_course_path %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Sections</th>
+    </tr>
+  </thead>
+
+  <% @courses.each do |c| %>
+    <tr>
+      <td><%= c.title %> (<%= c.short_title %>)</td>
+      <td>
+        <% c.sections.each do |s| %>
+          <%= s.name %>
+        <% end %>
+      </td>
+      <td><%= link_to 'Show', course_path(c) %></td>
+      <td><%= link_to 'Edit', edit_course_path(c) %></td>
+      <td><%= link_to 'Delete', course_path(c),
+        method: :delete,
+        data: { confirm: 'Are you sure?' }
+      %></td>
+    </tr>
+  <% end %>
+</table>

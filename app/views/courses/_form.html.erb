@@ -1,0 +1,40 @@
+<%= form_for @course do |f| %>
+  <% #byebug %>
+  <% if @course.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@course.errors.count, "error") %> prohibited
+        this course from being saved:
+      </h2>
+      <ul>
+        <% @course.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p>
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </p>
+
+  <p>
+    <%= f.label :short_title %><br>
+    <%= f.text_field :short_title %>
+  </p>
+
+  <h3>Sections</h3>
+
+  <div class='sections'>
+    <%= f.fields_for :sections do |section_form| %>
+      <%= render 'section_fields', f: section_form %>
+    <% end %>
+    <%= link_to_add_association 'add an section', f, :sections %>
+  </div>
+
+  <p>
+    <%= f.submit %>
+  </p>
+
+<% end %>
