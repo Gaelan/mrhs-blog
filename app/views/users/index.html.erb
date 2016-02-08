@@ -10,19 +10,20 @@
   grid.column name: "Last Active" do  |user|
     if user.last_active_time
       idle_time = ((Time.current - user.last_active_time) / 1.minute).round
-      case
+      status = case
         when idle_time < 1
-          ["now", {class: 'success'}]
+          'success'
 
         when idle_time < 5
-          [idle_time, {class: 'success'}]
+          'success'
 
         when idle_time < 15
-          [idle_time, {class: 'warning'}]
+          'warning'
 
         else
-          [idle_time, {class: 'danger'}]
+          'danger'
       end
+      [time_ago_in_words(user.last_active_time) + ' ago', {class: status}]
     else
       ["Never", {class: 'danger'}]
     end
