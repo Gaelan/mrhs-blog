@@ -21,12 +21,12 @@ ActiveRecord::Schema.define(version: 20160207012611) do
   end
 
   create_table "enrollments", force: :cascade do |t|
-    t.integer  "course_id"
-    t.integer  "user_id"
+    t.integer  "student_id"
+    t.integer  "section_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["course_id"], name: "index_enrollments_on_course_id"
-    t.index ["user_id"], name: "index_enrollments_on_user_id"
+    t.index ["section_id"], name: "index_enrollments_on_section_id"
+    t.index ["student_id"], name: "index_enrollments_on_student_id"
   end
 
   create_table "images", force: :cascade do |t|

@@ -35,6 +35,8 @@ gem 'devise', github: 'plataformatec/devise'
 gem 'paperclip', :git => "git://github.com/thoughtbot/paperclip.git"
 gem 'pundit'
 gem 'cocoon'
+gem 'simple_form'
+gem 'chosen-rails'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

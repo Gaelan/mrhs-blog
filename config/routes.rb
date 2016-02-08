@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     resources :sections
   end
 
-  resources :users, only: [:index] do
+  resources :users, only: [:index, :edit, :update] do
     resources :posts
   end
 

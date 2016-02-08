@@ -8,4 +8,8 @@ class UserPolicy < ApplicationPolicy
   def index?
     true
   end
+
+  def update?
+    true # TODO Security
+  end
 end

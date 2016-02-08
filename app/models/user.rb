@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
          omniauth_providers: [:google_oauth2]
 
   has_many :posts
-  has_many :enrollements
+  has_many :enrollments, foreign_key: 'student_id'
   has_many :sections, through: :enrollments
 
   def self.from_omniauth(auth)
