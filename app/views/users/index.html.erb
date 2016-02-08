@@ -5,7 +5,9 @@
     link_to user.name, [user, :posts]
   end
   grid.column name: "Section" do |user|
-    #user.sections[0].name
+    enrolled_in = Enrollment.where(student_id: user.id)
+    #byebug
+    link_to "Assign", edit_user_path(user.id)
   end
   grid.column name: "Last Active" do  |user|
     if user.last_active_time
