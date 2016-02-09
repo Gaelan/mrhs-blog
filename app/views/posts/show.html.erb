@@ -4,7 +4,10 @@
 </h1>
 
 <p>
-  By <%= @post.user.name %>
+  <% unless @post.published %> <strong> Unpublished </strong> <% end %>
+  <% unless @post.user.name == @user.name %>
+    By <%= @post.user.name %>
+  <% end %>
 </p>
 
 <% if @post.parent%>
@@ -15,15 +18,18 @@
 <% end %>
 
 <div class='images'>
-<% @post.images.each do |image| %>
-  <%= image_tag image.file.url, width: '25%' %>
-  <br><%= image.caption %> <br>
-  <% if image.maker %> By <%= image.maker %> <br> <% end %>
-  <% if image.src %><%= link_to 'Image Source', image.src %> <%end%>
-<% end %>
+  <% @post.images.each do |image| %>
+    <figure>
+      <%= link_to (image_tag image.file.url, width: '25%'), image.file.url %>
+      <figcaption>
+        <p><%= image.caption %><p>
+        <% if image.maker %> By <%= image.maker %> <br> <% end %>
+        <% if image.src %><%= link_to 'Image Source', image.src %> <%end%>
+      </figcaption>
+    </figure>
+  <% end %>
 </div>
 <hr>
-<% unless @post.published %> <strong> Unpublished </strong> <% end %>
 
 <p>
   <%= @post.body %>
