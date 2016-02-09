@@ -1,24 +1,40 @@
 <h1><%= @user.name %>'s Blog</h1>
 
 <% @posts.each do |post| %>
-    <h1>
-      <%= link_to post.title, [@user, post] %>
-      <% if !post.published %>
-        <b>(unpublished)</b>
-      <% end %>
-    </h1>
-    <p><%= post.body %></p>
+  <hr>
+  <% if post.images.first %>
+    <div>
+        <figure>
+          <%=
+            link_to (image_tag post.images.first.file.url, class: 'index-image'),
+            [@user, post]
+          %>
+        </figure>
+    </div>
+  <% end %>
 
+  <h1>
+    <%= link_to post.title, [@user, post] %>
+    <% unless post.published %>
+      <span class='unpublished-post'>(unpublished)</span>
+    <% end %>
+  </h1>
+  <p><%= post.body %></p>
+
+  <div class='index-edit-links'>
     <% if policy(post).edit? %>
       <%= link_to 'Edit', [:edit, @user, post] %> |
     <% end %>
     <% if policy(post).destroy? %>
-      <%= link_to 'Destroy', [@user, post], method: :delete, data: { confirm: 'Are you sure?' } %>
+      <%= link_to 'Delete', [@user, post], method: :delete,
+        data: { confirm: 'Are you sure?' } %>
     <% end %>
+  </div>
+
 <% end %>
 
 <br>
-<br>
+<hr>
 
 <% if policy(@user.posts.build).create? # TODO hack %>
 <%= link_to 'New Post', new_user_post_path(@user) %> |
