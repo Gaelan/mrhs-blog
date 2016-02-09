@@ -18,7 +18,7 @@ class UsersController < ApplicationController
     authorize @user
     @user.update user_params
 
-    redirect_to users_path
+    redirect_to :back
   end
 
   private
