@@ -7,20 +7,20 @@ class CoursePolicy < ApplicationPolicy
     end
   end
 
-  def is_allowed?
-    true
+  def allowed?
+    user.admin? || user.teacher?
   end
 
   def create?
-    is_allowed?
+    allowed?
   end
 
   def update?
-    is_allowed?
+    allowed?
   end
 
   def destroy?
-    is_allowed?
+    allowed?
   end
 
   def index?

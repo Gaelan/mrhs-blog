@@ -10,6 +10,6 @@ class UserPolicy < ApplicationPolicy
   end
 
   def update?
-    true # TODO Security
+    user.admin? || user.teacher?
   end
 end
