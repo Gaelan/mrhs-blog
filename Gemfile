@@ -62,3 +62,4 @@ group :development do
   gem 'spring'
 end
 gem 'font-awesome-sass',  '~> 4.3'
+gem 'seedbank'

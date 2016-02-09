@@ -5,11 +5,15 @@ class UserPolicy < ApplicationPolicy
     end
   end
 
+  def allowed?
+    user.admin? || user.teacher?
+  end
+
   def index?
     true
   end
 
   def update?
-    true # TODO Security
+    allowed?
   end
 end
