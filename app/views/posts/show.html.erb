@@ -20,7 +20,7 @@
 <div class='images'>
   <% @post.images.each do |image| %>
     <figure>
-      <%= image_tag image.file.url, width: '25%' %>
+      <%= link_to (image_tag image.file.url, width: '25%'), image.file.url %>
       <figcaption>
         <p><%= image.caption %><p>
         <% if image.maker %> By <%= image.maker %> <br> <% end %>
