@@ -22,11 +22,11 @@ class PostPolicy < ApplicationPolicy
   end
 
   def update?
-    allowed? || user.teacher?
+    allowed?
   end
 
   def destroy?
-    allowed? || user.teacher?
+    allowed?
   end
 
   def index?
