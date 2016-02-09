@@ -5,7 +5,7 @@ class PostPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      if user.teacher?
+      if user.teacher? || user.admin?
         scope
       else
         scope.where(published: true).or(scope.where(user: user))
@@ -13,20 +13,20 @@ class PostPolicy < ApplicationPolicy
     end
   end
 
-  def owner?
-    post.user == user
+  def allowed?
+    post.user == user || user.teacher? || user.admin?
   end
 
   def create?
-    owner?
+    allowed?
   end
 
   def update?
-    owner? || user.teacher?
+    allowed? || user.teacher?
   end
 
   def destroy?
-    owner? || user.teacher?
+    allowed? || user.teacher?
   end
 
   def index?
