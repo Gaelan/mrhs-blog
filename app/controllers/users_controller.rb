@@ -9,6 +9,7 @@ class UsersController < ApplicationController
   end
 
   def edit
+    session[:return_to] ||= request.referer
     @user = User.find params[:id]
     authorize @user
   end
@@ -18,7 +19,7 @@ class UsersController < ApplicationController
     authorize @user
     @user.update user_params
 
-    redirect_to :back
+    redirect_to session.delete(:return_to)
   end
 
   private
