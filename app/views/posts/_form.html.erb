@@ -12,8 +12,8 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :published %><br>
     <%= f.check_box :published %>
+    <%= f.label :published, "Publish" %>
   </div>
   <div class='images'>
     <%= f.fields_for :images do |image_form| %>

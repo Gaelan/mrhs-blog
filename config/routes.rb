@@ -14,7 +14,8 @@ Rails.application.routes.draw do
     delete 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
   end
 
-  root to: 'posts#new'
+  # TODO - use conditional routes 'posts#new' if no posts, else 'posts#list'.
+  root to: 'posts#index'
 end
 
 # The priority is based upon order of creation: first created -> highest priority.
