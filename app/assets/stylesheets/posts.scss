@@ -21,3 +21,26 @@
 .field #post_body {
   width: 310px;
 }
+
+.post-images {
+  float: left;
+  width: 25%;
+  margin-right: 10px;
+}
+
+.post-image {
+  width: 100%;
+}
+
+.post-image-caption {
+  font-size: smaller;
+  margin-top: 4px;
+}
+
+.post-image-link {
+  text-align: right;
+}
+
+.post-links {
+  clear: both;
+}
