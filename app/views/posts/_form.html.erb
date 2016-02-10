@@ -1,35 +1,24 @@
-<%= form_for([@user, @post]) do |f| %>
-  <% if @post.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
-
-      <ul>
-      <% @post.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<%= simple_form_for [@user, @post], horizontal_form do |f| %>
+    <div class="row">
+      <div class="col-sm-7">
+        <%= f.input :published, inline_label: 'Publish' %>
+        <%= f.input :title %>
+        <%= f.input :body, as: :text, input_html: {rows: 16} %>
+        <div class="row">
+          <div class='col-sm-offset-3 col-sm-9'>
+            <%= f.button :submit, class: 'btn-primary' %>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-5">
+        <div class="list-group images">
+          <%= f.simple_fields_for :images do |image_form| %>
+              <%= render 'image_fields', f: image_form %>
+          <% end %>
+          <div>
+            <%= link_to_add_association 'add an image', f, :images, class: 'list-group-item list-group-item-success' %>
+          </div>
+        </div>
+      </div>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.check_box :published %>
-    <%= f.label :published, "Publish" %>
-  </div>
-  <div class='images'>
-    <%= f.fields_for :images do |image_form| %>
-      <%= render 'image_fields', f: image_form %>
-    <% end %>
-    <%= link_to_add_association 'add an image', f, :images %>
-  </div>
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
-  </div>
-  <div class="field">
-    <%= f.label :body %><br>
-    <%= f.text_area :body, rows: 16 %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
 <% end %>
