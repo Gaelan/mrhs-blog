@@ -10,4 +10,11 @@ class Post < ActiveRecord::Base
                                 reject_if: :all_blank
   scope :published, -> { where(published: true) }
   scope :unpublished, -> { where(published: false) }
+
+  # Note on levels:
+  # 0 - Prompt
+  # 1 - Normal Post
+  # 2 - Comment
+  # 3 - Comment on Comment
+  # 4...
 end
