@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :assessments
   resources :courses do
     resources :sections
   end
