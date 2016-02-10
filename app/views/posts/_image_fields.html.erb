@@ -1,26 +1,15 @@
-<div class='image_field nested-fields'>
-<% if f.object.file.exists? %>
-  <%= image_tag f.object.file.url, width: "200px" %>
-<% else %>
-  <div class="field">
-    <%= f.label :file %>
-    <%= f.file_field :file %>
+<div class='image_field nested-fields list-group-item'>
+  <% if f.object.file.exists? %>
+    <%= image_tag f.object.file.url, width: "200px" %>
+  <% else %>
+    <%= f.input :file, as: :file %>
+  <% end %>
+  <%= f.input :caption, as: :text, html: {rows: 4} %>
+  <%= f.input :maker, label: "Photographer" %>
+  <%= f.input :src, label: "Source URL" %>
+  <div class="row">
+    <div class="col-sm-offset-3 col-sm-9">
+      <%= link_to_remove_association 'remove this image', f, class: 'btn btn-danger' %>
+    </div>
   </div>
-<% end %>
-<br>
-<br>
-<div class="field">
-  <%= f.label :caption %>
-  <%= f.text_area :caption, rows: 4 %>
-</div>
-<div class="field">
-  <%= f.label :maker, "Photographer" %>
-  <%= f.text_field :maker %>
-</div>
-<div class="field">
-  <%= f.label :src, "Source URL" %>
-  <%= f.text_field :src %>
-</div>
-
-<%= link_to_remove_association "remove this image", f %>
 </div>

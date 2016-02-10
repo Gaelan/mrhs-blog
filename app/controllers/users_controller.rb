@@ -4,7 +4,12 @@ class UsersController < ApplicationController
 
   def index
     authorize User
-    @users = policy_scope User.all.order(created_at: :asc)
+    users = if params[:section_id]
+              Section.find(params[:section_id]).students
+            else
+              User.all
+            end
+    @users = policy_scope users.order(created_at: :asc)
     @users_grid = initialize_grid @users
   end
 
@@ -19,7 +24,7 @@ class UsersController < ApplicationController
     authorize @user
     @user.update user_params
 
-    redirect_to session.delete(:return_to)
+    redirect_to session.delete(:return_to) || root_path
   end
 
   private
