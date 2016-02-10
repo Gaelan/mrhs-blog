@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
-  resources :courses do
-    resources :sections
+  get 'sections/index'
+
+  resources :courses
+
+  resources :sections, only: :index do
+    resources :users, only: [:index]
   end
 
   resources :users, only: [:index, :edit, :update] do
@@ -15,6 +19,7 @@ Rails.application.routes.draw do
   end
 
   # TODO - use conditional routes 'posts#new' if no posts, else 'posts#index'.
+  root to: 'sections#index', constraints: lambda { |_, request| request.env['warden'].authenticate(scope: :user)&.teacher? }
   root to: 'posts#index'
 end
 
