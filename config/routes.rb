@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :tasks
+  resources :assessments
+
   get 'sections/index'
 
   resources :courses

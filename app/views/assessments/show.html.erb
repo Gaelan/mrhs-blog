@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Assigned date:</strong>
+  <%= @assessment.assigned_date %>
+</p>
+
+<p>
+  <strong>Due date:</strong>
+  <%= @assessment.due_date %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @assessment.value %>
+</p>
+
+<p>
+  <strong>Weight:</strong>
+  <%= @assessment.weight %>
+</p>
+
+<p>
+  <strong>Autoscore:</strong>
+  <%= @assessment.autoscore %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @assessment.title %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @assessment.category %>
+</p>
+
+<p>
+  <strong>Section:</strong>
+  <%= @assessment.section %>
+</p>
+
+<%= link_to 'Edit', edit_assessment_path(@assessment) %> |
+<%= link_to 'Back', assessments_path %>

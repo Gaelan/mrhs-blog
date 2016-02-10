@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Assessments</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Assigned date</th>
+      <th>Due date</th>
+      <th>Value</th>
+      <th>Weight</th>
+      <th>Autoscore</th>
+      <th>Title</th>
+      <th>Category</th>
+      <th>Section</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @assessments.each do |assessment| %>
+      <tr>
+        <td><%= assessment.assigned_date %></td>
+        <td><%= assessment.due_date %></td>
+        <td><%= assessment.value %></td>
+        <td><%= assessment.weight %></td>
+        <td><%= assessment.autoscore %></td>
+        <td><%= assessment.title %></td>
+        <td><%= assessment.category %></td>
+        <td><%= assessment.section %></td>
+        <td><%= link_to 'Show', assessment %></td>
+        <td><%= link_to 'Edit', edit_assessment_path(assessment) %></td>
+        <td><%= link_to 'Destroy', assessment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Assessment', new_assessment_path %>

@@ -11,7 +11,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160209033140) do
+ActiveRecord::Schema.define(version: 20160210062348) do
+
+  create_table "assessment_tasks", force: :cascade do |t|
+    t.integer  "assessment_id"
+    t.integer  "task_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["assessment_id"], name: "index_assessment_tasks_on_assessment_id"
+    t.index ["task_id"], name: "index_assessment_tasks_on_task_id"
+  end
+
+  create_table "assessments", force: :cascade do |t|
+    t.datetime "assigned_date"
+    t.datetime "due_date"
+    t.integer  "value"
+    t.integer  "weight"
+    t.integer  "autoscore"
+    t.string   "title"
+    t.integer  "category"
+    t.integer  "section_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["section_id"], name: "index_assessments_on_section_id"
+  end
 
   create_table "courses", force: :cascade do |t|
     t.string   "title"
@@ -71,6 +94,15 @@ ActiveRecord::Schema.define(version: 20160209033140) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["course_id"], name: "index_sections_on_course_id"
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.string   "title"
+    t.text     "body"
+    t.integer  "category"
+    t.integer  "time_required"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "users", force: :cascade do |t|
