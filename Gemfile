@@ -17,11 +17,21 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
+
+# CSS type stuff
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'rails_bootstrap_navbar'
+# Fork for Rails 5 support. Consider PRing soon.
+gem 'wice_grid', github: 'Gaelan/wice_grid', branch: 'rails5-fix'
+gem 'font-awesome-sass',  '~> 4.3'
 
+# Authentication / Authorization
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
+gem 'devise', github: 'plataformatec/devise'
+gem 'pundit'
+# Use ActiveModel has_secure_password
+# gem 'bcrypt', '~> 3.1.7'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -32,16 +42,10 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-gem 'devise', github: 'plataformatec/devise'
+# File management
 gem 'paperclip', :git => "git://github.com/thoughtbot/paperclip.git"
-gem 'pundit'
 gem 'cocoon'
 gem 'simple_form'
-# Fork for Rails 5 support. Consider PRing soon.
-gem 'wice_grid', github: 'Gaelan/wice_grid', branch: 'rails5-fix'
-
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -62,5 +66,4 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
-gem 'font-awesome-sass',  '~> 4.3'
 gem 'seedbank'
