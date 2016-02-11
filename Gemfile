@@ -64,3 +64,6 @@ group :development do
 end
 gem 'font-awesome-sass',  '~> 4.3'
 gem 'seedbank'
+
+# Comments
+gem 'commontator', '~> 4.11.1'
