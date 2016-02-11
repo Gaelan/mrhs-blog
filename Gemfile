@@ -25,6 +25,8 @@ gem 'rails_bootstrap_navbar'
 gem 'wice_grid', github: 'Gaelan/wice_grid', branch: 'rails5-fix'
 gem 'font-awesome-sass',  '~> 4.3'
 
+gem 'redcarpet'
+
 # Authentication / Authorization
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
