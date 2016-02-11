@@ -67,4 +67,3 @@ gem 'seedbank'
 
 # Comments
 gem 'commontator', '~> 4.11.1'
-gem 'acts_as_votable', '~> 0.10.0'

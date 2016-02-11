@@ -24,6 +24,8 @@ Rails.application.routes.draw do
   # TODO - use conditional routes 'posts#new' if no posts, else 'posts#index'.
   root to: 'sections#index', constraints: lambda { |_, request| request.env['warden'].authenticate(scope: :user)&.teacher? }
   root to: 'posts#index'
+
+  mount Commontator::Engine => '/commontator'
 end
 
 # The priority is based upon order of creation: first created -> highest priority.

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160211022913) do
+ActiveRecord::Schema.define(version: 20160211031321) do
 
   create_table "assessment_tasks", force: :cascade do |t|
     t.integer  "assessment_id"
@@ -107,14 +107,12 @@ ActiveRecord::Schema.define(version: 20160211022913) do
 
   create_table "posts", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "parent_id"
     t.boolean  "published"
     t.integer  "level"
     t.string   "title"
     t.string   "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["parent_id"], name: "index_posts_on_parent_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
