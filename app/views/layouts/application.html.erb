@@ -9,9 +9,15 @@
 
 <body>
 
-<%= navbar do %>
+<%= navbar fixed: :top do %>
   <%= navbar_header brand: 'MRHS Photo Blog', brand_link: '/' %>
   <%= navbar_collapse do %>
+    <%= navbar_group do %>
+      <%= navbar_dropdown 'Blog' do %>
+          <%= navbar_item 'Recent', posts_path %>
+          <%= navbar_item 'Prompts', tasks_path %>
+      <% end %>
+    <% end %>
     <%= navbar_group align: 'right' do %>
       <% if user_signed_in? %>
         <li><%= link_to 'Logout', destroy_user_session_path, method: :delete %></li>
