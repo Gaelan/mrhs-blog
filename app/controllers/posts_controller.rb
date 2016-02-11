@@ -9,7 +9,14 @@ class PostsController < ApplicationController
   # GET /users/1/posts.json
   def index
     authorize Post
-    @posts = policy_scope @user.posts
+    # @posts = policy_scope @user.posts
+    posts = if params[:user_id]
+      policy_scope @user.posts
+    else
+      policy_scope Post.all
+    end
+    @posts = policy_scope posts.order(created_at: :desc)
+    @posts_grid = initialize_grid @posts
   end
 
   # GET /users/1/posts/1

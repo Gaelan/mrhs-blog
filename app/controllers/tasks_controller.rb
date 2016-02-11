@@ -5,6 +5,7 @@ class TasksController < ApplicationController
   # GET /tasks.json
   def index
     @tasks = Task.all
+    @tasks_grid = initialize_grid @tasks
   end
 
   # GET /tasks/1

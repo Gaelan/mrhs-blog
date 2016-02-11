@@ -1,7 +1,21 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Tasks</h1>
+<h1>Blog Prompts</h1>
 
+<%= grid(@tasks_grid) do |g|
+  g.column name: "Title" do  |t|
+    link_to t.title, t
+  end
+  g.column name: "Description" do  |t|
+    md = truncate t.body.squish, :length => 142, :separator => ' '
+    markdown(md)
+  end
+  g.column name: "Objective" do  |t|
+    t.category
+  end
+end -%>
+
+<!--
 <table>
   <thead>
     <tr>
@@ -27,6 +41,7 @@
     <% end %>
   </tbody>
 </table>
+-->
 
 <br>
 
