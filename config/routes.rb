@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     resources :posts
   end
 
-  resources :posts, only: [:index]
+  # resources :posts, only: [:index]
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
