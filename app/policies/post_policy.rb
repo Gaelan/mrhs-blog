@@ -29,6 +29,11 @@ class PostPolicy < ApplicationPolicy
     allowed?
   end
 
+  def user_index?
+    #allowed?
+    true
+  end
+
   def index?
     true
   end
