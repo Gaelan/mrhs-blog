@@ -13,17 +13,19 @@ module ApplicationHelper
   end
 
   def markdown(text)
-    options = {
-      filter_html: true,
-      hard_wrap:   true,
-      disable_indented_code_blocks: true,
-    }
+    if text
+      options = {
+        filter_html: true,
+        hard_wrap:   true,
+        disable_indented_code_blocks: true,
+      }
 
-    extensions = {
-      autolink: true,
-    }
+      extensions = {
+        autolink: true,
+      }
 
-    renderer = Redcarpet::Render::HTML.new(options)
-    Redcarpet::Markdown.new(renderer, extensions).render(text).html_safe
+      renderer = Redcarpet::Render::HTML.new(options)
+      Redcarpet::Markdown.new(renderer, extensions).render(text).html_safe
+    end
   end
 end
