@@ -18,7 +18,11 @@ class PostsController < ApplicationController
   # GET /posts
   def index
     authorize Post
-    @posts = policy_scope Post.all.order(created_at: :desc)
+    if params[:user_id]
+      @posts = policy_scope @user.posts.order(created_at: :desc)
+    else
+      @posts = policy_scope Post.all.order(created_at: :desc)
+    end
     @posts_grid = initialize_grid @posts
   end
 
