@@ -20,6 +20,7 @@ class PostsController < ApplicationController
     authorize Post
     if params[:user_id]
       @posts = policy_scope @user.posts.order(created_at: :desc)
+      @h1 = @user.name
     else
       @posts = policy_scope Post.all.order(created_at: :desc)
     end
