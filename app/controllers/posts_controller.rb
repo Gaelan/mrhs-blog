@@ -16,15 +16,24 @@ class PostsController < ApplicationController
   end
 
   # GET /posts
+  # GET /users/1/posts
+  # GET /users/1/posts.json
   def index
     authorize Post
-    if params[:user_id]
+    # render plain: params.inspect
+
+    if params[:user_id] || request.path == '/'
+      unless params[:user_id]
+        params[:user_id] = @user.id
+      end
       @posts = policy_scope @user.posts.order(created_at: :desc)
-      @h1 = @user.name
+      @h1 = 'Posts by ' + @user.name
     else
       @posts = policy_scope Post.all.order(created_at: :desc)
     end
     @posts_grid = initialize_grid @posts
+
+    # render 'index', :locals => {:request_path => request.path}
   end
 
   # GET /users/1/posts/1
