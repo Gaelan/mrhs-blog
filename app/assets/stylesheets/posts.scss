@@ -20,18 +20,34 @@
 
 // Used by post#index
 
-.index-image {
+.post-index {
+  width: 100%;
+}
+
+.post-index-author { font-size: 24px; }
+
+.post-index-item {}
+
+.post-index-item-image {
   float: left;
   width: 25%;
   margin-right: 6px;
 }
+
+.post-index-item-body {
+  float: left;
+}
+
+.post-index-item-body-title { font-size: 24px; }
+
+.post-index-item-text {}
 
 .unpublished-post {
   font-size: 50%;
   font-weight: bold;
 }
 
-.index-edit-links {
+.index-item-edit-links {
   text-align: right;
 }
 
