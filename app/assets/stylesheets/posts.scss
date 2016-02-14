@@ -28,10 +28,14 @@
 
 .post-index-item {}
 
-.post-index-item-image {
+div.post-index-item-image {
   float: left;
   width: 25%;
   margin-right: 6px;
+}
+
+img.post-index-item-image {
+  width: 100%;
 }
 
 .post-index-item-body {
