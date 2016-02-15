@@ -38,6 +38,7 @@ class PostsController < ApplicationController
   # GET /users/1/posts/1.json
   def show
     authorize @post
+    commontator_thread_show(@post)
   end
 
   # GET /users/1/posts/new
@@ -56,8 +57,6 @@ class PostsController < ApplicationController
   def create
     @post = @user.posts.create(post_params)
     authorize @post
-
-    @post.level = @post.parent ? @post.parent.level + 1 : 1
 
     respond_to do |format|
       if @post.save

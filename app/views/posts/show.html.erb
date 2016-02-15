@@ -11,13 +11,6 @@
       <% end %>
     </p>
 
-    <% if @post.parent%>
-    <p>
-      <strong>Parent:</strong>
-      <%= @post.parent %>
-    </p>
-    <% end %>
-
     <div class='post-images'>
       <% @post.images.each do |image| %>
         <figure>
@@ -43,4 +36,6 @@
     <%= link_to 'Edit', [:edit, @user, @post] %> |
     <%= link_to 'Back', [@user, :posts] %>
   </div>
+
+  <%= commontator_thread(@post) %>
 </div>
