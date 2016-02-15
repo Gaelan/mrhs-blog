@@ -24,7 +24,10 @@
   width: 100%;
 }
 
-.post-index-author { font-size: 24px; }
+.post-index-author {
+  font-size: 24px;
+  margin-top: 32px;
+}
 
 .post-index-item {}
 
@@ -48,11 +51,16 @@ img.post-index-item-image {
   margin-top: 0;
 }
 
+h2.post-index-item-body-title {
+  font-size: 14px;
+  margin-top: -2px;
+  margin-left: 1em;
+}
+
 .post-index-item-text {}
 
 .unpublished-post {
-  font-size: 50%;
-  font-weight: bold;
+  font-weight: normal;
 }
 
 .index-item-edit-links {

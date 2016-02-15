@@ -9,7 +9,9 @@
 
 <div class="post-index">
   <div class="post-index-author">
-    <% if @h1 %><h1 class="post-index-author"><%= @h1 %></h1><hr><% end %>
+    <% unless @all_posts %>
+      <h1 class="post-index-author">Posts by <%= @posts[0].user.name %></h1><hr>
+    <% end %>
   </div>
   <% @posts.each do |p| %>
     <div class="post-index-item">
@@ -29,10 +31,16 @@
       <div class="post-index-item-body">
         <h1 class="post-index-item-body-title">
           <%= link_to p.title, [@user, p] %>
+        </h1>
+        <h2 class="post-index-item-body-title">
+          <% if @all_posts %>
+            <%= p.user.name %>
+          <% end %>
+          <%= p.created_at.localtime %>
           <% unless p.published %>
             <span class='unpublished-post'>(unpublished)</span>
           <% end %>
-        </h1>
+        </h2>
         <p class="post-index-item-body-text"><%= markdown p.body %></p>
       </div>
     </div>
