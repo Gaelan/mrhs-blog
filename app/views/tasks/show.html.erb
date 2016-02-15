@@ -1,24 +1,44 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @task.title %>
-</p>
+<div class="task-title">
+  <p>
+    <strong>Title:</strong>
+    <%= @task.title %>
+  </p>
+</div>
 
-<p>
-  <strong>Body:</strong>
-  <%= @task.body %>
-</p>
+<div class="task-body">
+  <p>
+    <strong>Description:</strong>
+    <%= markdown(@task.body) %>
+  </p>
+</div>
 
-<p>
-  <strong>Category:</strong>
-  <%= @task.category %>
-</p>
+<div class="task-category">
+  <% if @task.category %>
+    <p>
+      <strong>Category:</strong>
+      <%= @task.category %>
+    </p>
+  <% end %>
+</div>
 
-<p>
-  <strong>Time required:</strong>
-  <%= @task.time_required %>
-</p>
+<div class="task-time">
+  <% if @task.time_required %>
+    <p>
+      <strong>Time estimate:</strong>
+      <%= @task.time_required %>
+    </p>
+  <% end %>
+</div>
 
-<%= link_to 'Edit', edit_task_path(@task) %> |
-<%= link_to 'Back', tasks_path %>
+<div class='task-show-edit-links'>
+  <% if policy(@task).edit? %>
+    <%= link_to 'Edit', edit_task_path(@task) %> |
+  <% end %>
+  <% if policy(@task).destroy? %>
+    <%= link_to 'Delete', [@user, @task], method: :delete,
+      data: { confirm: 'Are you sure?' } %> |
+  <% end %>
+  <%= link_to 'Back', tasks_path %>
+</div>

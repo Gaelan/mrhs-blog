@@ -20,18 +20,50 @@
 
 // Used by post#index
 
-.index-image {
+.post-index {
+  width: 100%;
+}
+
+.post-index-author {
+  font-size: 24px;
+  margin-top: 32px;
+}
+
+.post-index-item {}
+
+div.post-index-item-image {
   float: left;
   width: 25%;
   margin-right: 6px;
 }
 
-.unpublished-post {
-  font-size: 50%;
-  font-weight: bold;
+img.post-index-item-image {
+  width: 100%;
 }
 
-.index-edit-links {
+.post-index-item-body {
+  float: left;
+  width: 74%;
+}
+
+.post-index-item-body-title {
+  font-size: 24px;
+  margin-top: 0;
+}
+
+h2.post-index-item-body-title {
+  font-size: 14px;
+  margin-top: -2px;
+  margin-left: 1em;
+}
+
+.post-index-item-text {}
+
+.unpublished-post {
+  font-weight: normal;
+}
+
+.index-item-edit-links {
   text-align: right;
 }
 

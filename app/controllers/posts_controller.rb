@@ -7,9 +7,31 @@ class PostsController < ApplicationController
 
   # GET /users/1/posts
   # GET /users/1/posts.json
+  def user_index
+    authorize Post
+    # @posts = policy_scope @user.posts
+    # posts = policy_scope @user.posts
+    @posts = policy_scope @user.posts.order(created_at: :desc)
+    @posts_grid = initialize_grid @posts
+  end
+
+  # GET /posts
+  # GET /users/1/posts
+  # GET /users/1/posts.json
   def index
     authorize Post
-    @posts = policy_scope @user.posts
+    if params[:user_id] || request.path == '/'
+      @all_posts = false
+      unless params[:user_id]
+        # Missing when route is '/'
+        params[:user_id] = @user.id
+      end
+      @posts = policy_scope @user.posts.order(created_at: :desc)
+    else
+      @all_posts = true
+      @posts = policy_scope Post.all.order(created_at: :desc)
+    end
+    @posts_grid = initialize_grid @posts
   end
 
   # GET /users/1/posts/1
