@@ -253,7 +253,7 @@ Commontator.configure do |config|
   #   false (no mentions)
   #   true  (mentions enabled)
   # Default: false
-  config.mentions_enabled = true
+  config.mentions_enabled = false
 
   # user_mentions_proc
   # Type: Proc

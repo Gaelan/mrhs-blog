@@ -10,11 +10,13 @@ Rails.application.config.assets.version = '1.0'
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )
 
-Rails.application.config.assets.precompile += %w( commontator/upvote_disabled.png )
-Rails.application.config.assets.precompile += %w( commontator/downvote_disabled.png )
-Rails.application.config.assets.precompile += %w( commontator/upvote_hover.png )
-Rails.application.config.assets.precompile += %w( commontator/upvote.png )
-Rails.application.config.assets.precompile += %w( commontator/downvote.png )
-Rails.application.config.assets.precompile += %w( commontator/downvote_hover.png )
-Rails.application.config.assets.precompile += %w( commontator/upvote_active.png )
-Rails.application.config.assets.precompile += %w( commontator/downvote_active.png )
+Rails.application.config.assets.precompile += %w(
+  commontator/upvote_disabled.png
+  commontator/downvote_disabled.png
+  commontator/upvote_hover.png
+  commontator/upvote.png
+  commontator/downvote.png
+  commontator/downvote_hover.png
+  commontator/upvote_active.png
+  commontator/downvote_active.png
+)
