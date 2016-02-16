@@ -38,7 +38,6 @@ class PostsController < ApplicationController
   # GET /users/1/posts/1.json
   def show
     authorize @post
-    commontator_thread_show(@post)
   end
 
   # GET /users/1/posts/new

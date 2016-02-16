@@ -22,6 +22,4 @@ class User < ActiveRecord::Base
       roles.where(role: rolename).any?
     end
   end
-
-  acts_as_commontator
 end

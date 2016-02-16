@@ -104,9 +104,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
-    commontator (4.11.1)
-      jquery-rails
-      rails (>= 3.1)
     concurrent-ruby (1.0.0)
     debug_inspector (0.0.2)
     diff-lcs (1.2.5)
@@ -290,7 +287,6 @@ DEPENDENCIES
   bootstrap-sass (~> 3.3.6)
   cocoon
   coffee-rails (~> 4.1.0)
-  commontator (~> 4.11.1)
   devise!
   font-awesome-sass (~> 4.3)
   jbuilder (~> 2.0)

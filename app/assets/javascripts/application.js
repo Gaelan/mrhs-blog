@@ -17,4 +17,3 @@
 //= require cocoon
 //= require wice_grid
 //= require_tree .
-//= require commontator/application
