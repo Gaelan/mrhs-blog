@@ -10,7 +10,7 @@
 <div class="post-index">
   <div class="post-index-author">
     <% unless @all_posts %>
-      <h1 class="post-index-author">Posts by <%= @posts[0].user.name %></h1><hr>
+      <h1 class="post-index-author">Posts by <%= @user.name %></h1><hr>
     <% end %>
   </div>
   <% @posts.each do |p| %>
