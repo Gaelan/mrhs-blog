@@ -10,4 +10,5 @@ class Post < ActiveRecord::Base
   scope :unpublished, -> { where(published: false) }
 
   acts_as_commontable
+  acts_as_votable
 end
