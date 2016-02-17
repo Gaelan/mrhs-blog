@@ -16,6 +16,12 @@ class User < ActiveRecord::Base
     end
   end
 
+  # Tests on user activity.
+  def active_today?
+    'success'
+    # 'danger' 'warning'
+  end
+
   # Black magic to automagically create a <ROLENAME>? function for each role.
   Role::NAMES.each do |rolename|
     define_method "#{rolename}?" do
