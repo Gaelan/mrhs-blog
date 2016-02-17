@@ -48,6 +48,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'paperclip', :git => "git://github.com/thoughtbot/paperclip.git"
 gem 'cocoon'
 gem 'simple_form'
+gem 'high_voltage', '~> 2.4.0', :git => 'git://github.com/thoughtbot/high_voltage.git'
 
 # Use Unicorn as the app server
 # gem 'unicorn'

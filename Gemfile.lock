@@ -20,6 +20,12 @@ GIT
       warden (~> 1.2.3)
 
 GIT
+  remote: git://github.com/thoughtbot/high_voltage.git
+  revision: 32ae7427ebd752de421322a7876adada445aad1a
+  specs:
+    high_voltage (2.4.0)
+
+GIT
   remote: git://github.com/thoughtbot/paperclip.git
   revision: 37589f9b0c869c8df5be1ee4d83e14fb353a7dff
   specs:
@@ -289,6 +295,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   devise!
   font-awesome-sass (~> 4.3)
+  high_voltage (~> 2.4.0)!
   jbuilder (~> 2.0)
   jquery-rails
   omniauth
