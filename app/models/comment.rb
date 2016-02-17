@@ -5,4 +5,5 @@ class Comment < ActiveRecord::Base
   has_many :comments, as: :commentable
 
   validates :user, presence: true
+  validates :body, presence: true, length: { minimum: 16 }
 end

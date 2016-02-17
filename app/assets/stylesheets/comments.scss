@@ -1,3 +1,22 @@
 // Place all the styles related to the comments controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.post-comments {}
+h2.post-comments {
+  font-size: 120%;
+}
+.post-comment {
+  width: 100%;
+}
+.post-comment-body {}
+.post-comment-author {
+  font-size: 95%;
+  font-weight: bold;
+}
+.post-comment-timestamp {
+  font-size: 95%;
+}
+.post-comment-links {
+  text-align: right;
+}
