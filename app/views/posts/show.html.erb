@@ -37,15 +37,34 @@
     <%= link_to 'Back', [@user, :posts] %>
   </div>
   <div class='post-comments'>
+    <h2 class='post-comments'>Comments</h2>
     <% @post.comments.each do |comment| %>
-        <%= comment.user.name %> says
-        <%= comment.body %>
+      <div class='post-comment'>
+        <div class='post-comment-body'>
+          <%= markdown comment.body %>
+        </div>
+        <div class='row'>
+          <div class='col-sm-6'>
+            <span class='post-comment-author'>
+              <%= comment.user.name %>,
+            </span>
+            <span class='post-comment-timestamp'>
+              <%= comment.created_at %>
+            </span>
+          </div>
+          <div class='post-comment-links col-sm-6'>
+            <%= link_to 'Edit', '#' %> |
+            <%= link_to 'Delete', '#' %>
+          </div>
+        </div>
+        <hr>
+      </div>
     <% end %>
   </div>
   <%= simple_form_for @post.comments.build, path: comments_path do |f| %>
       <%= f.input :commentable_id, as: :hidden %>
       <%= f.input :commentable_type, as: :hidden %>
-      <%= f.input :body %>
-      <%= f.button :submit %>
+      <%= f.input :body, label: 'New comment' %>
+      <%= f.button :submit, 'Add comment' %>
   <% end %>
 </div>
