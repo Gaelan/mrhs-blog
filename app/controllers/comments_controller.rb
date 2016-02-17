@@ -1,8 +1,9 @@
 class CommentsController < ApplicationController
   after_action :verify_authorized
   def create
-    comment = Comment.new comment_params
+    comment = Comment.new
     comment.user = current_user
+    load_attributes_from_request comment
     authorize comment
     comment.save!
     flash[:success] = "Your comment was saved!"
@@ -10,11 +11,5 @@ class CommentsController < ApplicationController
   end
 
   def update
-  end
-
-  private
-
-  def comment_params
-    params.require(:comment).permit(:commentable_id, :commentable_type, :body)
   end
 end

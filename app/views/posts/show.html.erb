@@ -4,13 +4,7 @@
       <%= @post.title %>
     </h1>
 
-    <p>
-      <% unless @post.published %> <strong> Unpublished </strong> <% end %>
-      <% unless @post.user.name == @user.name %>
-        By <%= @post.user.name %>
-      <% end %>
-    </p>
-
+    <p> <% unless @post.published %> <strong> Unpublished </strong> <% end %> <% unless @post.user.name == @user.name %> By <%= @post.user.name %> <% end %> </p>
     <div class='post-images'>
       <% @post.images.each do |image| %>
         <figure>
@@ -38,7 +32,10 @@
   </div>
   <div class='post-comments'>
     <h2 class='post-comments'>Comments</h2>
-    <% @post.comments.each do |comment| %>
+    <%# We really should filter comments at the SQL level. %>
+    <% @post.comments.to_a.select do |comment|
+      policy(comment).show?
+    end.each do |comment| %>
       <div class='post-comment'>
         <div class='post-comment-body'>
           <%= markdown comment.body %>
@@ -70,6 +67,9 @@
       <%= f.input :commentable_id, as: :hidden %>
       <%= f.input :commentable_type, as: :hidden %>
       <%= f.input :body, label: false %>
+      <% if policy(f.object).create_private? %>
+        <%= f.input :private, default: true %>
+      <% end %>
       <%= f.button :submit, 'Add comment' %>
   <% end %>
 </div>
