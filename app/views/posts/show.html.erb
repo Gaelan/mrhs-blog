@@ -68,7 +68,7 @@
       <%= f.input :commentable_type, as: :hidden %>
       <%= f.input :body, label: false %>
       <% if policy(f.object).create_private? %>
-        <%= f.input :private, as: :boolean, value: 1 %>
+        <%= f.input :private, :input_html => {:checked => 'checked'} %>
       <% end %>
       <%= f.button :submit, 'Add comment' %>
   <% end %>
