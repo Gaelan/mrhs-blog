@@ -20,8 +20,8 @@
     <% end %>
     <%= navbar_group align: 'right' do %>
       <% if user_signed_in? %>
-        <%= navbar_dropdown @user.name do %>
-          <%= navbar_text @user.email %>
+        <%= navbar_dropdown current_user.name do %>
+          <%= navbar_text current_user.email %>
           <%= navbar_dropdown_divider %>
           <%= navbar_item (link_to 'Logout', destroy_user_session_path, method: :delete) %>
         <% end %>
