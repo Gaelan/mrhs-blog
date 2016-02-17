@@ -27,6 +27,13 @@ class UsersController < ApplicationController
     redirect_to session.delete(:return_to) || root_path
   end
 
+  if Rails.env.development?
+    def become
+      skip_authorization
+      sign_in_and_redirect User.find(params[:id])
+    end
+  end
+
   private
 
   def user_params
