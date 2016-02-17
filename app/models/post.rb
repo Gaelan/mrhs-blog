@@ -8,4 +8,6 @@ class Post < ActiveRecord::Base
                                 reject_if: :all_blank
   scope :published, -> { where(published: true) }
   scope :unpublished, -> { where(published: false) }
+
+  has_many :comments, as: :commentable
 end

@@ -31,4 +31,9 @@ class ApplicationController < ActionController::Base
       current_user.save
     end
   end
+
+  def load_attributes_from_request(object)
+    # permitted_attributes comes from Pundit.
+    object.attributes = permitted_attributes object
+  end
 end

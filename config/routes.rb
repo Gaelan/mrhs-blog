@@ -16,7 +16,11 @@ Rails.application.routes.draw do
   resources :tasks
   resources :users, only: [:index, :edit, :update] do
     resources :posts
+    if Rails.env.development?
+      post 'become', on: :member
+    end
   end
+  resources :comments, only: [:create, :update]
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
