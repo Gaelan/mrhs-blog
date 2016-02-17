@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :edit, :update] do
     resources :posts
   end
+  resources :comments, only: [:create, :update]
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 

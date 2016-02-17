@@ -36,4 +36,16 @@
     <%= link_to 'Edit', [:edit, @user, @post] %> |
     <%= link_to 'Back', [@user, :posts] %>
   </div>
+  <div class='post-comments'>
+    <% @post.comments.each do |comment| %>
+        <%= comment.user.name %> says
+        <%= comment.body %>
+    <% end %>
+  </div>
+  <%= simple_form_for @post.comments.build, path: comments_path do |f| %>
+      <%= f.input :commentable_id, as: :hidden %>
+      <%= f.input :commentable_type, as: :hidden %>
+      <%= f.input :body %>
+      <%= f.button :submit %>
+  <% end %>
 </div>
