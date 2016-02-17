@@ -52,10 +52,15 @@
               <%= comment.created_at %>
             </span>
           </div>
-          <div class='post-comment-links col-sm-6'>
-            <%= link_to 'Edit', '#' %> |
-            <%= link_to 'Delete', '#' %>
-          </div>
+          <% if comment.user == current_user %>
+            <%# Also check that this is the most recent comment,
+                otherwise editing a comment could change the context of
+                other comments. %>
+            <div class='post-comment-links col-sm-6'>
+              <%= link_to 'Edit', '#' %> |
+              <%= link_to 'Delete', '#' %>
+            </div>
+          <% end %>
         </div>
         <hr>
       </div>
@@ -64,7 +69,7 @@
   <%= simple_form_for @post.comments.build, path: comments_path do |f| %>
       <%= f.input :commentable_id, as: :hidden %>
       <%= f.input :commentable_type, as: :hidden %>
-      <%= f.input :body, label: 'New comment' %>
+      <%= f.input :body, label: false %>
       <%= f.button :submit, 'Add comment' %>
   <% end %>
 </div>
