@@ -10,7 +10,7 @@
 <body>
 
 <%= navbar fixed: :top do %>
-  <%= navbar_header brand: 'MRHS Photo Blog', brand_link: '/' %>
+  <%= navbar_header brand: 'MRHS Photo', brand_link: '/' %>
   <%= navbar_collapse do %>
     <%= navbar_group do %>
       <%= navbar_dropdown 'Blog' do %>
@@ -20,7 +20,11 @@
     <% end %>
     <%= navbar_group align: 'right' do %>
       <% if user_signed_in? %>
-        <li><%= link_to 'Logout', destroy_user_session_path, method: :delete %></li>
+        <%= navbar_dropdown @user.name do %>
+          <%= navbar_text @user.email %>
+          <%= navbar_dropdown_divider %>
+          <%= navbar_item (link_to 'Logout', destroy_user_session_path, method: :delete) %>
+        <% end %>
       <% else %>
         <%= navbar_item 'Login', user_omniauth_authorize_path(:google_oauth2) %>
       <% end %>
