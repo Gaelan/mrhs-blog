@@ -49,7 +49,7 @@
               <%= comment.user.name %>,
             </span>
             <span class='post-comment-timestamp'>
-              <%= comment.created_at %>
+              <%= comment.created_at.getlocal('-08:00').to_s(:long) %>
             </span>
           </div>
           <% if comment.user == current_user %>
