@@ -81,6 +81,7 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:title, :body, :category, :time_required)
+      params.require(:task).permit(:title, :body, :category, :time_required,
+              strands_attributes: [:id, :number, :description, :_destroy])
     end
 end
