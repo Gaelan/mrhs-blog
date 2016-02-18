@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Group:</strong>
+  <%= @objective.group %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @objective.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @objective.description %>
+</p>
+
+<%= link_to 'Edit', edit_objective_path(@objective) %> |
+<%= link_to 'Back', objectives_path %>
