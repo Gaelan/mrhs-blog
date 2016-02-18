@@ -1,10 +1,12 @@
+#
 class ObjectivesController < ApplicationController
   before_action :set_objective, only: [:show, :edit, :update, :destroy]
 
   # GET /objectives
   # GET /objectives.json
   def index
-    @objectives = Objective.all
+    @objectives = Objective.all.order(group: :asc)
+    @objectives_grid = initialize_grid @objectives
   end
 
   # GET /objectives/1
@@ -56,7 +58,8 @@ class ObjectivesController < ApplicationController
   def destroy
     @objective.destroy
     respond_to do |format|
-      format.html { redirect_to objectives_url, notice: 'Objective was successfully destroyed.' }
+      format.html { redirect_to objectives_url,
+        notice: 'Objective was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -69,6 +72,7 @@ class ObjectivesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def objective_params
-      params.require(:objective).permit(:group, :name, :description)
+      params.require(:objective).permit(:group, :name, :description,
+                      strands_attributes: [:id, :number, :description, :_destroy])
     end
 end

@@ -1,19 +1,21 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Group:</strong>
-  <%= @objective.group %>
-</p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @objective.name %>
-</p>
+<h1><%= @objective.group %>: <%= @objective.name %></h1>
 
 <p>
   <strong>Description:</strong>
   <%= @objective.description %>
 </p>
+
+<h2>Strands:</h2>
+
+<div class='objective-strands'>
+  <ol>
+    <% @objective.strands.each do |strand| %>
+      <li><%= strand.description %></li>
+    <% end %>
+  </ol>
+</div>
 
 <%= link_to 'Edit', edit_objective_path(@objective) %> |
 <%= link_to 'Back', objectives_path %>

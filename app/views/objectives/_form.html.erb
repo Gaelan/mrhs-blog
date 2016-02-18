@@ -7,6 +7,15 @@
     <%= f.input :description %>
   </div>
 
+  <div>
+    <%= f.simple_fields_for :strands do |strand_form| %>
+      <%= render 'strand_fields', f: strand_form %>
+    <% end %>
+    <div>
+      <%= link_to_add_association 'add a strand', f, :strands, class: 'list-group-item list-group-item-success' %>
+    </div>
+  </div>
+
   <div class="form-actions">
     <%= f.button :submit %>
   </div>

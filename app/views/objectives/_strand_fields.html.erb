@@ -1,0 +1,9 @@
+<div class='strand_field nested-fields list-group-item'>
+  <%= f.input :number, label: "Strand Number" %>
+  <%= f.input :description, label: "Description" %>
+  <div class="row">
+    <div class="col-sm-offset-3 col-sm-9">
+      <%= link_to_remove_association 'remove this strand', f, class: 'btn btn-danger' %>
+    </div>
+  </div>
+</div>

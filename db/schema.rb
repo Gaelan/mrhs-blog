@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160217001005) do
+ActiveRecord::Schema.define(version: 20160218064704) do
 
   create_table "assessment_tasks", force: :cascade do |t|
     t.integer  "assessment_id"
@@ -78,6 +78,14 @@ ActiveRecord::Schema.define(version: 20160217001005) do
     t.index ["post_id"], name: "index_images_on_post_id"
   end
 
+  create_table "objectives", force: :cascade do |t|
+    t.string   "group"
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "posts", force: :cascade do |t|
     t.integer  "user_id"
     t.boolean  "published"
@@ -104,6 +112,24 @@ ActiveRecord::Schema.define(version: 20160217001005) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["course_id"], name: "index_sections_on_course_id"
+  end
+
+  create_table "strands", force: :cascade do |t|
+    t.integer  "number"
+    t.text     "description"
+    t.integer  "objective_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["objective_id"], name: "index_strands_on_objective_id"
+  end
+
+  create_table "task_strands", force: :cascade do |t|
+    t.integer  "task_id"
+    t.integer  "strand_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["strand_id"], name: "index_task_strands_on_strand_id"
+    t.index ["task_id"], name: "index_task_strands_on_task_id"
   end
 
   create_table "tasks", force: :cascade do |t|
