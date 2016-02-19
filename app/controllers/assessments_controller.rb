@@ -30,11 +30,13 @@ class AssessmentsController < ApplicationController
 
     respond_to do |format|
       if @assessment.save
-        format.html { redirect_to @assessment, notice: 'Assessment was successfully created.' }
+        format.html { redirect_to @assessment,
+                                  notice: 'Assessment was successfully created.' }
         format.json { render :show, status: :created, location: @assessment }
       else
         format.html { render :new }
-        format.json { render json: @assessment.errors, status: :unprocessable_entity }
+        format.json { render json: @assessment.errors,
+                             status: :unprocessable_entity }
       end
     end
   end
@@ -50,7 +52,7 @@ class AssessmentsController < ApplicationController
       else
         format.html { render :edit }
         format.json { render json: @assessment.errors,
-                      status: :unprocessable_entity }
+                             status: :unprocessable_entity }
       end
     end
   end
