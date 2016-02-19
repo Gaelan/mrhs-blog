@@ -11,12 +11,10 @@
   g.column name: "Objectives" do  |t|
     #t.strands[0].objective.group + t.strands[0].number.to_s
     #t.strands.map(objective_name).join ', '
-    obs = ''
-    t.strands.each do |s|
-      obs += link_to s.label, s.objective
-      obs += '<br>'
+    objs = t.strands.map do |s|
+      (link_to s.label, s.objective) + '<br>'.html_safe
     end
-    obs.html_safe
+    objs.join('').html_safe
   end
 end -%>
 
