@@ -35,12 +35,11 @@ module ApplicationHelper
     Time::DATE_FORMATS[:ddmmyyyy_hhmm] = '%d %B %Y %H:%M'
     Time::DATE_FORMATS[:hhmm] = '%H:%M'
 
-    tz = '-08:00'   # Pacific time. TODO: make time zone configurable.
-    latest = item.updated_at.getlocal(tz).to_s(:ddmmyyyy_hhmm)
+    latest = item.updated_at.to_s(:ddmmyyyy_hhmm)
     original = if (item.updated_at < item.created_at.end_of_day)
-      item.created_at.getlocal(tz).to_s(:hhmm)
+      item.created_at.to_s(:hhmm)
     else
-      item.created_at.getlocal(tz).to_s(:ddmmyyyy_hhmm)
+      item.created_at.to_s(:ddmmyyyy_hhmm)
     end
 
     if item.updated_at == item.created_at
