@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160218064704) do
+ActiveRecord::Schema.define(version: 20160219004307) do
 
   create_table "assessment_tasks", force: :cascade do |t|
     t.integer  "assessment_id"
@@ -120,6 +120,7 @@ ActiveRecord::Schema.define(version: 20160218064704) do
     t.integer  "objective_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.string   "label"
     t.index ["objective_id"], name: "index_strands_on_objective_id"
   end
 

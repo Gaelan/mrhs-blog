@@ -8,8 +8,15 @@
     md = truncate t.body.squish, :length => 142, :separator => ' '
     markdown(md)
   end
-  g.column name: "Objective" do  |t|
-    t.strands.inspect
+  g.column name: "Objectives" do  |t|
+    #t.strands[0].objective.group + t.strands[0].number.to_s
+    #t.strands.map(objective_name).join ', '
+    obs = ''
+    t.strands.each do |s|
+      obs += link_to s.label, s.objective
+      obs += '<br>'
+    end
+    obs.html_safe
   end
 end -%>
 
@@ -41,12 +48,10 @@ end -%>
 </table>
 -->
 
-<br>
-
 <div class='task-index-edit-links'>
   <% if policy(Task).create? %>
     <%= link_to 'New Task', new_task_path %> |
   <% end %>
 
-  <%#= link_to 'Back', tasks_path %>
+  <%= link_to 'Back', tasks_path %>
 </div>

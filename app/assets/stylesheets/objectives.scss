@@ -1,3 +1,13 @@
 // Place all the styles related to the Objectives controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.objective-objective-descriptions {
+  font-size: 80%;
+}
+
+.objective-strand-descriptions {
+  list-style-type: lower-roman;
+  padding-left: 1em;
+  font-size: 80%;
+}

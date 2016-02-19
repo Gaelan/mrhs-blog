@@ -6,7 +6,7 @@ class ObjectivesController < ApplicationController
   # GET /objectives.json
   def index
     @objectives = Objective.all.order(group: :asc)
-    @objectives_grid = initialize_grid @objectives
+    @objectives_grid = initialize_grid @objectives, per_page: 32
   end
 
   # GET /objectives/1
@@ -73,6 +73,7 @@ class ObjectivesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def objective_params
       params.require(:objective).permit(:group, :name, :description,
-                      strands_attributes: [:id, :number, :description, :_destroy])
+                      strands_attributes: [:number, :label, :description,
+                                           :id, :_destroy])
     end
 end
