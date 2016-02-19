@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :objectives
   # Routes are matched in the order listed.
   # TODO: fix login routes
   # TODO - use conditional routes 'posts#new' if no posts, else 'posts#index'.

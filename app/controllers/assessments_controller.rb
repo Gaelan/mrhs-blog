@@ -1,3 +1,4 @@
+#
 class AssessmentsController < ApplicationController
   before_action :set_assessment, only: [:show, :edit, :update, :destroy]
 
@@ -5,6 +6,7 @@ class AssessmentsController < ApplicationController
   # GET /assessments.json
   def index
     @assessments = Assessment.all
+    @assessments_grid = initialize_grid @assessments
   end
 
   # GET /assessments/1
@@ -28,11 +30,13 @@ class AssessmentsController < ApplicationController
 
     respond_to do |format|
       if @assessment.save
-        format.html { redirect_to @assessment, notice: 'Assessment was successfully created.' }
+        format.html { redirect_to @assessment,
+                                  notice: 'Assessment was successfully created.' }
         format.json { render :show, status: :created, location: @assessment }
       else
         format.html { render :new }
-        format.json { render json: @assessment.errors, status: :unprocessable_entity }
+        format.json { render json: @assessment.errors,
+                             status: :unprocessable_entity }
       end
     end
   end
@@ -42,11 +46,13 @@ class AssessmentsController < ApplicationController
   def update
     respond_to do |format|
       if @assessment.update(assessment_params)
-        format.html { redirect_to @assessment, notice: 'Assessment was successfully updated.' }
+        format.html { redirect_to @assessment,
+                      notice: 'Assessment was successfully updated.' }
         format.json { render :show, status: :ok, location: @assessment }
       else
         format.html { render :edit }
-        format.json { render json: @assessment.errors, status: :unprocessable_entity }
+        format.json { render json: @assessment.errors,
+                             status: :unprocessable_entity }
       end
     end
   end
@@ -56,19 +62,27 @@ class AssessmentsController < ApplicationController
   def destroy
     @assessment.destroy
     respond_to do |format|
-      format.html { redirect_to assessments_url, notice: 'Assessment was successfully destroyed.' }
+      format.html {
+        redirect_to assessments_url,
+                    notice: 'Assessment was successfully destroyed.'
+      }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_assessment
-      @assessment = Assessment.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def assessment_params
-      params.require(:assessment).permit(:assigned_date, :due_date, :value, :weight, :autoscore, :title, :category, :section_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_assessment
+    @assessment = Assessment.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet,
+  # only allow the white list through.
+  def assessment_params
+    params.require(:assessment).
+      permit( :assigned_date, :due_date, :value, :weight, :autoscore,
+              :title, :category, :section_id,
+              tasks_attributes: [:id, :title, :category])
+  end
 end

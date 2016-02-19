@@ -6,6 +6,7 @@
     <%= f.input :body %>
     <%= f.input :category %>
     <%= f.input :time_required %>
+    <%= f.association :strands, include_blank: true, label_method: :label %>
   </div>
 
   <div class="form-actions">
