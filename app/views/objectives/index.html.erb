@@ -8,13 +8,13 @@
     link_to obj_name, t
   end
   g.column name: "Description", html: {class: 'objective-objective-descriptions'} do  |t|
-    md = truncate t.description.squish, :length => 480, :separator => ' '
-    markdown(md)
+    markdown (truncate t.description.squish, :length => 480, :separator => ' ')
   end
   g.column name: "Strands" do |t|
     text = '<ol class="objective-strand-descriptions">'
     t.strands.each do |s|
-      text += '<li class="objective-strand-description">' + s.description + '</li><hr>'
+      text += '<li class="objective-strand-description">' +
+            (markdown s.description) + '</li><hr>'
     end
     text += '</ol>'
     text.html_safe
