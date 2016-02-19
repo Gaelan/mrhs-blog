@@ -44,11 +44,13 @@ class AssessmentsController < ApplicationController
   def update
     respond_to do |format|
       if @assessment.update(assessment_params)
-        format.html { redirect_to @assessment, notice: 'Assessment was successfully updated.' }
+        format.html { redirect_to @assessment,
+                      notice: 'Assessment was successfully updated.' }
         format.json { render :show, status: :ok, location: @assessment }
       else
         format.html { render :edit }
-        format.json { render json: @assessment.errors, status: :unprocessable_entity }
+        format.json { render json: @assessment.errors,
+                      status: :unprocessable_entity }
       end
     end
   end
@@ -60,7 +62,7 @@ class AssessmentsController < ApplicationController
     respond_to do |format|
       format.html {
         redirect_to assessments_url,
-        notice: 'Assessment was successfully destroyed.'
+                    notice: 'Assessment was successfully destroyed.'
       }
       format.json { head :no_content }
     end
