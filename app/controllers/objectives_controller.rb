@@ -59,7 +59,7 @@ class ObjectivesController < ApplicationController
     @objective.destroy
     respond_to do |format|
       format.html { redirect_to objectives_url,
-        notice: 'Objective was successfully destroyed.' }
+                                notice: 'Objective was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
