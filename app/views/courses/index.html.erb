@@ -2,28 +2,23 @@
 
 <%= link_to 'Add a course', new_course_path %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Sections</th>
-    </tr>
-  </thead>
+<%= grid(@courses_grid) do |g|
+  g.column name: 'Title' do  |c|
+    link_to "#{c.title} (#{c.short_title})", c
+  end
 
-  <% @courses.each do |c| %>
-    <tr>
-      <td><%= c.title %> (<%= c.short_title %>)</td>
-      <td>
-        <% c.sections.each do |s| %>
-          <%= s.name %>
-        <% end %>
-      </td>
-      <td><%= link_to 'Show', course_path(c) %></td>
-      <td><%= link_to 'Edit', edit_course_path(c) %></td>
-      <td><%= link_to 'Delete', course_path(c),
-        method: :delete,
-        data: { confirm: 'Are you sure?' }
-      %></td>
-    </tr>
-  <% end %>
-</table>
+  g.column name: 'Sections' do |c|
+    c.sections.map(&:name).join ', '
+  end
+
+  g.column name: '' do |c|
+    link_to 'Show', course_path(c)
+  end
+  g.column name: '' do |c|
+    link_to 'Edit', edit_course_path(c)
+  end
+  g.column name: '' do |c|
+    link_to 'Delete', course_path(c), method: :delete,
+            data: { confirm: 'Are you sure?' }
+  end
+end -%>

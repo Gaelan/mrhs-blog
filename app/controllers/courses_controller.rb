@@ -7,6 +7,7 @@ class CoursesController < ApplicationController
   def index
     authorize Course
     @courses = policy_scope Course.all
+    @courses_grid = initialize_grid @courses
   end
 
   def show
