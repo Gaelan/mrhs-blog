@@ -2,5 +2,7 @@
   <%= @course.title %> (<%= @course.short_title %>)
 </p>
 
-<%= link_to 'Edit', edit_course_path(@course) %> | 
+<% if current_user.teacher? %>
+  <%= link_to 'Edit', edit_course_path(@course) %> |
+<% end %>
 <%= link_to 'Back', courses_path %>

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :units
   resources :objectives
   # Routes are matched in the order listed.
   # TODO: fix login routes

@@ -1,0 +1,54 @@
+<h1>All Blogs</h1>
+
+<%= grid(@users_grid) do |grid|
+  grid.column name: "Name" do  |user|
+    link_to user.name, [user, :posts]
+  end
+  grid.column name: "Section" do |user|
+    text = if user.sections.any?
+      user.sections.map(&:name).join ', '
+    else
+      "Assign"
+    end
+    link_to text, edit_user_path(user.id)
+  end
+  grid.column name: "Last Active" do  |user|
+    if user.last_active_time
+      idle_time = ((Time.current - user.last_active_time) / 1.minute).round
+      status = case
+        when idle_time < 1
+          'success'
+
+        when idle_time < 5
+          'success'
+
+        when idle_time < 15
+          'warning'
+
+        else
+          'danger'
+      end
+      [time_ago_in_words(user.last_active_time) + ' ago', {class: status}]
+    else
+      ["Never", {class: 'danger'}]
+    end
+  end
+  grid.column name: "Publised Posts" do  |user|
+    if user.posts.published.count == 0
+      [user.posts.published.count, {class: 'danger'}]
+    else
+      user.posts.published.count
+    end
+  end
+  grid.column name: "Unpublished Posts" do  |user|
+    if user.posts.unpublished.count == 0 &&
+        user.posts.published.count == 0
+      [user.posts.unpublished.count, {class: 'danger'}]
+    else
+      user.posts.unpublished.count
+    end
+  end
+  grid.column name: "Total Posts" do  |user|
+    user.posts.count
+  end
+end -%>

@@ -1,0 +1,19 @@
+<footer class='footer navbar navbar-default navbar-fixed-bottom'>
+  <div class='container'>
+    <% if Rails.env.development? %>
+    <%= simple_form_for User.find(1), :html => { :class => 'form-inline' } do |f| %>
+      <%= f.button :submit, 'Become user' %>
+      <%= f.input :name, label: false, collection: User.all %>
+    <% end %>
+    <% if false %>
+      <p>
+        <strong> Become user: </strong>
+        <ul>
+          <% User.all.each do |user| %>
+            <li> <%= link_to user.name, become_user_path(user), method: :post %> </li>
+          <% end %>
+        </ul>
+      </p>
+    <% end %>
+  </div>
+</footer>
