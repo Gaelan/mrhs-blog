@@ -1,6 +1,7 @@
 #
 class AssessmentsController < ApplicationController
-  before_action :set_assessment, only: [:show, :edit, :update, :destroy]
+  before_action :set_assessment,
+                only: [:show, :edit, :update, :destroy]
 
   # GET /assessments
   # GET /assessments.json
@@ -12,6 +13,10 @@ class AssessmentsController < ApplicationController
   # GET /assessments/1
   # GET /assessments/1.json
   def show
+    # @assessment = Assessment.find(params[:id])
+    # TODO: generate pundit policy for Unit (and check for others)
+    # authorize @unit
+    # @tasks_grid = initialize_grid @unit.tasks
   end
 
   # GET /assessments/new
@@ -27,6 +32,9 @@ class AssessmentsController < ApplicationController
   # POST /assessments.json
   def create
     @assessment = Assessment.new(assessment_params)
+
+    # TODO: figure out why we're getting a null 0th element in task_ids
+    @assessment.title = Task.find(params[:assessment][:task_ids][1]).title
 
     respond_to do |format|
       if @assessment.save
@@ -82,7 +90,7 @@ class AssessmentsController < ApplicationController
   def assessment_params
     params.require(:assessment).
       permit( :assigned_date, :due_date, :value, :weight, :autoscore,
-              :title, :category, :section_id,
-              tasks_attributes: [:id, :title, :category])
+              :title, :category, :section_id, task_ids: []
+      )
   end
 end

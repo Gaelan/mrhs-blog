@@ -1,6 +1,37 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Assessments</h1>
+
+<%= link_to 'New Assessment', new_assessment_path %>
+
+<br><br>
+
+<%= grid(@assessments_grid) do |g|
+  g.column name: 'Section' do  |c|
+    c.section.name
+  end
+
+  g.column name: 'Task' do |c|
+    c.tasks[0].title
+  end
+
+  g.column name: 'Assigned' do |c|
+    c.assigned_date
+  end
+
+  g.column name: 'Due' do |c|
+    c.due_date
+  end
+
+  g.column name: '' do |c|
+    link_to 'Show', assessment_path(c)
+  end
+  g.column name: '' do |c|
+    link_to 'Edit', edit_assessment_path(c)
+  end
+  g.column name: '' do |c|
+    link_to 'Delete', assessment_path(c), method: :delete,
+            data: { confirm: 'Are you sure?' }
+  end
+end -%>
 
 <table>
   <thead>
