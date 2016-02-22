@@ -2,11 +2,15 @@
   <div class='post-header'>
     <h1><%= @post.title %></h1>
     <p>
-      <% unless @post.published %><strong>Unpublished</strong><% end %>
+      <% unless @post.published %><strong>Unpublished</strong> <br> <% end %>
       <% unless @post.user.name == current_user.name %>
         By <%= @post.user.name %>
+        <br>
       <% end %>
       <%= timestamp(@post) %>
+      <% if @post.assessment %>
+        <br> For <%= link_to @post.assessment.title, @post.assessment %>
+      <% end %>
     </p>
   </div>
   <div class='post-images'>
