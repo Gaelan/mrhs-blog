@@ -2,6 +2,9 @@
 <html>
 <head>
   <title>MRHS Photo</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
@@ -9,45 +12,17 @@
 
 <body>
 
-<%= navbar fixed: :top do %>
-  <%= navbar_header brand: 'MRHS Photo', brand_link: '/' %>
-  <%= navbar_collapse do %>
-    <%= navbar_group do %>
-      <%= navbar_dropdown 'Blog' do %>
-          <%= navbar_item 'Recent', posts_path %>
-          <%= navbar_item 'Prompts', tasks_path %>
-          <%= navbar_item 'Comment Guidelines', page_path('comment-guidelines') %>
-      <% end %>
-    <% end %>
-    <%= navbar_group align: 'right' do %>
-      <% if user_signed_in? %>
-        <%= navbar_dropdown current_user.name do %>
-          <%= navbar_text current_user.email %>
-          <%= navbar_dropdown_divider %>
-          <%= navbar_item (link_to 'Logout', destroy_user_session_path, method: :delete) %>
-        <% end %>
-      <% else %>
-        <%= navbar_item 'Login', user_omniauth_authorize_path(:google_oauth2) %>
-      <% end %>
-    <% end %>
-  <% end %>
-<% end %>
+<%= render 'layouts/navbar' %>
+
 <div class='container'>
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
 
   <%= yield %>
 
-  <% if Rails.env.development? %>
-    <p>
-      <strong> Become user: </strong>
-      <ul>
-        <% User.all.each do |user| %>
-          <li> <%= link_to user.name, become_user_path(user), method: :post %> </li>
-        <% end %>
-      </ul>
-    </p>
-  <% end %>
 </div>
+
+<%= render 'layouts/footer' %>
+
 </body>
 </html>

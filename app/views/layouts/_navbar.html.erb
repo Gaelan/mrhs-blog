@@ -1,0 +1,23 @@
+<%= navbar fixed: :top do %>
+  <%= navbar_header brand: 'MRHS Photo', brand_link: '/' %>
+  <%= navbar_collapse do %>
+    <%= navbar_group do %>
+      <%= navbar_dropdown 'Blog' do %>
+          <%= navbar_item 'Recent', posts_path %>
+          <%= navbar_item 'Prompts', tasks_path %>
+          <%= navbar_item 'Comment Guidelines', page_path('comment-guidelines') %>
+      <% end %>
+    <% end %>
+    <%= navbar_group align: 'right' do %>
+      <% if user_signed_in? %>
+        <%= navbar_dropdown current_user.name do %>
+          <%= navbar_text current_user.email %>
+          <%= navbar_dropdown_divider %>
+          <%= navbar_item (link_to 'Logout', destroy_user_session_path, method: :delete) %>
+        <% end %>
+      <% else %>
+        <%= navbar_item 'Login', user_omniauth_authorize_path(:google_oauth2) %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
