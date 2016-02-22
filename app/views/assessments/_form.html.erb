@@ -2,14 +2,16 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
+    <%= f.association :section %>
+    <%= f.association :tasks %>
     <%= f.input :assigned_date %>
     <%= f.input :due_date %>
     <%= f.input :value %>
-    <%= f.input :weight %>
-    <%= f.input :autoscore %>
+
+    <%#= f.input :weight %>
+    <%#= f.input :autoscore %>
     <%= f.input :title %>
-    <%= f.input :category %>
-    <%= f.association :section %>
+    <%#= f.input :category %>
   </div>
 
   <div class="form-actions">
