@@ -10,4 +10,5 @@ class Post < ActiveRecord::Base
   scope :unpublished, -> { where(published: false) }
 
   has_many :comments, as: :commentable
+  belongs_to :assessment
 end

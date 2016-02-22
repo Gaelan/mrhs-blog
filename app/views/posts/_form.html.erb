@@ -1,7 +1,6 @@
 <%= simple_form_for [@user, @post], horizontal_form do |f| %>
     <div class="row">
       <div class="col-sm-7">
-        <%= f.input :published, inline_label: 'Publish' %>
         <%= f.input :title %>
         <%= f.input :body, as: :text, input_html: {rows: 16} %>
         <div class="row">
@@ -11,6 +10,8 @@
         </div>
       </div>
       <div class="col-sm-5">
+        <%= f.input :published, inline_label: 'Publish' %>
+        <%= f.association :assessment %>
         <div class="list-group images">
           <%= f.simple_fields_for :images do |image_form| %>
               <%= render 'image_fields', f: image_form %>
