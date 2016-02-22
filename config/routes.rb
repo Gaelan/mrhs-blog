@@ -18,9 +18,8 @@ Rails.application.routes.draw do
   resources :tasks
   resources :users, only: [:index, :edit, :update] do
     resources :posts
-    if Rails.env.development?
+    # TODO: how to protect this route? Was conditional on dev environment.
       post 'become', on: :collection
-    end
   end
   resources :comments, only: [:create, :update]
 
