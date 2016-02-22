@@ -28,3 +28,24 @@
 
 .timestamp-latest { font-weight: bold; }
 .timestamp-original {}
+
+/* Sticky footer styles
+ * TODO: clean up footer, find a better way to manage the size.
+--------------------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding-top: 15px;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
+}

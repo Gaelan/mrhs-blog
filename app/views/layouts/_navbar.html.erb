@@ -2,10 +2,12 @@
   <%= navbar_header brand: 'MRHS Photo', brand_link: '/' %>
   <%= navbar_collapse do %>
     <%= navbar_group do %>
-      <%= navbar_dropdown 'Blog' do %>
-          <%= navbar_item 'Recent', posts_path %>
-          <%= navbar_item 'Prompts', tasks_path %>
-          <%= navbar_item 'Comment Guidelines', page_path('comment-guidelines') %>
+      <% if user_signed_in? %>
+        <%= navbar_dropdown 'Blog' do %>
+            <%= navbar_item 'Recent', posts_path %>
+            <%= navbar_item 'Prompts', tasks_path %>
+            <%= navbar_item 'Comment Guidelines', page_path('comment-guidelines') %>
+        <% end %>
       <% end %>
       <% if user_signed_in? && (current_user.teacher? || current_user.admin?) %>
         <%= navbar_dropdown 'Admin' do %>
