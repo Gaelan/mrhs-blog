@@ -3,11 +3,19 @@
 
   <div class="form-inputs">
     <%= f.input :title %>
-    <%= f.input :soi %>
-    <%= f.input :duration %>
+    <%= f.input :soi, :label => 'Statement of Inquiry' %>
+    <%= f.input :duration, :label => 'Duration (hours)' %>
+  </div>
+
+  <div class='tasks'>
+    <h3>Tasks</h3>
+    <div class='form-inputs'>
+      <%= f.association :tasks, label: false, include_blank: true %>
+    </div>
   </div>
 
   <div class="form-actions">
+    <%= link_to 'Add a Task', new_task_path, :class => 'button' %>
     <%= f.button :submit %>
   </div>
 <% end %>

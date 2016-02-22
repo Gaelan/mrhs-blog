@@ -13,6 +13,7 @@ class CoursesController < ApplicationController
   def show
     @course = Course.find(params[:id])
     authorize @course
+    @sections_grid = initialize_grid @course.sections
     @units_grid = initialize_grid @course.units
   end
 

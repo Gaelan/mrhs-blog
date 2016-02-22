@@ -11,6 +11,9 @@ class UnitsController < ApplicationController
   # GET /units/1
   # GET /units/1.json
   def show
+    @unit = Unit.find(params[:id])
+    #authorize @unit
+    @tasks_grid = initialize_grid @unit.tasks
   end
 
   # GET /units/new
@@ -70,6 +73,7 @@ class UnitsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def unit_params
-      params.require(:unit).permit(:title, :soi, :duration)
+      params.require(:unit).permit(:title, :soi, :duration,
+                     task_ids: [])
     end
 end
