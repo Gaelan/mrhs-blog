@@ -7,6 +7,8 @@
           <%= navbar_item 'Prompts', tasks_path %>
           <%= navbar_item 'Comment Guidelines', page_path('comment-guidelines') %>
       <% end %>
+      <% if user_signed_in? && (current_user.teacher? || current_user.admin?) %>
+      <% end %>
     <% end %>
     <%= navbar_group align: 'right' do %>
       <% if user_signed_in? %>

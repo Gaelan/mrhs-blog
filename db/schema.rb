@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160221225908) do
+ActiveRecord::Schema.define(version: 20160222001618) do
 
   create_table "assessment_tasks", force: :cascade do |t|
     t.integer  "assessment_id"
@@ -149,6 +149,15 @@ ActiveRecord::Schema.define(version: 20160221225908) do
     t.integer  "time_required"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+  end
+
+  create_table "unit_tasks", force: :cascade do |t|
+    t.integer  "unit_id"
+    t.integer  "task_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["task_id"], name: "index_unit_tasks_on_task_id"
+    t.index ["unit_id"], name: "index_unit_tasks_on_unit_id"
   end
 
   create_table "units", force: :cascade do |t|
