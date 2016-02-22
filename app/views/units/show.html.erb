@@ -19,7 +19,7 @@
       link_to c.title, c
     end
     g.column name: 'Description' do  |c|
-      c.body
+      markdown truncate c.body.squish, :length => 200, :separator => ' '
     end
     g.column name: 'Estimated Time' do  |c|
       c.time_required
