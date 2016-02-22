@@ -1,0 +1,8 @@
+<%= simple_form_for(
+    :user,
+    :url => become_users_path,
+    :html => { :class => 'form-inline' }
+  ) do |f| %>
+    <%= f.button :submit, 'Become user' %>
+    <%= f.input :id, label: false, collection: User.all %>
+<% end %>
