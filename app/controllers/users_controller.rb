@@ -10,7 +10,7 @@ class UsersController < ApplicationController
             else
               User.all
             end
-    @users = policy_scope users.order(created_at: :asc)
+    @users = policy_scope users.order(name: :asc)
     @users_grid = initialize_grid @users
   end
 
