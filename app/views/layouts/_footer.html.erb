@@ -1,18 +1,12 @@
+<%# TODO: implement real & effective UID so you can switch back. %>
 <footer class='footer navbar navbar-default navbar-fixed-bottom'>
-  <div class='container'>
-    <% if Rails.env.development? && user_signed_in? %>
-      <%= simple_form_for :user, :html => { :class => 'form-inline' } do |f| %>
-        <%= f.button :submit, 'Become user' %>
-        <%= f.input :name, label: false, collection: User.all %>
+  <% if user_signed_in? %>
+    <div class='container'>
+      <% if Rails.env.test? %>
+        <%= render 'layouts/su' %>
+      <% elsif current_user.teacher? %>
+       <%= render 'layouts/su' %>
       <% end %>
-      <p>
-        <strong> Become user: </strong>
-        <ul>
-          <% User.all.each do |user| %>
-            <li> <%= link_to user.name, become_user_path(user), method: :post %> </li>
-          <% end %>
-        </ul>
-      </p>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 </footer>

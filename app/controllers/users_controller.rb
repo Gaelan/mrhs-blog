@@ -31,7 +31,7 @@ class UsersController < ApplicationController
   if Rails.env.development?
     def become
       skip_authorization
-      sign_in_and_redirect User.find(params[:id])
+      sign_in_and_redirect User.find(params[:user][:id])
     end
   end
 
