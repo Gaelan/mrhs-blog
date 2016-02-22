@@ -1,6 +1,24 @@
-<p>
+<h1>
   <%= @course.title %> (<%= @course.short_title %>)
-</p>
+</h1>
+
+<h2>Units</h2>
+
+<% if @course.units.any? %>
+  <%# binding pry %>
+
+  <%= grid @units_grid do |g|
+    g.column name: 'Title' do  |c|
+      link_to c.title, c
+    end
+    g.column name: 'Statement of Inquiry' do  |c|
+      c.soi
+    end
+    g.column name: 'Duration' do  |c|
+      c.duration
+    end
+  end %>
+<% end %>
 
 <% if current_user.teacher? %>
   <%= link_to 'Edit', edit_course_path(@course) %> |

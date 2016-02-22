@@ -8,6 +8,12 @@
           <%= navbar_item 'Comment Guidelines', page_path('comment-guidelines') %>
       <% end %>
       <% if user_signed_in? && (current_user.teacher? || current_user.admin?) %>
+        <%= navbar_dropdown 'Admin' do %>
+        <%= navbar_item 'Objectives', objectives_path %>
+        <%= navbar_item 'Courses', courses_path %>
+        <%= navbar_item 'Units', units_path %>
+        <%= navbar_item 'Tasks', tasks_path %>
+      <% end %>
       <% end %>
     <% end %>
     <%= navbar_group align: 'right' do %>

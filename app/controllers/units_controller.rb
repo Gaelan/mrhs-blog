@@ -5,6 +5,7 @@ class UnitsController < ApplicationController
   # GET /units.json
   def index
     @units = Unit.all
+    @units_grid = initialize_grid @units
   end
 
   # GET /units/1

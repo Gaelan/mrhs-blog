@@ -13,6 +13,7 @@ class CoursesController < ApplicationController
   def show
     @course = Course.find(params[:id])
     authorize @course
+    @units_grid = initialize_grid @course.units
   end
 
   # GET /courses/new
@@ -64,6 +65,7 @@ class CoursesController < ApplicationController
 
     def course_params
       params.require(:course).permit(:title, :short_title,
-        sections_attributes: [:id, :session, :period, :year, :name, :_destory])
+        sections_attributes: [:id, :session, :period, :year, :name, :_destory],
+        unit_ids: [])
     end
 end
