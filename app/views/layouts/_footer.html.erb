@@ -5,15 +5,14 @@
       <%= f.button :submit, 'Become user' %>
       <%= f.input :name, label: false, collection: User.all %>
     <% end %>
-    <% elsif false %>
-      <p>
+    <p>
         <strong> Become user: </strong>
         <ul>
           <% User.all.each do |user| %>
             <li> <%= link_to user.name, become_user_path(user), method: :post %> </li>
           <% end %>
         </ul>
-      </p>
+    </p>
     <% end %>
   </div>
 </footer>
