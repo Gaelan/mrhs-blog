@@ -6,7 +6,7 @@ class AssessmentsController < ApplicationController
   # GET /assessments
   # GET /assessments.json
   def index
-    @assessments = Assessment.all
+    @assessments = Assessment.all.order(section_id: :asc)
     @assessments_grid = initialize_grid @assessments
   end
 
