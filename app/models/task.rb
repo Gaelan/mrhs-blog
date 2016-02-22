@@ -1,3 +1,4 @@
+#
 class Task < ActiveRecord::Base
   # Tasks can be associated with a Unit.
   has_many :unit_tasks

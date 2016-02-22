@@ -1,3 +1,4 @@
+#
 class UnitsController < ApplicationController
   before_action :set_unit, only: [:show, :edit, :update, :destroy]
 
@@ -12,6 +13,7 @@ class UnitsController < ApplicationController
   # GET /units/1.json
   def show
     @unit = Unit.find(params[:id])
+    # TODO: generate pundit policy for Unit (and check for others)
     #authorize @unit
     @tasks_grid = initialize_grid @unit.tasks
   end
