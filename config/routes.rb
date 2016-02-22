@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :edit, :update] do
     resources :posts
     if Rails.env.development?
-      post 'become', on: :member
+      post 'become', on: :collection
     end
   end
   resources :comments, only: [:create, :update]
