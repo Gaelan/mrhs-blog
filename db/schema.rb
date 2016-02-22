@@ -153,6 +153,15 @@ ActiveRecord::Schema.define(version: 20160222025658) do
     t.datetime "updated_at",    null: false
   end
 
+  create_table "unit_tasks", force: :cascade do |t|
+    t.integer  "unit_id"
+    t.integer  "task_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["task_id"], name: "index_unit_tasks_on_task_id"
+    t.index ["unit_id"], name: "index_unit_tasks_on_unit_id"
+  end
+
   create_table "units", force: :cascade do |t|
     t.string   "title"
     t.text     "soi"

@@ -1,6 +1,6 @@
-<h1><%= current_user.name %> <%= current_user.roles[0].role %></h1>
 <% if current_user.teacher? %>
   <%= render 'index_teacher' %>
 <% else %>
-  <h1>All Blogs</h1>
+  <% # TODO: display something meaningful for student user list. %>
+  <h1>Coming Soon</h1>
 <% end %>

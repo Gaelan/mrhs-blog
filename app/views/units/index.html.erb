@@ -1,31 +1,34 @@
-<p id="notice"><%= notice %></p>
+<h1>List of Units</h1>
 
-<h1>Units</h1>
+<%= link_to 'New Unit', new_unit_path %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Soi</th>
-      <th>Duration</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<br><br>
 
-  <tbody>
-    <% @units.each do |unit| %>
-      <tr>
-        <td><%= unit.title %></td>
-        <td><%= unit.soi %></td>
-        <td><%= unit.duration %></td>
-        <td><%= link_to 'Show', unit %></td>
-        <td><%= link_to 'Edit', edit_unit_path(unit) %></td>
-        <td><%= link_to 'Destroy', unit, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= grid(@units_grid) do |g|
+  g.column name: 'Title' do  |c|
+    link_to "#{c.title}", c
+  end
 
-<br>
+  # TODO: add a 'taught in' column with short names of courses.
+
+  g.column name: 'Statement of Inquiry' do |c|
+    markdown (truncate c.soi)
+  end
+
+  g.column name: 'Duration (hours)' do |c|
+    c.duration
+  end
+
+  g.column name: '' do |c|
+    link_to 'Show', course_path(c)
+  end
+  g.column name: '' do |c|
+    link_to 'Edit', edit_course_path(c)
+  end
+  g.column name: '' do |c|
+    link_to 'Delete', course_path(c), method: :delete,
+            data: { confirm: 'Are you sure?' }
+  end
+end -%>
 
 <%= link_to 'New Unit', new_unit_path %>

@@ -1,6 +1,39 @@
-<p>
-  <%= @course.title %> (<%= @course.short_title %>)
-</p>
+<h1> <%= @course.title %> (<%= @course.short_title %>) </h1>
+
+<h2>Sections</h2>
+
+<% if @course.sections.any? %>
+  <%= grid @sections_grid do |g|
+    g.column name: 'Title' do  |c|
+      c.name
+    end
+  end %>
+<% end %>
+
+<h2>Units</h2>
+
+<% if @course.units.any? %>
+  <%= grid @units_grid do |g|
+    total_hours = 0
+
+    g.column name: 'Title' do  |c|
+      link_to c.title, c
+    end
+    g.column name: 'Statement of Inquiry' do  |c|
+      c.soi
+    end
+    g.column name: 'Hours', html: {style: 'text-align: right'} do  |c|
+      total_hours += c.duration
+      c.duration
+    end
+    g.last_row do |number_of_columns|
+      content_tag(:tr,
+        content_tag(:td, '', colspan: (number_of_columns - 1)) +
+        content_tag(:td, total_hours, class: 'total-hours')
+      )
+    end
+  end %>
+<% end %>
 
 <% if current_user.teacher? %>
   <%= link_to 'Edit', edit_course_path(@course) %> |

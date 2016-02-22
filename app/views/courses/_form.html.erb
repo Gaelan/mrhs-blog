@@ -1,4 +1,5 @@
-<%= form_for @course do |f| %>
+<%= simple_form_for @course do |f| %>
+  <% # TODO: converty use really use simple_form. %>
   <% #byebug %>
   <% if @course.errors.any? %>
     <div id="error_explanation">
@@ -15,22 +16,26 @@
   <% end %>
 
   <p>
-    <%= f.label :title %>
-    <%= f.text_field :title %>
+    <%= f.input :title %>
+    <%= f.input :short_title %>
   </p>
 
-  <p>
-    <%= f.label :short_title %>
-    <%= f.text_field :short_title %>
-  </p>
 
-  <h3>Sections</h3>
+  <div class='units'>
+    <h3>Units</h3>
+
+    <div class="form-inputs">
+      <%= f.association :units, include_blank: true %>
+    </div>
+  </div>
 
   <div class='sections'>
+    <h3>Sections</h3>
+
     <%= f.fields_for :sections do |section_form| %>
       <%= render 'section_fields', f: section_form %>
     <% end %>
-    <%= link_to_add_association 'add an section', f, :sections %>
+    <%= link_to_add_association 'add a section', f, :sections %>
   </div>
 
   <p>

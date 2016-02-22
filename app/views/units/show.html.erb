@@ -1,19 +1,35 @@
-<p id="notice"><%= notice %></p>
+<h1> <%= @unit.title %> </h1>
 
 <p>
-  <strong>Title:</strong>
-  <%= @unit.title %>
-</p>
-
-<p>
-  <strong>Soi:</strong>
+  <strong>Statement of Inquiry:</strong>
   <%= @unit.soi %>
 </p>
 
 <p>
   <strong>Duration:</strong>
-  <%= @unit.duration %>
+  <%= @unit.duration %> hours
 </p>
 
-<%= link_to 'Edit', edit_unit_path(@unit) %> |
+<h2>Tasks</h2>
+
+<% if @unit.tasks.any? %>
+
+  <%= grid @tasks_grid do |g|
+    g.column name: 'Title' do  |c|
+      link_to c.title, c
+    end
+    g.column name: 'Description' do  |c|
+      c.body
+    end
+    g.column name: 'Estimated Time' do  |c|
+      c.time_required
+    end
+  end %>
+  <% # TODO: add list of strands. %>
+<% end %>
+
+
+<% if current_user.teacher? %>
+  <%= link_to 'Edit', edit_unit_path(@unit) %> |
+<% end %>
 <%= link_to 'Back', units_path %>
