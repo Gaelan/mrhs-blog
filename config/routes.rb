@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   root to: 'sections#index', constraints: lambda {
      |_, request| request.env['warden'].authenticate(scope: :user)&.teacher?
   }
-  root to: 'posts#index'
+  root to: 'home_student#show'
 
   resources :assessments
   resources :courses
