@@ -21,8 +21,11 @@
 @import "courses";
 @import "objectives";
 @import "pages";
+
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "font-awesome-sprockets";
+@import "font-awesome";
 
 .clear { clear: both; }
 

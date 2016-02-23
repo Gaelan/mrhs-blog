@@ -23,7 +23,7 @@ gem 'bootstrap-sass', '~> 3.3.6'
 gem 'rails_bootstrap_navbar'
 # Fork for Rails 5 support. Consider PRing soon.
 gem 'wice_grid', github: 'Gaelan/wice_grid', branch: 'rails5-fix'
-gem 'font-awesome-sass',  '~> 4.3'
+gem 'font-awesome-sass', '~> 4.3'
 
 gem 'redcarpet'
 
