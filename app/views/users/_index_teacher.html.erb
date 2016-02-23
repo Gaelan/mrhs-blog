@@ -2,7 +2,7 @@
 
 <%= grid(@users_grid) do |grid|
   grid.column name: "Name" do  |user|
-    link_to user.name, [user, :posts]
+    link_to user.name, home_student_show_path + '/' + user.id.to_s
   end
   grid.column name: "Section" do |user|
     text = if user.sections.any?
