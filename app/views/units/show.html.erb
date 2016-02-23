@@ -13,7 +13,6 @@
 <h2>Tasks</h2>
 
 <% if @unit.tasks.any? %>
-
   <%= grid @tasks_grid do |g|
     g.column name: 'Title' do  |c|
       link_to c.title, c
@@ -25,9 +24,8 @@
       c.time_required
     end
   end %>
-  <% # TODO: add list of strands. %>
+  <% # TODO: add list of strands for each task. %>
 <% end %>
-
 
 <% if current_user.teacher? %>
   <%= link_to 'Edit', edit_unit_path(@unit) %> |

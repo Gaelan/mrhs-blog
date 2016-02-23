@@ -10,6 +10,7 @@
   end
 
   # TODO: add a 'taught in' column with short names of courses.
+  # TODO: add a 'objectives' column with links to the objectives assessed.
 
   g.column name: 'Statement of Inquiry' do |c|
     markdown (truncate c.soi)
@@ -20,13 +21,13 @@
   end
 
   g.column name: '' do |c|
-    link_to 'Show', course_path(c)
+    link_to 'Show', unit_path(c)
   end
   g.column name: '' do |c|
-    link_to 'Edit', edit_course_path(c)
+    link_to 'Edit', edit_unit_path(c)
   end
   g.column name: '' do |c|
-    link_to 'Delete', course_path(c), method: :delete,
+    link_to 'Delete', unit_path(c), method: :delete,
             data: { confirm: 'Are you sure?' }
   end
 end -%>
