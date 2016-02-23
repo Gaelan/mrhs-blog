@@ -1,5 +1,6 @@
 #
 class HomeStudentController < ApplicationController
+  # TODO: run this through the DRYer.
   def show
     @user = current_user
     @assessments = Assessment.where(section_id: @user.sections[0])
