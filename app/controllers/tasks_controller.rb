@@ -8,6 +8,15 @@ class TasksController < ApplicationController
   # GET /tasks.json
   def index
     authorize Task
+    # TODO: should be showing students prompts through assessments...
+    # TODO: change route, go through assessments?
+    # enrollment = Enrollment.where(student_id: current_user.id)[0]
+    # if enrollment then section = enrollment.section_id
+    #   assessments = Assessment.where(section_id: section)
+    # end
+    #
+    # binding.pry
+
     @tasks = policy_scope Task.all
     @tasks_grid = initialize_grid @tasks
   end

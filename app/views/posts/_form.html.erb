@@ -14,6 +14,7 @@
         <%# TODO: select assessments for user's section. %>
         <%# binding.pry %>
         <% # TODO: might be more than one enrollment. %>
+        <% # TODO: make this into a helper. %>
         <% enrollment = Enrollment.where(student_id: current_user.id)[0] %>
         <% if enrollment then section = enrollment.section_id %>
           <%= f.association :assessment,
