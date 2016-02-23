@@ -9,12 +9,9 @@
     markdown(md)
   end
   g.column name: "Objectives" do  |t|
-    #t.strands[0].objective.group + t.strands[0].number.to_s
-    #t.strands.map(objective_name).join ', '
-    objs = t.strands.map do |s|
+    objectives = t.strands.map do |s|
       (link_to s.label, s.objective) + '<br>'.html_safe
-    end
-    objs.join('').html_safe
+    end.join('').html_safe
   end
 end -%>
 
@@ -22,6 +19,5 @@ end -%>
   <% if policy(Task).create? %>
     <%= link_to 'New Task', new_task_path %> |
   <% end %>
-
   <%= link_to 'Back', tasks_path %>
 </div>
