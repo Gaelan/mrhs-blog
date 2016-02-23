@@ -1,0 +1,34 @@
+<% @posts.each do |p| %>
+  <div class="post-index-item">
+      <div class="post-index-item-image">
+        <% if p.images.first %>
+          <figure>
+            <%=
+              link_to (image_tag p.images.first.file.url,
+                class: 'post-index-item-image'), [@user, p]
+            %>
+          </figure>
+        <% else %>
+          &nbsp;
+        <% end %>
+      </div>
+
+    <div class="post-index-item-body">
+      <h1 class="post-index-item-body-title">
+        <%= link_to p.title, [@user, p] %>
+      </h1>
+      <div class="post-index-item-body-attribution">
+        <% if @all_posts %>
+          <span class='post-index-item-body-author'><%= p.user.name %>,</span>
+        <% end %>
+        <%= timestamp(p) %>
+        <% unless p.published %>
+          <span class='unpublished-post'>(unpublished)</span>
+        <% end %>
+      </div>
+      <p class="post-index-item-body-text"><%= markdown p.body %></p>
+    </div>
+  </div>
+  <br class="clear">
+  <hr>
+<% end %>
