@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'home_student/show/:id', to: 'home_student#show_id'
+  get 'home_student/show'
+
   resources :units
   resources :objectives
   # Routes are matched in the order listed.
