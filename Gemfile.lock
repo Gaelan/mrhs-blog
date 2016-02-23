@@ -179,6 +179,8 @@ GEM
     pry-byebug (3.3.0)
       byebug (~> 8.0)
       pry (~> 0.10)
+    pry-rails (0.3.4)
+      pry (>= 0.9.10)
     pundit (1.1.0)
       activesupport (>= 3.0.0)
     rack (2.0.0.alpha)
@@ -310,6 +312,7 @@ DEPENDENCIES
   paperclip!
   pg
   pry-byebug
+  pry-rails
   pundit
   rails (= 5.0.0.beta2)
   rails-erd
