@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'home_student/show/:id', to: 'home_student#show_id'
+  get 'home_student/show'
+
   resources :units
   resources :objectives
   # Routes are matched in the order listed.
@@ -7,7 +10,7 @@ Rails.application.routes.draw do
   root to: 'sections#index', constraints: lambda {
      |_, request| request.env['warden'].authenticate(scope: :user)&.teacher?
   }
-  root to: 'posts#index'
+  root to: 'home_student#show'
 
   resources :assessments
   resources :courses

@@ -1,3 +1,4 @@
+#
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -14,6 +15,12 @@ class User < ActiveRecord::Base
       user.email = auth.info.email
       user.name = auth.info.name   # assuming the user model has a name
     end
+  end
+
+  # Tests on user activity.
+  def active_today?
+    'success'
+    # 'danger' 'warning'
   end
 
   # Black magic to automagically create a <ROLENAME>? function for each role.
