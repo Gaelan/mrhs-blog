@@ -51,6 +51,18 @@ img.post-index-item-image {
   margin-top: 0;
 }
 
+.post-index-item-body-attribution {
+  font-weight: normal;
+}
+
+.post-index-item-body-attribution .timestamp-latest {
+  font-weight: normal;
+}
+
+.post-index-item-body-author {
+  font-weight: bold;
+}
+
 h2.post-index-item-body-title {
   font-size: 14px;
   margin-top: -2px;
@@ -60,7 +72,7 @@ h2.post-index-item-body-title {
 .post-index-item-text {}
 
 .unpublished-post {
-  font-weight: normal;
+  font-weight: bold;
 }
 
 .index-item-edit-links {

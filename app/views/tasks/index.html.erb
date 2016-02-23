@@ -8,45 +8,16 @@
     md = truncate t.body.squish, :length => 142, :separator => ' '
     markdown(md)
   end
-  g.column name: "Objective" do  |t|
-    t.category
+  g.column name: "Objectives" do  |t|
+    objectives = t.strands.map do |s|
+      (link_to s.label, s.objective) + '<br>'.html_safe
+    end.join('').html_safe
   end
 end -%>
-
-<!--
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Body</th>
-      <th>Category</th>
-      <th>Time required</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @tasks.each do |task| %>
-      <tr>
-        <td><%= task.title %></td>
-        <td><%= task.body %></td>
-        <td><%= task.category %></td>
-        <td><%= task.time_required %></td>
-        <td><%= link_to 'Show', task %></td>
-        <td><%= link_to 'Edit', edit_task_path(task) %></td>
-        <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
--->
-
-<br>
 
 <div class='task-index-edit-links'>
   <% if policy(Task).create? %>
     <%= link_to 'New Task', new_task_path %> |
   <% end %>
-
-  <%#= link_to 'Back', tasks_path %>
+  <%= link_to 'Back', tasks_path %>
 </div>

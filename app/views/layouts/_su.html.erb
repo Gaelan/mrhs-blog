@@ -1,0 +1,8 @@
+<%= simple_form_for(
+    :user,
+    url: { action: 'become', controller: 'users' },
+    html: { :class => 'form-inline' }
+  ) do |f| %>
+    <%= f.button :submit, 'Become user' %>
+    <%= f.input :id, label: false, collection: User.all.order(name: :asc) %>
+<% end %>

@@ -1,3 +1,4 @@
+#
 class UsersController < ApplicationController
   before_action :authenticate_user!
   after_action  :verify_authorized
@@ -9,7 +10,7 @@ class UsersController < ApplicationController
             else
               User.all
             end
-    @users = policy_scope users.order(created_at: :asc)
+    @users = policy_scope users.order(name: :asc)
     @users_grid = initialize_grid @users
   end
 
@@ -25,6 +26,11 @@ class UsersController < ApplicationController
     @user.update user_params
 
     redirect_to session.delete(:return_to) || root_path
+  end
+
+  def become
+    authorize User
+    sign_in_and_redirect User.find(params[:user][:id])
   end
 
   private

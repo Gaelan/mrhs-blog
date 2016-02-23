@@ -1,41 +1,36 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Assessments</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Assigned date</th>
-      <th>Due date</th>
-      <th>Value</th>
-      <th>Weight</th>
-      <th>Autoscore</th>
-      <th>Title</th>
-      <th>Category</th>
-      <th>Section</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<%= link_to 'New Assessment', new_assessment_path %>
 
-  <tbody>
-    <% @assessments.each do |assessment| %>
-      <tr>
-        <td><%= assessment.assigned_date %></td>
-        <td><%= assessment.due_date %></td>
-        <td><%= assessment.value %></td>
-        <td><%= assessment.weight %></td>
-        <td><%= assessment.autoscore %></td>
-        <td><%= assessment.title %></td>
-        <td><%= assessment.category %></td>
-        <td><%= assessment.section %></td>
-        <td><%= link_to 'Show', assessment %></td>
-        <td><%= link_to 'Edit', edit_assessment_path(assessment) %></td>
-        <td><%= link_to 'Destroy', assessment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<br><br>
 
-<br>
+<%= grid(@assessments_grid) do |g|
+  g.column name: 'Section' do  |c|
+    c.section.name
+  end
+
+  g.column name: 'Task' do |c|
+    c.tasks[0].title
+  end
+
+  g.column name: 'Assigned' do |c|
+    c.assigned_date
+  end
+
+  g.column name: 'Due' do |c|
+    c.due_date
+  end
+
+  g.column name: '' do |c|
+    link_to 'Show', assessment_path(c)
+  end
+  g.column name: '' do |c|
+    link_to 'Edit', edit_assessment_path(c)
+  end
+  g.column name: '' do |c|
+    link_to 'Delete', assessment_path(c), method: :delete,
+            data: { confirm: 'Are you sure?' }
+  end
+end -%>
 
 <%= link_to 'New Assessment', new_assessment_path %>

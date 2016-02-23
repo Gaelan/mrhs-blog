@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Objectives</h1>
+
+<%= grid(@objectives_grid) do |g|
+  g.column name: "Name" do  |t|
+    obj_name = "#{t.group}: #{t.name}"
+    link_to obj_name, t
+  end
+  g.column name: "Description", html: {class: 'objective-objective-descriptions'} do  |t|
+    markdown (truncate t.description.squish, :length => 480, :separator => ' ')
+  end
+  g.column name: "Strands" do |t|
+    text = '<ol class="objective-strand-descriptions">'
+    t.strands.each do |s|
+      text += '<li class="objective-strand-description">' +
+            (markdown s.description) + '</li><hr>'
+    end
+    text += '</ol>'
+    text.html_safe
+  end
+end -%>
+
+<%#= link_to 'Show', objective %>
+<%#= link_to 'Edit', edit_objective_path(objective) %>
+<%#= link_to 'Destroy', objective, method: :delete, data: { confirm: 'Are you sure?' } %>
+
+<br>
+
+<%= link_to 'New Objective', new_objective_path %>

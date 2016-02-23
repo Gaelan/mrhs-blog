@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :units
+  resources :objectives
   # Routes are matched in the order listed.
   # TODO: fix login routes
   # TODO - use conditional routes 'posts#new' if no posts, else 'posts#index'.
@@ -16,7 +18,10 @@ Rails.application.routes.draw do
   resources :tasks
   resources :users, only: [:index, :edit, :update] do
     resources :posts
+    # TODO: how to protect this route? Was conditional on dev environment.
+      post 'become', on: :collection
   end
+  resources :comments, only: [:create, :update]
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 

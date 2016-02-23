@@ -1,32 +1,35 @@
 <div class='post'>
-  <div>
-    <h1>
-      <%= @post.title %>
-    </h1>
-
+  <div class='post-header'>
+    <h1><%= @post.title %></h1>
     <p>
-      <% unless @post.published %> <strong> Unpublished </strong> <% end %>
-      <% unless @post.user.name == @user.name %>
+      <% unless @post.published %><strong>Unpublished</strong> <br> <% end %>
+      <% unless @post.user.name == current_user.name %>
         By <%= @post.user.name %>
+        <br>
+      <% end %>
+      <%= timestamp(@post) %>
+      <% if @post.assessment %>
+        <br> For <%= link_to @post.assessment.title, @post.assessment %>
       <% end %>
     </p>
+  </div>
+  <div class='post-images'>
+    <% @post.images.each do |image| %>
+      <figure>
+        <%= link_to (image_tag image.file.url, class: 'post-image'),
+          image.file.url %>
+        <figcaption class='post-image-caption'>
+          <p><%= image.caption %>
+          <% if image.maker %> By <b><%= image.maker %></b><% end %></p>
+          <p class='post-image-link'>
+            <% if image.src %><%= link_to 'Image Source', image.src %> <%end%>
+          </p>
+        </figcaption>
+      </figure>
+    <% end %>
+  </div>
 
-    <div class='post-images'>
-      <% @post.images.each do |image| %>
-        <figure>
-          <%= link_to (image_tag image.file.url, class: 'post-image'),
-            image.file.url %>
-          <figcaption class='post-image-caption'>
-            <p><%= image.caption %>
-            <% if image.maker %> By <b><%= image.maker %></b><% end %></p>
-            <p class='post-image-link'>
-              <% if image.src %><%= link_to 'Image Source', image.src %> <%end%>
-            </p>
-          </figcaption>
-        </figure>
-      <% end %>
-    </div>
-
+  <div class='post-body'>
     <p>
       <%= markdown @post.body %>
     </p>
@@ -35,5 +38,50 @@
     <hr>
     <%= link_to 'Edit', [:edit, @user, @post] %> |
     <%= link_to 'Back', [@user, :posts] %>
+  </div>
+
+  <div class='post-comments'>
+    <h2 class='post-comments'>Comments</h2>
+    <%# We really should filter comments at the SQL level. %>
+    <% @post.comments.to_a.select do |comment|
+      policy(comment).show?
+    end.each do |comment| %>
+      <div class='post-comment <%= comment.private? ? 'private' : 'public' %>'>
+        <div class='post-comment-body'>
+          <%= markdown comment.body %>
+        </div>
+        <div class='row'>
+          <div class='col-sm-6'>
+            <span class='post-comment-author'>
+              <%= comment.user.name %>,
+            </span>
+            <span class='post-comment-timestamp'>
+              <%= timestamp(comment) %>
+            </span>
+          </div>
+          <% if comment.user == current_user %>
+            <%# Also check that this is the most recent comment,
+                otherwise editing a comment could change the context of
+                other comments. %>
+            <div class='post-comment-links col-sm-6'>
+              <%= link_to 'Edit', '#' %> |
+              <%= link_to 'Delete', '#' %>
+            </div>
+          <% end %>
+        </div>
+        <hr>
+      </div>
+    <% end %>
+  </div>
+  <div class='post-new-comment'>
+    <%= simple_form_for @post.comments.build, path: comments_path do |f| %>
+      <%= f.input :commentable_id, as: :hidden %>
+      <%= f.input :commentable_type, as: :hidden %>
+      <%= f.input :body, label: false %>
+      <% if policy(f.object).create_private? %>
+        <%= f.input :private, :input_html => {:checked => 'checked'} %>
+      <% end %>
+      <%= f.button :submit, 'Add comment' %>
+    <% end %>
   </div>
 </div>

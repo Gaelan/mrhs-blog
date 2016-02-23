@@ -1,0 +1,33 @@
+<h1> <%= @unit.title %> </h1>
+
+<p>
+  <strong>Statement of Inquiry:</strong>
+  <%= @unit.soi %>
+</p>
+
+<p>
+  <strong>Duration:</strong>
+  <%= @unit.duration %> hours
+</p>
+
+<h2>Tasks</h2>
+
+<% if @unit.tasks.any? %>
+  <%= grid @tasks_grid do |g|
+    g.column name: 'Title' do  |c|
+      link_to c.title, c
+    end
+    g.column name: 'Description' do  |c|
+      markdown truncate c.body.squish, :length => 200, :separator => ' '
+    end
+    g.column name: 'Estimated Time' do  |c|
+      c.time_required
+    end
+  end %>
+  <% # TODO: add list of strands for each task. %>
+<% end %>
+
+<% if current_user.teacher? %>
+  <%= link_to 'Edit', edit_unit_path(@unit) %> |
+<% end %>
+<%= link_to 'Back', units_path %>

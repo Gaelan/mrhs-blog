@@ -48,6 +48,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'paperclip', :git => "git://github.com/thoughtbot/paperclip.git"
 gem 'cocoon'
 gem 'simple_form'
+gem 'high_voltage', '~> 2.4.0', :git => 'git://github.com/thoughtbot/high_voltage.git'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -61,12 +62,17 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0'
 end
 
+gem 'pry-rails'
+
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 3.0'
 
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  # Spring speeds up development by keeping your application running in the background.
+  # Read more: https://github.com/rails/spring
   gem 'spring'
+
+  gem 'rails-erd'
 end
 gem 'seedbank'
 

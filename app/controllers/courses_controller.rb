@@ -7,11 +7,14 @@ class CoursesController < ApplicationController
   def index
     authorize Course
     @courses = policy_scope Course.all
+    @courses_grid = initialize_grid @courses
   end
 
   def show
     @course = Course.find(params[:id])
     authorize @course
+    @sections_grid = initialize_grid @course.sections
+    @units_grid = initialize_grid @course.units
   end
 
   # GET /courses/new
@@ -63,6 +66,7 @@ class CoursesController < ApplicationController
 
     def course_params
       params.require(:course).permit(:title, :short_title,
-        sections_attributes: [:id, :session, :period, :year, :name, :_destory])
+        sections_attributes: [:id, :session, :period, :year, :name, :_destory],
+        unit_ids: [])
     end
 end

@@ -4,6 +4,9 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
+# TODO: review .gitignore (esp. doc directory)
+/doc
+
 # Rails debugger
 .byebug_history
 

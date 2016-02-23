@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160216232656) do
+ActiveRecord::Schema.define(version: 20160222025658) do
 
   create_table "assessment_tasks", force: :cascade do |t|
     t.integer  "assessment_id"
@@ -34,6 +34,27 @@ ActiveRecord::Schema.define(version: 20160216232656) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.index ["section_id"], name: "index_assessments_on_section_id"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.string   "commentable_type"
+    t.integer  "commentable_id"
+    t.integer  "user_id"
+    t.text     "body"
+    t.boolean  "private"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "course_units", force: :cascade do |t|
+    t.integer  "course_id"
+    t.integer  "unit_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_course_units_on_course_id"
+    t.index ["unit_id"], name: "index_course_units_on_unit_id"
   end
 
   create_table "courses", force: :cascade do |t|
@@ -66,14 +87,24 @@ ActiveRecord::Schema.define(version: 20160216232656) do
     t.index ["post_id"], name: "index_images_on_post_id"
   end
 
+  create_table "objectives", force: :cascade do |t|
+    t.string   "group"
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "posts", force: :cascade do |t|
     t.integer  "user_id"
     t.boolean  "published"
     t.integer  "level"
     t.string   "title"
     t.string   "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "assessment_id"
+    t.index ["assessment_id"], name: "index_posts_on_assessment_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -94,6 +125,25 @@ ActiveRecord::Schema.define(version: 20160216232656) do
     t.index ["course_id"], name: "index_sections_on_course_id"
   end
 
+  create_table "strands", force: :cascade do |t|
+    t.integer  "number"
+    t.text     "description"
+    t.integer  "objective_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "label"
+    t.index ["objective_id"], name: "index_strands_on_objective_id"
+  end
+
+  create_table "task_strands", force: :cascade do |t|
+    t.integer  "task_id"
+    t.integer  "strand_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["strand_id"], name: "index_task_strands_on_strand_id"
+    t.index ["task_id"], name: "index_task_strands_on_task_id"
+  end
+
   create_table "tasks", force: :cascade do |t|
     t.string   "title"
     t.text     "body"
@@ -101,6 +151,23 @@ ActiveRecord::Schema.define(version: 20160216232656) do
     t.integer  "time_required"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+  end
+
+  create_table "unit_tasks", force: :cascade do |t|
+    t.integer  "unit_id"
+    t.integer  "task_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["task_id"], name: "index_unit_tasks_on_task_id"
+    t.index ["unit_id"], name: "index_unit_tasks_on_unit_id"
+  end
+
+  create_table "units", force: :cascade do |t|
+    t.string   "title"
+    t.text     "soi"
+    t.integer  "duration"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
