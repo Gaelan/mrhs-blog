@@ -33,7 +33,7 @@
       ["Never", {class: 'danger'}]
     end
   end
-  grid.column name: "Publised Posts" do  |user|
+  grid.column name: "Published Posts" do  |user|
     if user.posts.published.count == 0
       [user.posts.published.count, {class: 'danger'}]
     else
