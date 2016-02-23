@@ -4,13 +4,13 @@
   <div class="form-inputs">
     <%= f.association :section %>
     <%= f.association :tasks %>
+    <%= f.input :title, placeholder: 'Defaults to Task title' %>
     <%= f.input :assigned_date %>
     <%= f.input :due_date %>
     <%= f.input :value %>
 
     <%#= f.input :weight %>
     <%#= f.input :autoscore %>
-    <%= f.input :title %>
     <%#= f.input :category %>
   </div>
 
