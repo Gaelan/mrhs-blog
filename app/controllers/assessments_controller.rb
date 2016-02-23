@@ -71,6 +71,10 @@ class AssessmentsController < ApplicationController
   # DELETE /assessments/1
   # DELETE /assessments/1.json
   def destroy
+    # Find and destroy AssessmentTask instances first.
+    AssessmentTask.where(assessment_id: @assessment.id).each do |at|
+      at.destroy
+    end
     @assessment.destroy
     respond_to do |format|
       format.html {
