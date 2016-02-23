@@ -2,10 +2,8 @@
 <footer class='footer'>
   <% if user_signed_in? %>
     <div class='container'>
-      <% if Rails.env.test? %>
+      <% if policy(User).become? %>
         <%= render 'layouts/su' %>
-      <% elsif current_user.teacher? %>
-       <%= render 'layouts/su' %>
       <% end %>
     </div>
   <% end %>

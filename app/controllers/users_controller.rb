@@ -28,15 +28,10 @@ class UsersController < ApplicationController
     redirect_to session.delete(:return_to) || root_path
   end
 
-  #binding.pry
-
-  # if Rails.env.development? || current_user.teacher? || current_user.admin?
-    # XXX security checks commented out!!!
-    def become
-      skip_authorization
-      sign_in_and_redirect User.find(params[:user][:id])
-    end
-  # end
+  def become
+    authorize User
+    sign_in_and_redirect User.find(params[:user][:id])
+  end
 
   private
 
