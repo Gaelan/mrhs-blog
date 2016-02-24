@@ -34,7 +34,7 @@ class AssessmentsController < ApplicationController
     @assessment = Assessment.new(assessment_params)
 
     # TODO: figure out why we're getting a null 0th element in task_ids
-    unless @assessment.title
+    if @assessment.title == ''
       # TODO: think about what to do if the Task title changes.
       @assessment.title = Task.find(params[:assessment][:task_ids][1]).title
     end
