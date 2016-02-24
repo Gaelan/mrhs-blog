@@ -58,22 +58,25 @@ class ObjectivesController < ApplicationController
   def destroy
     @objective.destroy
     respond_to do |format|
-      format.html { redirect_to objectives_url,
-        notice: 'Objective was successfully destroyed.' }
+      format.html do
+        redirect_to objectives_url,
+                    notice: 'Objective was successfully destroyed.'
+      end
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_objective
-      @objective = Objective.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def objective_params
-      params.require(:objective).permit(:group, :name, :description,
-                      strands_attributes: [:number, :label, :description,
-                                           :id, :_destroy])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_objective
+    @objective = Objective.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def objective_params
+    params.require(:objective).permit(:group, :name, :description,
+                                      strands_attributes: [:number, :label, :description,
+                                                           :id, :_destroy])
+  end
 end

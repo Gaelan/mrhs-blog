@@ -2,7 +2,7 @@
 
 <%= grid(@users_grid) do |grid|
   grid.column name: "Name" do  |user|
-    link_to user.name, [user, :posts]
+    link_to user.name, home_student_show_path + '/' + user.id.to_s
   end
   grid.column name: "Section" do |user|
     text = if user.sections.any?
@@ -14,20 +14,21 @@
   end
   grid.column name: "Last Active" do  |user|
     if user.last_active_time
-      idle_time = ((Time.current - user.last_active_time) / 1.minute).round
-      status = case
-        when idle_time < 1
-          'success'
-
-        when idle_time < 5
-          'success'
-
-        when idle_time < 15
-          'warning'
-
-        else
-          'danger'
-      end
+      # idle_time = ((Time.current - user.last_active_time) / 1.minute).round
+      # status = case
+      #   when idle_time < 1
+      #     'success'
+      #
+      #   when idle_time < 5
+      #     'success'
+      #
+      #   when idle_time < 15
+      #     'warning'
+      #
+      #   else
+      #     'danger'
+      # end
+      status = user.active_today?
       [time_ago_in_words(user.last_active_time) + ' ago', {class: status}]
     else
       ["Never", {class: 'danger'}]

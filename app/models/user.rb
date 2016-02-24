@@ -13,14 +13,18 @@ class User < ActiveRecord::Base
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create! do |user|
       user.email = auth.info.email
-      user.name = auth.info.name   # assuming the user model has a name
+      user.name = auth.info.name # assuming the user model has a name
     end
   end
 
-  # Tests on user activity.
+  # Predicates for user activity.
   def active_today?
-    'success'
-    # 'danger' 'warning'
+    if @user && @user.last_active_time.today?
+      'success'
+    else
+      'danger'
+    end
+    # 'warning'
   end
 
   # Black magic to automagically create a <ROLENAME>? function for each role.

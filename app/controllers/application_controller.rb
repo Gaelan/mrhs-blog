@@ -8,20 +8,20 @@ class ApplicationController < ActionController::Base
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
-  def new_session_path(scope)
+  def new_session_path(_scope)
     new_user_session_path
   end
 
   private
 
   def user_not_authorized
-    flash[:alert] = "You are not authorized to perform this action."
+    flash[:alert] = 'You are not authorized to perform this action.'
     redirect_to(
-        if request.referrer
-          request.referrer != request.url ? request.referer : root_path
-        else
-          root_path
-        end
+      if request.referrer
+        request.referrer != request.url ? request.referer : root_path
+      else
+        root_path
+      end
     )
   end
 

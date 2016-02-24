@@ -1,40 +1,41 @@
-<style>
-  #main {
-    float: left;
-    width: 70%;
-  }
-  #student-status {
-    float: right;
-    margin-left: 1em;
-  }
-  li.student-status {
-    list-style: square;
-  }
-  span.student-status {
-    color: black;
-  }
-  .red { color: red; }
-  .green { color: green; }
-  .orange { color: orange; }
-  .blue { color: blue; }
-</style>
-<div id='main'>
-  <h1><%= @user.name %></h1>
-  <%#= p params.inspect %><br>
-  <h2>Posts</h2>
-    <%= render 'posts/post_index' %>
-</div>
-<div id='student-status'>
-  <h2><%= Course.find(@user.sections[0].course_id).title %></h2>
-  <%#= @assessments.inspect %>
-  <ul>
-    <% @assessments.each do |a| %>
-      <li class='student-status <%= annunciator(a) %>'><span class='student-status'>
-        <%# TODO: consider using the Font Awesome 4.5.1 fa-square  as the marker %>
-        <%= link_to a.title, task_path(a.tasks[0]) %><br>
-        <%# binding.pry %>
-        Due: <%= a.due_date.to_date.to_s(:long) %>
-      <span></li>
-    <% end %>
-  </ul>
-</div>
+<% if current_user %>
+  <style>
+    #main {
+      float: left;
+      width: 70%;
+    }
+    #student-status {
+      float: right;
+      margin-left: 1em;
+    }
+    li.student-status {
+      list-style: square;
+    }
+    span.student-status {
+      color: black;
+    }
+    .red { color: red; }
+    .green { color: green; }
+    .orange { color: orange; }
+    .blue { color: blue; }
+  </style>
+  <div id='main'>
+    <h1><%= @user.name %></h1>
+    <%#= p params.inspect %><br>
+    <h2>Posts</h2>
+      <%= render 'posts/post_index' %>
+  </div>
+  <div id='student-status'>
+    <h2><%= Course.find(@user.sections[0].course_id).title %></h2>
+    <%#= @assessments.inspect %>
+    <ul>
+      <% @assessments.each do |a| %>
+        <li class='student-status <%= annunciator(a) %>'><span class='student-status'>
+          <%= link_to a.title, task_path(a.tasks[0]) %><br>
+          <%# binding.pry %>
+          Due: <%= a.due_date.to_date.to_s(:long) %>
+        <span></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

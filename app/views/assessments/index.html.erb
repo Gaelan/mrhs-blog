@@ -9,16 +9,20 @@
     c.section.name
   end
 
+  g.column name: '#' do |c|
+    Post.where(assessment_id: c.id).count
+  end
+
   g.column name: 'Task' do |c|
     c.tasks[0].title
   end
 
   g.column name: 'Assigned' do |c|
-    c.assigned_date
+    c.assigned_date.to_date
   end
 
   g.column name: 'Due' do |c|
-    c.due_date
+    c.due_date.to_date
   end
 
   g.column name: '' do |c|

@@ -41,13 +41,17 @@ class AssessmentsController < ApplicationController
 
     respond_to do |format|
       if @assessment.save
-        format.html { redirect_to @assessment,
-                                  notice: 'Assessment was successfully created.' }
+        format.html do
+          redirect_to @assessment,
+                      notice: 'Assessment was successfully created.'
+        end
         format.json { render :show, status: :created, location: @assessment }
       else
         format.html { render :new }
-        format.json { render json: @assessment.errors,
-                             status: :unprocessable_entity }
+        format.json do
+          render json: @assessment.errors,
+                 status: :unprocessable_entity
+        end
       end
     end
   end
@@ -57,13 +61,17 @@ class AssessmentsController < ApplicationController
   def update
     respond_to do |format|
       if @assessment.update(assessment_params)
-        format.html { redirect_to @assessment,
-                      notice: 'Assessment was successfully updated.' }
+        format.html do
+          redirect_to @assessment,
+                      notice: 'Assessment was successfully updated.'
+        end
         format.json { render :show, status: :ok, location: @assessment }
       else
         format.html { render :edit }
-        format.json { render json: @assessment.errors,
-                             status: :unprocessable_entity }
+        format.json do
+          render json: @assessment.errors,
+                 status: :unprocessable_entity
+        end
       end
     end
   end
@@ -71,12 +79,14 @@ class AssessmentsController < ApplicationController
   # DELETE /assessments/1
   # DELETE /assessments/1.json
   def destroy
+    # Find and destroy AssessmentTask instances first.
+    AssessmentTask.where(assessment_id: @assessment.id).each(&:destroy)
     @assessment.destroy
     respond_to do |format|
-      format.html {
+      format.html do
         redirect_to assessments_url,
                     notice: 'Assessment was successfully destroyed.'
-      }
+      end
       format.json { head :no_content }
     end
   end
@@ -91,9 +101,9 @@ class AssessmentsController < ApplicationController
   # Never trust parameters from the scary internet,
   # only allow the white list through.
   def assessment_params
-    params.require(:assessment).
-      permit( :assigned_date, :due_date, :value, :weight, :autoscore,
-              :title, :category, :section_id, task_ids: []
-      )
+    params.require(:assessment)
+          .permit(:assigned_date, :due_date, :value, :weight, :autoscore,
+                  :title, :category, :section_id, task_ids: []
+                 )
   end
 end
