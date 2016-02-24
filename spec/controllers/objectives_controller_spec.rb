@@ -18,142 +18,140 @@ require 'rails_helper'
 # Message expectations are only used when there is no simpler way to specify
 # that an instance is receiving a specific message.
 
-RSpec.describe ObjectivesController, :type => :controller do
-
+RSpec.describe ObjectivesController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # Objective. As you add validations to Objective, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
+  let(:valid_attributes) do
+    skip('Add a hash of attributes valid for your model')
+  end
 
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
+  let(:invalid_attributes) do
+    skip('Add a hash of attributes invalid for your model')
+  end
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # ObjectivesController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
-  describe "GET index" do
-    it "assigns all objectives as @objectives" do
+  describe 'GET index' do
+    it 'assigns all objectives as @objectives' do
       objective = Objective.create! valid_attributes
       get :index, {}, valid_session
       expect(assigns(:objectives)).to eq([objective])
     end
   end
 
-  describe "GET show" do
-    it "assigns the requested objective as @objective" do
+  describe 'GET show' do
+    it 'assigns the requested objective as @objective' do
       objective = Objective.create! valid_attributes
-      get :show, {:id => objective.to_param}, valid_session
+      get :show, { id: objective.to_param }, valid_session
       expect(assigns(:objective)).to eq(objective)
     end
   end
 
-  describe "GET new" do
-    it "assigns a new objective as @objective" do
+  describe 'GET new' do
+    it 'assigns a new objective as @objective' do
       get :new, {}, valid_session
       expect(assigns(:objective)).to be_a_new(Objective)
     end
   end
 
-  describe "GET edit" do
-    it "assigns the requested objective as @objective" do
+  describe 'GET edit' do
+    it 'assigns the requested objective as @objective' do
       objective = Objective.create! valid_attributes
-      get :edit, {:id => objective.to_param}, valid_session
+      get :edit, { id: objective.to_param }, valid_session
       expect(assigns(:objective)).to eq(objective)
     end
   end
 
-  describe "POST create" do
-    describe "with valid params" do
-      it "creates a new Objective" do
-        expect {
-          post :create, {:objective => valid_attributes}, valid_session
-        }.to change(Objective, :count).by(1)
+  describe 'POST create' do
+    describe 'with valid params' do
+      it 'creates a new Objective' do
+        expect do
+          post :create, { objective: valid_attributes }, valid_session
+        end.to change(Objective, :count).by(1)
       end
 
-      it "assigns a newly created objective as @objective" do
-        post :create, {:objective => valid_attributes}, valid_session
+      it 'assigns a newly created objective as @objective' do
+        post :create, { objective: valid_attributes }, valid_session
         expect(assigns(:objective)).to be_a(Objective)
         expect(assigns(:objective)).to be_persisted
       end
 
-      it "redirects to the created objective" do
-        post :create, {:objective => valid_attributes}, valid_session
+      it 'redirects to the created objective' do
+        post :create, { objective: valid_attributes }, valid_session
         expect(response).to redirect_to(Objective.last)
       end
     end
 
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved objective as @objective" do
-        post :create, {:objective => invalid_attributes}, valid_session
+    describe 'with invalid params' do
+      it 'assigns a newly created but unsaved objective as @objective' do
+        post :create, { objective: invalid_attributes }, valid_session
         expect(assigns(:objective)).to be_a_new(Objective)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {:objective => invalid_attributes}, valid_session
-        expect(response).to render_template("new")
+        post :create, { objective: invalid_attributes }, valid_session
+        expect(response).to render_template('new')
       end
     end
   end
 
-  describe "PUT update" do
-    describe "with valid params" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
-
-      it "updates the requested objective" do
-        objective = Objective.create! valid_attributes
-        put :update, {:id => objective.to_param, :objective => new_attributes}, valid_session
-        objective.reload
-        skip("Add assertions for updated state")
+  describe 'PUT update' do
+    describe 'with valid params' do
+      let(:new_attributes) do
+        skip('Add a hash of attributes valid for your model')
       end
 
-      it "assigns the requested objective as @objective" do
+      it 'updates the requested objective' do
         objective = Objective.create! valid_attributes
-        put :update, {:id => objective.to_param, :objective => valid_attributes}, valid_session
+        put :update, { id: objective.to_param, objective: new_attributes }, valid_session
+        objective.reload
+        skip('Add assertions for updated state')
+      end
+
+      it 'assigns the requested objective as @objective' do
+        objective = Objective.create! valid_attributes
+        put :update, { id: objective.to_param, objective: valid_attributes }, valid_session
         expect(assigns(:objective)).to eq(objective)
       end
 
-      it "redirects to the objective" do
+      it 'redirects to the objective' do
         objective = Objective.create! valid_attributes
-        put :update, {:id => objective.to_param, :objective => valid_attributes}, valid_session
+        put :update, { id: objective.to_param, objective: valid_attributes }, valid_session
         expect(response).to redirect_to(objective)
       end
     end
 
-    describe "with invalid params" do
-      it "assigns the objective as @objective" do
+    describe 'with invalid params' do
+      it 'assigns the objective as @objective' do
         objective = Objective.create! valid_attributes
-        put :update, {:id => objective.to_param, :objective => invalid_attributes}, valid_session
+        put :update, { id: objective.to_param, objective: invalid_attributes }, valid_session
         expect(assigns(:objective)).to eq(objective)
       end
 
       it "re-renders the 'edit' template" do
         objective = Objective.create! valid_attributes
-        put :update, {:id => objective.to_param, :objective => invalid_attributes}, valid_session
-        expect(response).to render_template("edit")
+        put :update, { id: objective.to_param, objective: invalid_attributes }, valid_session
+        expect(response).to render_template('edit')
       end
     end
   end
 
-  describe "DELETE destroy" do
-    it "destroys the requested objective" do
+  describe 'DELETE destroy' do
+    it 'destroys the requested objective' do
       objective = Objective.create! valid_attributes
-      expect {
-        delete :destroy, {:id => objective.to_param}, valid_session
-      }.to change(Objective, :count).by(-1)
+      expect do
+        delete :destroy, { id: objective.to_param }, valid_session
+      end.to change(Objective, :count).by(-1)
     end
 
-    it "redirects to the objectives list" do
+    it 'redirects to the objectives list' do
       objective = Objective.create! valid_attributes
-      delete :destroy, {:id => objective.to_param}, valid_session
+      delete :destroy, { id: objective.to_param }, valid_session
       expect(response).to redirect_to(objectives_url)
     end
   end
-
 end

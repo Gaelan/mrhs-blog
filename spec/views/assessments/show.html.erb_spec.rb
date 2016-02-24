@@ -1,18 +1,18 @@
 require 'rails_helper'
 
-RSpec.describe "assessments/show", :type => :view do
+RSpec.describe 'assessments/show', type: :view do
   before(:each) do
     @assessment = assign(:assessment, Assessment.create!(
-      :value => 1,
-      :weight => 2,
-      :autoscore => 3,
-      :title => "Title",
-      :category => 4,
-      :section => nil
+                                        value: 1,
+                                        weight: 2,
+                                        autoscore: 3,
+                                        title: 'Title',
+                                        category: 4,
+                                        section: nil
     ))
   end
 
-  it "renders attributes in <p>" do
+  it 'renders attributes in <p>' do
     render
     expect(rendered).to match(/1/)
     expect(rendered).to match(/2/)

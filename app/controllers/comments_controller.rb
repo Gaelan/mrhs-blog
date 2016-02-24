@@ -6,7 +6,7 @@ class CommentsController < ApplicationController
     load_attributes_from_request comment
     authorize comment
     comment.save!
-    flash[:success] = "Your comment was saved!"
+    flash[:success] = 'Your comment was saved!'
     redirect_back fallback_location: '/'
   end
 

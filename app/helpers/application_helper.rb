@@ -17,11 +17,11 @@ module ApplicationHelper
       options = {
         filter_html: true,
         hard_wrap:   true,
-        disable_indented_code_blocks: true,
+        disable_indented_code_blocks: true
       }
 
       extensions = {
-        autolink: true,
+        autolink: true
       }
 
       renderer = Redcarpet::Render::HTML.new(options)
@@ -36,10 +36,10 @@ module ApplicationHelper
     Time::DATE_FORMATS[:hhmm] = '%H:%M'
 
     latest = item.updated_at.to_s(:ddmmyyyy_hhmm)
-    original = if (item.updated_at < item.created_at.end_of_day)
-      item.created_at.to_s(:hhmm)
-    else
-      item.created_at.to_s(:ddmmyyyy_hhmm)
+    original = if item.updated_at < item.created_at.end_of_day
+                 item.created_at.to_s(:hhmm)
+               else
+                 item.created_at.to_s(:ddmmyyyy_hhmm)
     end
 
     if item.updated_at == item.created_at

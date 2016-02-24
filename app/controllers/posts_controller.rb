@@ -59,10 +59,10 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
-        format.html {
+        format.html do
           redirect_to [@user, @post],
                       notice: 'Post was successfully created.'
-        }
+        end
         format.json { render :show, status: :created, location: @post }
       else
         format.html { render :new }
@@ -77,8 +77,10 @@ class PostsController < ApplicationController
     authorize @post
     respond_to do |format|
       if @post.update(post_params)
-        format.html { redirect_to [@user, @post],
-          notice: 'Post was successfully updated.' }
+        format.html do
+          redirect_to [@user, @post],
+                      notice: 'Post was successfully updated.'
+        end
         format.json { render :show, status: :ok, location: @post }
       else
         format.html { render :edit }
@@ -93,26 +95,29 @@ class PostsController < ApplicationController
     authorize @post
     @post.destroy
     respond_to do |format|
-      format.html { redirect_to [@user, :posts],
-        notice: 'Post was successfully destroyed.' }
+      format.html do
+        redirect_to [@user, :posts],
+                    notice: 'Post was successfully destroyed.'
+      end
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = params[:user_id] ? User.find(params[:user_id]) : current_user
-    end
 
-    def set_post
-      @post = Post.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = params[:user_id] ? User.find(params[:user_id]) : current_user
+  end
 
-    # Never trust parameters from the scary Internet,
-    # only allow the white list through.
-    def post_params
-      params.require(:post).permit(:published, :title, :body, :assessment_id,
-        images_attributes: [:id, :file, :caption, :maker, :src, :_destroy])
-    end
+  def set_post
+    @post = Post.find(params[:id])
+  end
+
+  # Never trust parameters from the scary Internet,
+  # only allow the white list through.
+  def post_params
+    params.require(:post).permit(:published, :title, :body, :assessment_id,
+                                 images_attributes: [:id, :file, :caption, :maker, :src, :_destroy])
+  end
 end
