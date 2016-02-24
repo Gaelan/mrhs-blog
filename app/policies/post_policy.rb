@@ -1,7 +1,7 @@
 # Post policy
 #
 class PostPolicy < ApplicationPolicy
-  alias_method :post, :record
+  alias post record
 
   class Scope < Scope
     def resolve
@@ -30,7 +30,7 @@ class PostPolicy < ApplicationPolicy
   end
 
   def user_index?
-    #allowed?
+    # allowed?
     true
   end
 

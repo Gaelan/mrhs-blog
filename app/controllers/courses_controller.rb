@@ -64,9 +64,9 @@ class CoursesController < ApplicationController
 
   private
 
-    def course_params
-      params.require(:course).permit(:title, :short_title,
-        sections_attributes: [:id, :session, :period, :year, :name, :_destory],
-        unit_ids: [])
-    end
+  def course_params
+    params.require(:course).permit(:title, :short_title,
+                                   sections_attributes: [:id, :session, :period, :year, :name, :_destory],
+                                   unit_ids: [])
+  end
 end
