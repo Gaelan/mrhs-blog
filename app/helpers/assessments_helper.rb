@@ -32,7 +32,12 @@ module AssessmentsHelper
   # name.
   #
   def illuminate_assessment_description(assessment)
-    markdown assessment.tasks[0].body
+    # TODO: fix ordering - 1) markdown, 2) de-HTML, 3) truncate
+    # binding.pry
+    body = markdown (truncate assessment.tasks[0].body,
+                       length: 400, omission: '',
+                       separator: "\r\n\r\n")
+    "#{assessment.tasks[0].title}: #{body}"
   end
 
   # Shorten string:
@@ -41,9 +46,10 @@ module AssessmentsHelper
   # - Acronymize (elminate lower case letters)
   #
   def mogrify(str, nchars)
-    if str.gsub!(/ */, '').length >= nchars
-      str.gsub!(/[a-z]*/, '')
+    newstr = str.gsub(/ */, '')
+    if newstr.length >= nchars
+      newstr.gsub!(/[a-z]*/, '')
     end
-    str
+    newstr
   end
 end
