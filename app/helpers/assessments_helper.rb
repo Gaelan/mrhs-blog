@@ -22,7 +22,7 @@ module AssessmentsHelper
       short = mogrify(assessment.tasks[0].title, limit - illuminate_name.length)
 
       illuminate_name + short
-    end.join '\n'
+    end.join "\n"
   end
 
   # Returns an assessment description suitable for pasting into Illuminate.
