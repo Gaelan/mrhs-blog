@@ -1,5 +1,5 @@
 class CoursePolicy < ApplicationPolicy
-  alias_method :course, :record
+  alias course record
 
   class Scope < Scope
     def resolve
