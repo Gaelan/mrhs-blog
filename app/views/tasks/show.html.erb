@@ -1,38 +1,8 @@
-<p id="notice"><%= notice %></p>
-
-<div class="task-title">
-  <p>
-    <strong>Title:</strong>
-    <%= @task.title %>
-  </p>
+<div class='task-container'>
+  <%= render 'display_task' %>
 </div>
 
-<div class="task-body">
-  <p>
-    <strong>Description:</strong>
-    <%= markdown(@task.body) %>
-  </p>
-</div>
-
-<div class="task-category">
-  <% if @task.category %>
-    <p>
-      <strong>Category:</strong>
-      <%= @task.category %>
-    </p>
-  <% end %>
-</div>
-
-<div class="task-time">
-  <% if @task.time_required %>
-    <p>
-      <strong>Time estimate:</strong>
-      <%= @task.time_required %>
-    </p>
-  <% end %>
-</div>
-
-<div class='task-show-edit-links'>
+<div class='clear task-show-edit-links'>
   <% if policy(@task).edit? %>
     <%= link_to 'Edit', edit_task_path(@task) %> |
   <% end %>
