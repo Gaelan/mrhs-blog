@@ -1,18 +1,25 @@
 #
 module AssessmentsHelper
-  # Generate the MRHS standard assessment name for each standard/objective
+  # Returns a MRHS standard assessment name for each standard/objective
   # assessed. The form is:
   #
   #   OBJ.Unit.Assessment#.ShortName -> B1.1.1.UP
   #
-  # The short name is the first letter of each word in the Task name.
+  # The overall name is limited to 24 characters.
+  #
   def illuminate_assessment_name(assessment)
     assessment.strands.map do |strand|
+      limit = 24  # Max characters in assignment name.
       sn = strand.objective.group + strand.number.to_s
-      unit = ''
+      unit = 1    # TODO: use real unit numbers.
       f = assessment.formative? ? 'F' : ''
-      num = Assessment.where(section_id: assessment.section_id).count
-      short = assessment.tasks[0].title.gsub(/[ a-z]*/, '')
+      num = Assessment.where(
+        'section_id = ? AND due_date < ?',
+        assessment.section_id, assessment.due_date
+      ).count + 1
+      illuminate_name = "#{sn}.#{unit}.#{f}#{num}."
+
+      short = mogrify(assessment.tasks[0].title, limit - illuminate_name.length)
 
       illuminate_name + short
     end.join('<br>').html_safe
@@ -48,6 +55,5 @@ module AssessmentsHelper
       newstr.gsub!(/[a-z]*/, '')
     end
     newstr
->>>>>>> Stashed changes
   end
 end
