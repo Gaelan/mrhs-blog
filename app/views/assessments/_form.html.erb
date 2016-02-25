@@ -8,10 +8,12 @@
     <%= f.input :assigned_date %>
     <%= f.input :due_date %>
     <%= f.input :value %>
+    <%= f.input :category,
+                collection: Assessment.categories.keys,
+                selected: :corroborated %>
 
     <%#= f.input :weight %>
     <%#= f.input :autoscore %>
-    <%#= f.input :category %>
   </div>
 
   <div class="form-actions">

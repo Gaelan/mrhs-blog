@@ -22,6 +22,8 @@ class AssessmentsController < ApplicationController
   # GET /assessments/new
   def new
     @assessment = Assessment.new
+    # TODO: make externally configurable.
+    @assessment.value = 8
   end
 
   # GET /assessments/1/edit

@@ -1,13 +1,14 @@
-<p id="notice"><%= notice %></p>
-
 <p>
-  <strong>Assigned date:</strong>
-  <%= @assessment.assigned_date %>
+  <strong>Title:</strong>
+  <%= @assessment.title %>
 </p>
 
 <p>
-  <strong>Due date:</strong>
-  <%= @assessment.due_date %>
+  <strong>Assigned:</strong>
+  <%= @assessment.assigned_date.to_date %>
+
+  <strong>Due:</strong>
+  <%= @assessment.due_date.to_date %>
 </p>
 
 <p>
@@ -15,20 +16,17 @@
   <%= @assessment.value %>
 </p>
 
-<p>
+<%# p>
   <strong>Weight:</strong>
   <%= @assessment.weight %>
-</p>
+</p %>
 
 <p>
   <strong>Autoscore:</strong>
   <%= @assessment.autoscore %>
 </p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @assessment.title %>
-</p>
+
 
 <p>
   <strong>Category:</strong>
@@ -37,12 +35,12 @@
 
 <p>
   <strong>Section:</strong>
-  <%= @assessment.section %>
+  <%= @assessment.section.name %>
 </p>
 
 <p>
   <strong>Illuminate Name:</strong>
-  <%= illuminate_assessment_name(@assessment) %>
+  <br><%= illuminate_assessment_name(@assessment) %>
 </p>
 
 <p><%= illuminate_assessment_description(@assessment) %></p>

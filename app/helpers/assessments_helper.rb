@@ -10,10 +10,10 @@ module AssessmentsHelper
   def illuminate_assessment_name(assessment)
     assessment.strands.map do |strand|
       limit = 24  # Max characters in assignment name.
-      sn = strand.objective.group + strand.number.to_s
+      sn = strand.to_s
       unit = 1    # TODO: use real unit numbers.
       f = assessment.formative? ? 'F' : ''
-      num = Assessment.where(
+      num = Strand.find(strand).assessments.where(
         'section_id = ? AND due_date < ?',
         assessment.section_id, assessment.due_date
       ).count + 1
