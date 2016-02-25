@@ -1,0 +1,30 @@
+<%# We really should filter comments at the SQL level. %>
+<% @post.comments.to_a.select do |comment|
+  policy(comment).show?
+end.each do |comment| %>
+  <div class='post-comment <%= comment.private? ? 'private' : 'public' %>'>
+    <div class='post-comment-body'>
+      <%= markdown comment.body %>
+    </div>
+    <div class='row'>
+      <div class='col-sm-6'>
+        <span class='post-comment-author'>
+          <%= comment.user.name %>,
+        </span>
+        <span class='post-comment-timestamp'>
+          <%= timestamp(comment) %>
+        </span>
+      </div>
+      <% if comment.user == current_user %>
+        <%# Also check that this is the most recent comment,
+            otherwise editing a comment could change the context of
+            other comments. %>
+        <div class='post-comment-links col-sm-6'>
+          <%= link_to 'Edit', '#' %> |
+          <%= link_to 'Delete', '#' %>
+        </div>
+      <% end %>
+    </div>
+    <hr>
+  </div>
+<% end %>

@@ -1,0 +1,9 @@
+<%= simple_form_for @post.comments.build, path: comments_path do |f| %>
+  <%= f.input :commentable_id, as: :hidden %>
+  <%= f.input :commentable_type, as: :hidden %>
+  <%= f.input :body, label: false %>
+  <% if policy(f.object).create_private? %>
+    <%= f.input :private, :input_html => {:checked => 'checked'} %>
+  <% end %>
+  <%= f.button :submit, 'Add comment' %>
+<% end %>

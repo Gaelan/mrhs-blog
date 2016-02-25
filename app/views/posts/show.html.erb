@@ -42,46 +42,9 @@
 
   <div class='post-comments'>
     <h2 class='post-comments'>Comments</h2>
-    <%# We really should filter comments at the SQL level. %>
-    <% @post.comments.to_a.select do |comment|
-      policy(comment).show?
-    end.each do |comment| %>
-      <div class='post-comment <%= comment.private? ? 'private' : 'public' %>'>
-        <div class='post-comment-body'>
-          <%= markdown comment.body %>
-        </div>
-        <div class='row'>
-          <div class='col-sm-6'>
-            <span class='post-comment-author'>
-              <%= comment.user.name %>,
-            </span>
-            <span class='post-comment-timestamp'>
-              <%= timestamp(comment) %>
-            </span>
-          </div>
-          <% if comment.user == current_user %>
-            <%# Also check that this is the most recent comment,
-                otherwise editing a comment could change the context of
-                other comments. %>
-            <div class='post-comment-links col-sm-6'>
-              <%= link_to 'Edit', '#' %> |
-              <%= link_to 'Delete', '#' %>
-            </div>
-          <% end %>
-        </div>
-        <hr>
-      </div>
-    <% end %>
+    <%= render 'comments' %>
   </div>
   <div class='post-new-comment'>
-    <%= simple_form_for @post.comments.build, path: comments_path do |f| %>
-      <%= f.input :commentable_id, as: :hidden %>
-      <%= f.input :commentable_type, as: :hidden %>
-      <%= f.input :body, label: false %>
-      <% if policy(f.object).create_private? %>
-        <%= f.input :private, :input_html => {:checked => 'checked'} %>
-      <% end %>
-      <%= f.button :submit, 'Add comment' %>
-    <% end %>
+    <%= render 'new_comment' %>
   </div>
 </div>
