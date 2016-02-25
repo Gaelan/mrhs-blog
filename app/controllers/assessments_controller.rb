@@ -1,11 +1,16 @@
 #
 class AssessmentsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :set_user
   before_action :set_assessment,
                 only: [:show, :edit, :update, :destroy]
+
+  after_action :verify_authorized
 
   # GET /assessments
   # GET /assessments.json
   def index
+    authorize Assessment
     @assessments = Assessment.all.order(section_id: :asc, due_date: :asc)
     @assessments_grid = initialize_grid @assessments
   end
@@ -17,6 +22,7 @@ class AssessmentsController < ApplicationController
     # TODO: generate pundit policy for Unit (and check for others)
     # authorize @unit
     # @tasks_grid = initialize_grid @unit.tasks
+    authorize @assessment
   end
 
   # GET /assessments/new
@@ -24,16 +30,19 @@ class AssessmentsController < ApplicationController
     @assessment = Assessment.new
     # TODO: make externally configurable.
     @assessment.value = 8
+    authorize @assessment
   end
 
   # GET /assessments/1/edit
   def edit
+    authorize @assessment
   end
 
   # POST /assessments
   # POST /assessments.json
   def create
     @assessment = Assessment.new(assessment_params)
+    authorize @assessment
 
     # TODO: figure out why we're getting a null 0th element in task_ids
     if @assessment.title == ''
@@ -61,6 +70,7 @@ class AssessmentsController < ApplicationController
   # PATCH/PUT /assessments/1
   # PATCH/PUT /assessments/1.json
   def update
+    authorize @assessment
     respond_to do |format|
       if @assessment.update(assessment_params)
         format.html do
@@ -81,6 +91,8 @@ class AssessmentsController < ApplicationController
   # DELETE /assessments/1
   # DELETE /assessments/1.json
   def destroy
+    authorize @assessment
+    # TODO: also authorize assessment_task?
     # Find and destroy AssessmentTask instances first.
     AssessmentTask.where(assessment_id: @assessment.id).each(&:destroy)
     @assessment.destroy
@@ -96,6 +108,10 @@ class AssessmentsController < ApplicationController
   private
 
   # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = params[:user_id] ? User.find(params[:user_id]) : current_user
+  end
+
   def set_assessment
     @assessment = Assessment.find(params[:id])
   end
