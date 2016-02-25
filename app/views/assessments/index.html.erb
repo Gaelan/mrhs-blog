@@ -1,6 +1,7 @@
 <h1>Assessments</h1>
 
-<%= link_to 'New Assessment', new_assessment_path %>
+<%= link_to 'New Assessment', new_assessment_path %> |
+<%= link_to 'Back', :back %>
 
 <br><br>
 
@@ -15,7 +16,7 @@
   end
 
   g.column name: 'Task' do |c|
-    c.tasks[0].title
+    link_to c.tasks[0].title, task_path(c.tasks[0])
   end
 
   g.column name: 'Strands/GB Names' do |c|
@@ -42,4 +43,5 @@
   end
 end -%>
 
-<%= link_to 'New Assessment', new_assessment_path %>
+<%= link_to 'New Assessment', new_assessment_path %> |
+<%= link_to 'Back', :back %>
