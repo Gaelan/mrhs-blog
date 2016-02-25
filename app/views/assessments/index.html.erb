@@ -10,14 +10,15 @@
   end
 
   g.column name: '#' do |c|
-    Post.where(assessment_id: c.id).count
+    Post.where(assessment_id: c.id).count.to_s + '/' +
+    Enrollment.where(section_id: c.section).count.to_s
   end
 
   g.column name: 'Task' do |c|
     c.tasks[0].title
   end
 
-  g.column name: 'Illuminate Name' do |c|
+  g.column name: 'Strands/GB Names' do |c|
     illuminate_assessment_name(c)
   end
 
