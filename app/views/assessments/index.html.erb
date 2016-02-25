@@ -17,6 +17,10 @@
     c.tasks[0].title
   end
 
+  g.column name: 'Illuminate Name' do |c|
+    illuminate_assessment_name(c)
+  end
+
   g.column name: 'Assigned' do |c|
     c.assigned_date.to_date
   end
