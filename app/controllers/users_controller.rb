@@ -15,7 +15,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-    session[:return_to] ||= request.referer
+    store_location
     @user = User.find params[:id]
     authorize @user
   end
@@ -25,7 +25,7 @@ class UsersController < ApplicationController
     authorize @user
     @user.update user_params
 
-    redirect_to session.delete(:return_to) || root_path
+    redirect_back_or_default
   end
 
   def become

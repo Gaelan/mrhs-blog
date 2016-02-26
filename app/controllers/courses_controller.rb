@@ -25,6 +25,7 @@ class CoursesController < ApplicationController
 
   #
   def edit
+    store_location
     @course = Course.find(params[:id])
     authorize @course
   end
@@ -36,7 +37,7 @@ class CoursesController < ApplicationController
     authorize @course
 
     if @course.save
-      redirect_to @course
+      redirect_back_or_default
     else
       render 'new'
     end
@@ -48,7 +49,7 @@ class CoursesController < ApplicationController
     authorize @course
 
     if @course.update(course_params)
-      redirect_to @course
+      redirect_back_or_default
     else
       render 'edit'
     end

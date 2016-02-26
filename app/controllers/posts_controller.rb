@@ -48,6 +48,7 @@ class PostsController < ApplicationController
 
   # GET /users/1/posts/1/edit
   def edit
+    store_location
     authorize @post
   end
 
@@ -60,6 +61,7 @@ class PostsController < ApplicationController
     respond_to do |format|
       if @post.save
         format.html do
+          # TODO: use redirect_back_or_default (or modify it to work).
           redirect_to [@user, @post],
                       notice: 'Post was successfully created.'
         end
@@ -78,6 +80,7 @@ class PostsController < ApplicationController
     respond_to do |format|
       if @post.update(post_params)
         format.html do
+          # TODO: use redirect_back_or_default (or modify it to work).
           redirect_to [@user, @post],
                       notice: 'Post was successfully updated.'
         end
