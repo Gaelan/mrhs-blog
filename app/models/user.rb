@@ -6,9 +6,11 @@ class User < ActiveRecord::Base
          omniauth_providers: [:google_oauth2]
 
   has_many :posts
+  has_many :roles
+
   has_many :enrollments, foreign_key: 'student_id'
   has_many :sections, through: :enrollments
-  has_many :roles
+  has_many :assessments, through: :sections
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create! do |user|
