@@ -1,3 +1,4 @@
+#
 class CoursePolicy < ApplicationPolicy
   alias course record
 

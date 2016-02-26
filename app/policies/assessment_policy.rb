@@ -1,3 +1,4 @@
+#
 class AssessmentPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve

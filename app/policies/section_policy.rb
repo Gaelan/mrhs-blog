@@ -1,3 +1,4 @@
+#
 class SectionPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve

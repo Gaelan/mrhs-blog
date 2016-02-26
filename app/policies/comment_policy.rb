@@ -1,3 +1,4 @@
+#
 class CommentPolicy < ApplicationPolicy
   alias comment record
   class Scope < Scope
