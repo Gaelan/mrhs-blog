@@ -11,13 +11,14 @@
       <% end %>
       <% if user_signed_in? && (current_user.teacher? || current_user.admin?) %>
         <%= navbar_dropdown 'Admin' do %>
-          <%= navbar_item 'Users', users_path %>
-          <%= navbar_item 'Objectives', objectives_path %>
-          <%= navbar_item 'Courses', courses_path %>
-          <%= navbar_item 'Units', units_path %>
-          <%= navbar_item 'Tasks', tasks_path %>
-          <%= navbar_item 'Sections', sections_path %>
           <%= navbar_item 'Assessments', assessments_path %>
+          <%= navbar_item 'Courses', courses_path %>
+          <%= navbar_item 'Objectives', objectives_path %>
+          <%= navbar_item 'Rubrics', rubrics_path %>
+          <%= navbar_item 'Sections', sections_path %>
+          <%= navbar_item 'Tasks', tasks_path %>
+          <%= navbar_item 'Units', units_path %>
+          <%= navbar_item 'Users', users_path %>
         <% end %>
       <% end %>
     <% end %>

@@ -8,8 +8,8 @@
     <%= f.input :time_required %>
     <%= f.association :strands,
                       label_method: :label,
-                      collection: Strand.order(label: :asc),
-                      include_blank: "-- Select objective strands --"
+                      collection: Strnd.order(label: :asc),
+                      include_blank: '--- Select Objective Strands ---'
       %>
   </div>
 

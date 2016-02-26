@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :rubrics
   get 'home_student/show/:id', to: 'home_student#show_id'
   get 'home_student/show'
 

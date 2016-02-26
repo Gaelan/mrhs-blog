@@ -1,0 +1,19 @@
+<%= simple_form_for(@rubric) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :level, as: :radio_buttons,
+                item_wrapper_class: :inline,
+                collection: Rubric.levels.keys,
+                selected: :corroborated %>
+    <%= f.association :strand,
+                      include_blank: '--- Select Objective Strand ---'%>
+    <%= f.input :band, as: :radio_buttons,
+                collection: [ '0', '1-2', '3-4', '5-6', '7-8' ]%>
+    <%= f.input :criterion %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
