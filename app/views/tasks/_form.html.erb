@@ -7,8 +7,7 @@
     <%#= f.input :category %>
     <%= f.input :time_required %>
     <%= f.association :strands,
-                      label_method: :label,
-                      collection: Strnd.order(label: :asc),
+                      collection: Strand.order(objective_id: :asc, number: :asc),
                       include_blank: '--- Select Objective Strands ---'
       %>
   </div>

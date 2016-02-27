@@ -2,26 +2,6 @@
 
 <%= link_to 'New Rubric', new_rubric_path %><br><br>
 
-<%= grid(@rubrics_grid) do |g|
-  g.column name: 'Level' do |t|
-    t.level
-  end
-  g.column name: 'Strand' do |t|
-    t.strand
-  end
-  g.column name: 'Band' do |t|
-    t.band
-  end
-  g.column name: 'Criterion' do |t|
-    markdown t.criterion
-  end
-  g.column name: '' do |t|
-    link_to 'Edit', edit_rubric_path(t)
-  end
-  g.column name: '' do |t|
-    link_to 'Delete', t, method: :delete,
-             data: { confirm: 'Are you sure?' }
-  end
-end -%>
+<%= render 'index' %>
 
 <%= link_to 'New Rubric', new_rubric_path %>

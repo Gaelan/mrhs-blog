@@ -1,0 +1,8 @@
+<%= grid(@strands_grid) do |g|
+  g.column name: 'Strand' do |t|
+    t.objective.group + t.number.to_s
+  end
+  g.column name: 'Description' do  |t|
+    markdown t.description
+  end
+end -%>
