@@ -24,8 +24,15 @@ class TasksController < ApplicationController
   # GET /tasks/1
   # GET /tasks/1.json
   def show
+    # binding.pry
     @task = Task.find(params[:id])
     authorize @task
+    @strands = @task.strands.order(objective_id: :asc) # TODO: hack, should be objective.group
+    binding.pry
+    @strands_grid = initialize_grid @strands
+    @rubrics = Rubric.where(task_id: params[:id])
+    # binding.pry
+    @rubrics_grid = initialize_grid @rubrics
   end
 
   # GET /tasks/new

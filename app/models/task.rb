@@ -2,7 +2,7 @@
 class Task < ActiveRecord::Base
   # Tasks can be associated with a Unit.
   has_many :unit_tasks
-  has_many :tasks, through: :unit_tasks
+  has_many :tasks, through: :unit_tasks # TODO: shouldn't this be has_many :units?
 
   # Students are asked to complete a Task through an Assessment.
   has_many :assessment_tasks

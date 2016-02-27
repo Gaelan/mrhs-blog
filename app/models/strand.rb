@@ -9,6 +9,6 @@ class Strand < ActiveRecord::Base
   has_many :rubrics, as: :rubricable
 
   def to_s
-    objective.group + number.to_s
+    objective.group + number.to_s + ': ' + label
   end
 end
