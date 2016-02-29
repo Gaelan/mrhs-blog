@@ -32,6 +32,7 @@ class TasksController < ApplicationController
   def new
     @task = Task.new
     authorize @task
+    # binding.pry
   end
 
   # GET /tasks/1/edit
