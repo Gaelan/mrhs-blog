@@ -63,6 +63,7 @@ group :development, :test do
 end
 
 gem 'pry-rails'
+gem 'rails-footnotes', '~> 4.0'
 
 gem 'raygun4ruby'
 
