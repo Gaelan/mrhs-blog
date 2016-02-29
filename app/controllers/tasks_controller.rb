@@ -28,10 +28,16 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     authorize @task
     @strands = @task.strands.order(objective_id: :asc) # TODO: hack, should be objective.group
-    binding.pry
+    #binding.pry
     @strands_grid = initialize_grid @strands
-    @rubrics = Rubric.where(task_id: params[:id])
-    # binding.pry
+    #@rubrics = Rubric.where(task_id: params[:id])
+    # @rubrics = []
+    # @strands.each do |s|
+    #   @rubrics += Rubric.where(strand_id: s.id)
+    # end
+    @rubrics = Rubric.where(strand_id: [7, 9, 11])
+
+    binding.pry
     @rubrics_grid = initialize_grid @rubrics
   end
 
