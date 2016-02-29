@@ -8,8 +8,8 @@ class Strand < ActiveRecord::Base
   has_many :assessments, through: :tasks
   has_many :rubrics, as: :rubricable
 
-  def to_s(format: :long)
-    case :format
+  def to_s(format = :long)
+    case format
     when :short
       suffix = ''
     when :long
