@@ -11,7 +11,7 @@ defined?(Footnotes) && Footnotes.setup do |f|
   # f.notes = [:session, :cookies, :params, :filters, :routes, :env, :queries, :log]
 
   # Change the prefix :
-  # f.prefix = 'mvim://open?url=file://%s&line=%d&column=%d'
+  f.prefix = 'atm://open?url=file://%s&line=%d&column=%d'
 
   # Disable style :
   # f.no_style = true
