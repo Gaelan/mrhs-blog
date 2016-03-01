@@ -2,10 +2,20 @@
 <footer class='footer'>
   <% if user_signed_in? %>
     <div class='container'>
-      <% if policy(User).become? %>
-        <%= render 'layouts/su' %>
-      <% end %>
+      <div id='footer-become'>
+        <% if policy(User).become? %>
+          <%= render 'layouts/su' %>
+        <% end %>
+      </div>
+      <div>
+        <button id='footnote-button' class='btn btn-info' type='button'
+          data-toggle='collapse' data-target='#footnotes'>
+          Footnotes
+        </button>
+      </div>
     </div>
   <% end %>
-  <div id='footnotes_holder'></div>
+  <div id='footnotes' class='collapse'>
+    <div id='footnotes_holder'></div>
+  </div>
 </footer>
