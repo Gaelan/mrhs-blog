@@ -44,6 +44,12 @@ class PostsController < ApplicationController
   def new
     @post = @user.posts.build
     authorize @post
+    if (params[:task_id])
+      # Coming here from a 'Get Started' link, so we know which prompt
+      # the student wants to work on.
+      @post.assessment_id = params[:task_id]
+      binding.pry
+    end
   end
 
   # GET /users/1/posts/1/edit
