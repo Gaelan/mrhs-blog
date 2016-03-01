@@ -1,9 +1,12 @@
 class RubricsController < ApplicationController
+  before_action :authenticate_user!
+  after_action :verify_authorized
   before_action :set_rubric, only: [:show, :edit, :update, :destroy]
 
   # GET /rubrics
   # GET /rubrics.json
   def index
+    authorize Rubric
     @rubrics = if params[:task_id]
       # Find the objectives for the task, and then select the rubric
       # entries that are the best fit.
@@ -17,11 +20,14 @@ class RubricsController < ApplicationController
   # GET /rubrics/1
   # GET /rubrics/1.json
   def show
+    @rubric = Rubric.find(params[:id])
+    authorize @rubric
   end
 
   # GET /rubrics/new
   def new
     @rubric = Rubric.new
+    authorize @rubric
     if params[:task_id]
       # Creating a new rubric for a Task.
       @rubric.level = :task
@@ -45,12 +51,14 @@ class RubricsController < ApplicationController
 
   # GET /rubrics/1/edit
   def edit
+    authorize @rubric
   end
 
   # POST /rubrics
   # POST /rubrics.json
   def create
     @rubric = Rubric.new(rubric_params)
+    authorize @rubric
 
     respond_to do |format|
       if @rubric.save
@@ -66,6 +74,7 @@ class RubricsController < ApplicationController
   # PATCH/PUT /rubrics/1
   # PATCH/PUT /rubrics/1.json
   def update
+    authorize @rubric
     respond_to do |format|
       if @rubric.update(rubric_params)
         format.html { redirect_to @rubric, notice: 'Rubric was successfully updated.' }
@@ -80,6 +89,7 @@ class RubricsController < ApplicationController
   # DELETE /rubrics/1
   # DELETE /rubrics/1.json
   def destroy
+    authorize @rubric
     @rubric.destroy
     respond_to do |format|
       format.html { redirect_to rubrics_url, notice: 'Rubric was successfully destroyed.' }

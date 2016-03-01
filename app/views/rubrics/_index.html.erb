@@ -14,14 +14,18 @@
   g.column name: 'Criterion' do |t|
     markdown t.criterion
   end
-  if false == true
+  if policy(Rubric).edit?
     g.column name: '' do |t|
       link_to 'Edit', edit_rubric_path(t)
     end
+  end
+  if policy(Rubric).create?
     g.column name: '' do |t|
       # To create a new rubric item using this one as the defaults
-      link_to 'New', new_rubric_path(:base_rubric_id => t.id)
+      link_to 'Clone', new_rubric_path(:base_rubric_id => t.id)
     end
+  end
+  if policy(Rubric).destroy?
     g.column name: '' do |t|
       link_to 'Delete', t, method: :delete,
                data: { confirm: 'Are you sure?' }
