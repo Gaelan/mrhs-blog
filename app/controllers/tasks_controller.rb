@@ -22,20 +22,14 @@ class TasksController < ApplicationController
   # GET /tasks/1
   # GET /tasks/1.json
   def show
-    # binding.pry
     @task = Task.find(params[:id])
     authorize @task
-    @strands = @task.strands.order(objective_id: :asc) # TODO: hack, should be objective.group
-    #binding.pry
+    @strands = @task.strands.order(objective_id: :asc) # XXX: hack, should be objective.group
     @strands_grid = initialize_grid @strands
-    #@rubrics = Rubric.where(task_id: params[:id])
-    # @rubrics = []
-    # @strands.each do |s|
-    #   @rubrics += Rubric.where(strand_id: s.id)
-    # end
-    @rubrics = Rubric.where(strand_id: [7, 9, 11])
-
-    binding.pry
+    strand_ids = @strands.map do |s|
+      s.id
+    end
+    @rubrics = Rubric.where(strand_id: strand_ids)
     @rubrics_grid = initialize_grid @rubrics
   end
 
@@ -87,6 +81,10 @@ class TasksController < ApplicationController
   def destroy
     authorize @task
     @task.destroy
+    # XXX - Leaves orphan assessments, which breaks the assessment view.
+    # TODO: Decide policy on removing tasks. Delete associated assessments?
+    #       What about work posted against those assessments. We could just mark
+    #       the task as "deleted."
     respond_to do |format|
       format.html { redirect_to tasks_url, notice: 'Task was successfully destroyed.' }
       format.json { head :no_content }
