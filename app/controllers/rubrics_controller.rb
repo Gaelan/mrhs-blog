@@ -4,7 +4,6 @@ class RubricsController < ApplicationController
   # GET /rubrics
   # GET /rubrics.json
   def index
-    # binding.pry
     @rubrics = if params[:task_id]
       # Find the objectives for the task, and then select the rubric
       # entries that are the best fit.
