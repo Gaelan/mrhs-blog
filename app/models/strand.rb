@@ -14,8 +14,10 @@ class Strand < ActiveRecord::Base
       suffix = ''
     when :long
       suffix = ': ' + label
+    when :full
+      suffix = ': ' + description
     else
-      suffix = 'strand.to_s called with unknown format'
+      suffix = ': strand.to_s called with unknown format'
     end
     objective.group + number.to_s + suffix
   end
