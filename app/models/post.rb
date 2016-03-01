@@ -11,4 +11,9 @@ class Post < ActiveRecord::Base
 
   has_many :comments, as: :commentable
   belongs_to :assessment
+
+  def rubric
+    assessment.rubric
+    # binding.pry
+  end
 end
