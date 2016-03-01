@@ -34,6 +34,26 @@
 .timestamp-latest { font-weight: bold; }
 .timestamp-original {}
 
+/*
+ * Bootstrap Buttons
+ */
+.collapsible .btn:before {
+ content: "Hide ";
+}
+
+.collapsible .btn.collapsed:before {
+ content: "Show ";
+}
+
+.collapsible .btn:after {
+  font-family: "Glyphicons Halflings";
+  content: "\e114";
+}
+
+.collapsible .btn.collapsed:after {
+  content: "\e080";
+}
+
 /* Sticky footer styles
  * TODO: clean up footer, find a better way to manage the size.
 --------------------------------------------------------------- */

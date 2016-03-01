@@ -36,7 +36,6 @@ module AssessmentsHelper
     # TODO: dynamic link
     # TODO: translation
     # TODO: configurable see_full message
-    # binding.pry
     see_full = 'See the full description on the class blog: http://mrhs-photo-blog.heroku.com.'
     body = markdown (truncate assessment.tasks[0].body,
                        length: 400, omission: '',
