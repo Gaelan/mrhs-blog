@@ -12,6 +12,24 @@
       <div class="col-sm-5">
         <%= f.input :published, inline_label: 'Publish' %>
         <%= render 'assessment_picker', f: f %>
+        <div class='post-instructions collapsible'>
+          <% if @post.assessment_id %>
+            <button class='btn btn-info <%= @post.body == nil ? '' : 'collapsed' %>''
+                type='button' data-toggle='collapse' data-target='#instructions'>
+                Instructions
+            </button>
+            <div id='instructions' class='collapse <%= @post.body == nil ? 'in' : '' %>'>
+              <p>
+                <%= markdown Assessment.find(@post.assessment_id).tasks[0].body %>
+              </p>
+            </div>
+          <% else %>
+          <p>Instructions will be visible here if you select the assessment and
+          click on the Create Post button. That will save the post, then if you
+          come back to edit it, the instructions will appear here.</p>
+          <% end %>
+        </div>
+        <h3>Images</h3>
         <div class="list-group images">
           <%= f.simple_fields_for :images do |image_form| %>
               <%= render 'image_fields', f: image_form %>
