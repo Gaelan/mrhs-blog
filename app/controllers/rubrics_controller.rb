@@ -1,7 +1,8 @@
 class RubricsController < ApplicationController
   before_action :authenticate_user!
-  after_action :verify_authorized
   before_action :set_rubric, only: [:show, :edit, :update, :destroy]
+
+  after_action :verify_authorized
 
   # GET /rubrics
   # GET /rubrics.json
