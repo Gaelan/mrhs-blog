@@ -14,8 +14,6 @@ class TasksController < ApplicationController
     # if enrollment then section = enrollment.section_id
     #   assessments = Assessment.where(section_id: section)
     # end
-    #
-    # binding.pry
 
     @tasks = policy_scope Task.all
     @tasks_grid = initialize_grid @tasks
@@ -32,7 +30,6 @@ class TasksController < ApplicationController
   def new
     @task = Task.new
     authorize @task
-    binding.pry
   end
 
   # GET /tasks/1/edit
