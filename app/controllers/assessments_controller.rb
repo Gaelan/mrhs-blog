@@ -93,6 +93,11 @@ class AssessmentsController < ApplicationController
   def destroy
     authorize @assessment
     # TODO: also authorize assessment_task?
+    # XXX - There may work posted against the assessment we are deleting?
+    #       What should be done then? Block deletion, or prompt to replace with
+    #       another assessment. At the very least we need to clean up any
+    #       references to deleted assessments.
+  
     # Find and destroy AssessmentTask instances first.
     AssessmentTask.where(assessment_id: @assessment.id).each(&:destroy)
     @assessment.destroy

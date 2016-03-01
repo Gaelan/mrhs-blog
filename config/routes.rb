@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :rubrics
   get 'home_student/show/:id', to: 'home_student#show_id'
   get 'home_student/show'
 
@@ -13,12 +14,16 @@ Rails.application.routes.draw do
   root to: 'home_student#show'
 
   resources :assessments
-  resources :courses
+  resources :courses do
+    resources :rubrics
+  end
   resources :posts, only: [:index]
   resources :sections, only: :index do
     resources :users, only: [:index]
   end
-  resources :tasks
+  resources :tasks do
+    resources :rubrics
+  end
   resources :users, only: [:index, :edit, :update] do
     resources :posts
     # TODO: how to protect this route? Was conditional on dev environment.

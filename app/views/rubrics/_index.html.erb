@@ -1,0 +1,34 @@
+<%= grid(@rubrics_grid) do |g|
+  # if current_user.teacher? || current_user.admin?
+  if false == true
+    g.column name: 'Level' do |t|
+      t.level
+    end
+  end
+  g.column name: 'Strand' do |t|
+    t.strand.to_s(:short)
+  end
+  g.column name: 'Band' do |t|
+    t.band
+  end
+  g.column name: 'Criterion' do |t|
+    markdown t.criterion
+  end
+  if policy(Rubric).edit?
+    g.column name: '' do |t|
+      link_to 'Edit', edit_rubric_path(t)
+    end
+  end
+  if policy(Rubric).create?
+    g.column name: '' do |t|
+      # To create a new rubric item using this one as the defaults
+      link_to 'Clone', new_rubric_path(:base_rubric_id => t.id)
+    end
+  end
+  if policy(Rubric).destroy?
+    g.column name: '' do |t|
+      link_to 'Delete', t, method: :delete,
+               data: { confirm: 'Are you sure?' }
+    end
+  end
+end -%>

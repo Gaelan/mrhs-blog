@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160222025658) do
+ActiveRecord::Schema.define(version: 20160226063034) do
 
   create_table "assessment_tasks", force: :cascade do |t|
     t.integer  "assessment_id"
@@ -112,6 +112,21 @@ ActiveRecord::Schema.define(version: 20160222025658) do
     t.integer "user_id"
     t.integer "role"
     t.index ["user_id"], name: "index_roles_on_user_id"
+  end
+
+  create_table "rubrics", force: :cascade do |t|
+    t.integer  "level"
+    t.integer  "task_id"
+    t.string   "band"
+    t.text     "criterion"
+    t.integer  "strand_id"
+    t.string   "rubricable_type"
+    t.integer  "rubricable_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["rubricable_type", "rubricable_id"], name: "index_rubrics_on_rubricable_type_and_rubricable_id"
+    t.index ["strand_id"], name: "index_rubrics_on_strand_id"
+    t.index ["task_id"], name: "index_rubrics_on_task_id"
   end
 
   create_table "sections", force: :cascade do |t|

@@ -1,5 +1,15 @@
 <div class='task-container'>
   <%= render 'display_task' %>
+  <% if current_user.teacher? %>
+    <div class='objectives-container'>
+      <h4>Strands</h4>
+      <%= render 'objectives/strands_index' %>
+    </div>
+    <div class='rubric-container'>
+      <h4>Rubric</h4>
+      <%= render 'rubrics/index' %>
+    </div>
+  <% end %>
 </div>
 
 <div class='clear task-show-edit-links'>
