@@ -7,6 +7,7 @@ class Strand < ActiveRecord::Base
   has_many :tasks, through: :task_strands
   has_many :assessments, through: :tasks
   has_many :rubrics, as: :rubricable
+  has_many :scores
 
   def to_s(format = :long)
     case format

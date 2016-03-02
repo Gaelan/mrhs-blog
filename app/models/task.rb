@@ -15,4 +15,6 @@ class Task < ActiveRecord::Base
   # Rubrics are attached to Tasks and Strands, each Rubric
   # instance represents one scoring band.
   has_many :rubrics, as: :rubricable
+
+  has_many :scores, through: :assessments
 end
