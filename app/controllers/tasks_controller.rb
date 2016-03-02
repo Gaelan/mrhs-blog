@@ -50,7 +50,6 @@ class TasksController < ApplicationController
                              # strand.number: :asc,
                              band: :asc)
     @rubrics_grid = initialize_grid @rubrics_hack
-    # binding.pry
   end
 
   # GET /tasks/new

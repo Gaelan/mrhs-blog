@@ -1,7 +1,14 @@
-<% score = Score.first_or_create_by(strand: strand, user: student, assessment: assessment) %>
-<%= simple_form_for(score) do |f| %>
-  <%= f.input :strand_id, as: :hidden %>
-  <%= f.input :user_id, as: :hidden %>
-  <%= f.input :assessment_id, as: :hidden %>
-  <%= f.input :score %>
-<% end %>
+<div class='score-mini-form'>
+  <%# XXX: setting drop here is asking for trouble. Set in model? %>
+  <% score = Score.create_with(drop: false).find_or_create_by(strand: strand,
+                                     user: student,
+                                     assessment: assessment) %>
+  <%= simple_form_for score, horizontal_form do |f| %>
+    <%= f.input :score, label: strand.to_s(:short), input_html: { min: 0, max: 8 } %>
+    <%= f.submit %>
+
+    <%= f.input :strand_id, as: :hidden %>
+    <%= f.input :user_id, as: :hidden %>
+    <%= f.input :assessment_id, as: :hidden %>
+  <% end %>
+</div>

@@ -7,7 +7,7 @@ class ScorePolicy < ApplicationPolicy
   end
 
   def allowed?
-    binding.pry
+    # TODO: control who can see scores. Make sure student scores are private.
     user.teacher? || user.admin?
   end
 

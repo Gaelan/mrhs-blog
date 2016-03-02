@@ -22,10 +22,4 @@ class Strand < ActiveRecord::Base
     end
     objective.group + number.to_s + suffix
   end
-
-  # .rubric and .rubrics seem to be magic methods...
-  #
-  def all_rubrics
-    # binding.pry
-  end
 end

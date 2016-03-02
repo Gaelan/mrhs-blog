@@ -38,7 +38,5 @@ class Assessment < ActiveRecord::Base
                  # strand.objective.group: :asc,
                  # strand.number: :asc,
                  band: :asc)
-    # binding.pry
-    # hack
   end
 end

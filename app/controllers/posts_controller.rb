@@ -39,7 +39,7 @@ class PostsController < ApplicationController
   def show
     authorize @post
     @rubrics = @post.rubric
-    # binding.pry
+    @scores = @post.scores
     @rubrics_grid = initialize_grid @rubrics
   end
 
