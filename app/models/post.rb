@@ -11,6 +11,7 @@ class Post < ActiveRecord::Base
 
   has_many :comments, as: :commentable
   belongs_to :assessment
+  has_many :scores, through: :assessment
 
   def rubric
     assessment.rubric

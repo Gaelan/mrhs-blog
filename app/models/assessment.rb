@@ -8,6 +8,7 @@ class Assessment < ActiveRecord::Base
 
   has_many :assessment_tasks
   has_many :tasks, through: :assessment_tasks
+  has_many :scores
   has_many :strands, through: :tasks
 
   # formative? et al methods appear as if by magic...

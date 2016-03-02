@@ -2,7 +2,7 @@
 
 <h1>Scores</h1>
 
-<table>
+<table class='table'>
   <thead>
     <tr>
       <th>Score</th>
@@ -21,8 +21,8 @@
         <td><%= score.score %></td>
         <td><%= score.drop %></td>
         <td><%= score.note %></td>
-        <td><%= score.user %></td>
-        <td><%= score.assessment %></td>
+        <td><%= score.user.name %></td>
+        <td><%= score.assessment.title %></td>
         <td><%= score.strand %></td>
         <td><%= link_to 'Show', score %></td>
         <td><%= link_to 'Edit', edit_score_path(score) %></td>

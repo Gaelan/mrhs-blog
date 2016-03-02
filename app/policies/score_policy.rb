@@ -7,6 +7,7 @@ class ScorePolicy < ApplicationPolicy
   end
 
   def allowed?
+    binding.pry
     user.teacher? || user.admin?
   end
 
@@ -23,6 +24,6 @@ class ScorePolicy < ApplicationPolicy
   end
 
   def index?
-    true
+    allowed?
   end
 end
