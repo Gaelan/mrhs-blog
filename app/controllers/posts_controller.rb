@@ -39,6 +39,7 @@ class PostsController < ApplicationController
   def show
     authorize @post
     if @post.assessment
+      # XXX: this was causing a 500 when assessment was nil. Fix in model.
       @rubrics = @post.rubric
       @rubrics_grid = initialize_grid @rubrics
     end
