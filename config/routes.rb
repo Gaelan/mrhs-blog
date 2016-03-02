@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   get 'home_student/show/:id', to: 'home_student#show_id'
   get 'home_student/show'
 
-  root to: 'sections#index', constraints: lambda {
+  root to: 'home_teacher#index', constraints: lambda {
      |_, request| request.env['warden'].authenticate(scope: :user)&.teacher?
   }
   root to: 'home_student#show'
