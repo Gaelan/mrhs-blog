@@ -24,13 +24,32 @@ class TasksController < ApplicationController
   def show
     @task = Task.find(params[:id])
     authorize @task
-    @strands = @task.strands.order(objective_id: :asc) # XXX: hack, should be objective.group
+    @strands = @task.strands
+                    .order(objective_id: :asc) # XXX: hack, should be objective.group
+    strand_ids = @strands.map &:id
     @strands_grid = initialize_grid @strands
     strand_ids = @strands.map do |s|
       s.id
     end
-    @rubrics = Rubric.where(strand_id: strand_ids)
-    @rubrics_grid = initialize_grid @rubrics
+    # Find applicable Rubrics
+    @rubrics = []
+    rubric_candidates = Rubric.where(strand_id: strand_ids)
+    strand_ids.each do |sid|
+      strand_rubrics = rubric_candidates.select { |r| r.strand_id == sid }
+      bands = strand_rubrics.map &:band
+      bands.each do |band|
+        band_max = strand_rubrics.select { |r| r.band == band }.max_by &:level
+        @rubrics += [band_max]
+      end
+    end
+    # TODO: figure out why this hack is necessary
+    @rubrics_hack = Rubric.where(id: (@rubrics.map &:id))
+                          .order(
+                             strand_id: :asc, # XXX - Hack, should be...
+                             # strand.objective.group: :asc,
+                             # strand.number: :asc,
+                             band: :asc)
+    @rubrics_grid = initialize_grid @rubrics_hack
   end
 
   # GET /tasks/new

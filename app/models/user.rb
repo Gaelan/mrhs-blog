@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
 
   has_many :posts
   has_many :roles
+  has_many :scores
 
   has_many :enrollments, foreign_key: 'student_id'
   has_many :sections, through: :enrollments

@@ -2,7 +2,6 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%# binding.pry %>
     <%= f.input :level, as: :radio_buttons,
                 item_wrapper_class: :inline,
                 collection: Rubric.levels.keys,

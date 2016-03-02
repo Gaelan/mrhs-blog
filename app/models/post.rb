@@ -11,4 +11,21 @@ class Post < ActiveRecord::Base
 
   has_many :comments, as: :commentable
   belongs_to :assessment
+  has_many :scores, through: :assessment
+
+  def rubric
+    assessment.rubric
+  end
+
+  #
+  def scores
+    # Score.where(user_id: user_id,
+    #             assessment_id: assessment.id,
+    #             strand_id: assessment.strands[0].id)
+    # binding.pry
+  end
+
+  def strands
+    # binding.pry
+  end
 end

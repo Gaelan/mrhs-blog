@@ -2,7 +2,7 @@
 class Task < ActiveRecord::Base
   # Tasks can be associated with a Unit.
   has_many :unit_tasks
-  has_many :tasks, through: :unit_tasks # TODO: shouldn't this be has_many :units?
+  has_many :units, through: :unit_tasks
 
   # Students are asked to complete a Task through an Assessment.
   has_many :assessment_tasks
@@ -15,4 +15,6 @@ class Task < ActiveRecord::Base
   # Rubrics are attached to Tasks and Strands, each Rubric
   # instance represents one scoring band.
   has_many :rubrics, as: :rubricable
+
+  has_many :scores, through: :assessments
 end

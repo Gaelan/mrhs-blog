@@ -1,34 +1,69 @@
-<%= grid(@rubrics_grid) do |g|
+<%
+ # app/views/rubrics/_index.html.erb - General purpose Rubric listing.
+ #
+ # Expects:
+ # - @rubrics - array of Rubric
+ # - @rubrics_grid - result of Wice Grid initialize_grid @rubrics
+ %>
+<% params.inspect %>
+
+<%=
+last_strand = nil
+grid(@rubrics_grid) do |g|
+
+  g.before_row do |t, number_of_columns|
+    if t.strand.to_s(:short) != last_strand
+      last_strand = t.strand.to_s(:short)
+      content_tag(:tr,
+        content_tag(:td,
+                    t.strand.to_s(:full),
+                    colspan: number_of_columns
+        )
+      )
+    end
+  end
+
   # if current_user.teacher? || current_user.admin?
   if false == true
     g.column name: 'Level' do |t|
       t.level
     end
+
+    g.column name: 'Strand' do |t|
+      t.strand.to_s(:short)
+    end
   end
-  g.column name: 'Strand' do |t|
-    t.strand.to_s(:short)
-  end
-  g.column name: 'Band' do |t|
+  g.column do |t|
     t.band
   end
-  g.column name: 'Criterion' do |t|
+  g.column do |t|
     markdown t.criterion
   end
-  if policy(Rubric).edit?
-    g.column name: '' do |t|
-      link_to 'Edit', edit_rubric_path(t)
+  unless params[:controller] == 'posts'
+    if policy(Rubric).edit?
+      g.column do |t|
+        link_to 'Edit', edit_rubric_path(t)
+      end
+    end
+    if policy(Rubric).create?
+      g.column do |t|
+        # To create a new rubric item using this one as the defaults
+        link_to 'Clone', new_rubric_path(:base_rubric_id => t.id)
+      end
+    end
+    if policy(Rubric).destroy?
+      g.column do |t|
+        link_to 'Delete', t, method: :delete,
+                 data: { confirm: 'Are you sure?' }
+      end
     end
   end
-  if policy(Rubric).create?
-    g.column name: '' do |t|
-      # To create a new rubric item using this one as the defaults
-      link_to 'Clone', new_rubric_path(:base_rubric_id => t.id)
-    end
-  end
-  if policy(Rubric).destroy?
-    g.column name: '' do |t|
-      link_to 'Delete', t, method: :delete,
-               data: { confirm: 'Are you sure?' }
-    end
-  end
-end -%>
+end
+-%>
+
+<% @post&.assessment&.strands&.each do |strand| %>
+  <%= render 'scores/mini_form', strand: strand,
+                                 student: @post.user,
+                                assessment: @post.assessment
+  %>
+<% end %>
