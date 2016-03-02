@@ -60,10 +60,3 @@ grid(@rubrics_grid) do |g|
   end
 end
 -%>
-
-<% @post&.assessment&.strands&.each do |strand| %>
-  <%= render 'scores/mini_form', strand: strand,
-                                 student: @post.user,
-                                assessment: @post.assessment
-  %>
-<% end %>
