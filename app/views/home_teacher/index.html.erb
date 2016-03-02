@@ -10,14 +10,17 @@
     <ul>
       <% p[:courses].each do |c| %>
         <li><%= "#{c[:title]}" %></li>
-          <ul>
-            <% c[:students].each do |s| %>
-              <li>
-                <%= link_to s[:name], "/home_student/show/#{s[:id]}" %>
-                <%= assessment_overview(s[:id], c[:assessments]) %>
-              </li>
-            <% end %>
-          </ul>
+          <table class='table'>
+            <tbody>
+              <% c[:students].each do |s| %>
+                <tr>
+                  <td><%= link_to s[:name], "/home_student/show/#{s[:id]}" %></td>
+                  <td></td>
+                  <td><%= assessment_overview(s[:id], c[:assessments]) %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
       <% end %>
     </ul>
   <% end %>
