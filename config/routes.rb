@@ -6,8 +6,6 @@
 # TODO - use conditional routes 'posts#new' if no posts, else 'posts#index'.
 
 Rails.application.routes.draw do
-  resources :scores
-  resources :rubrics
 
   # Routes added automatically by `rails generate` are above this line.
   #
@@ -33,6 +31,8 @@ Rails.application.routes.draw do
   end
   resources :objectives
   resources :posts, only: [:index]
+  resources :rubrics
+  resources :scores
   resources :sections, only: :index do
     resources :users, only: [:index]
   end
