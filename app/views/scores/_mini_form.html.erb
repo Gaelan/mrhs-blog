@@ -1,0 +1,7 @@
+<% score = Score.first_or_create_by(strand: strand, user: student, assessment: assessment) %>
+<%= simple_form_for(score) do |f| %>
+  <%= f.input :strand_id, as: :hidden %>
+  <%= f.input :user_id, as: :hidden %>
+  <%= f.input :assessment_id, as: :hidden %>
+  <%= f.input :score %>
+<% end %>

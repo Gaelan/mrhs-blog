@@ -7,7 +7,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def allowed?
-    user.admin? || user.teacher?
+    user && (user.admin? || user.teacher?)
   end
 
   def become?

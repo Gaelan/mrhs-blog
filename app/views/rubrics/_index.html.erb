@@ -10,8 +10,6 @@
 <%=
 last_strand = nil
 grid(@rubrics_grid) do |g|
-  g.action_column html_check_box: false, select_all_buttons: false
-
   g.before_row do |t, number_of_columns|
     if t.strand.to_s(:short) != last_strand
       last_strand = t.strand.to_s(:short)
@@ -58,3 +56,10 @@ grid(@rubrics_grid) do |g|
   end
 end
 -%>
+
+<% @post.assessment&.strands&.each do |strand| %>
+  <%= render 'scores/mini_form', strand: strand,
+                                 student: @post.author,
+                                assessment: @post.assessment 
+  %>
+<% end %>
