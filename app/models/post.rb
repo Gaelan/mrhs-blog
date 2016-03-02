@@ -14,7 +14,7 @@ class Post < ActiveRecord::Base
   has_many :scores, through: :assessment
 
   def rubric
-    assessment.rubric
+    assessment && assessment.rubric
   end
 
   #
