@@ -14,6 +14,7 @@ class Post < ActiveRecord::Base
   has_many :scores, through: :assessment
 
   def rubric
+    # XXX - what should we do here? Return empty array if assessment is nil?
     assessment && assessment.rubric
   end
 
