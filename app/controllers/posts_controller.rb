@@ -38,9 +38,11 @@ class PostsController < ApplicationController
   # GET /users/1/posts/1.json
   def show
     authorize @post
-    @rubrics = @post.rubric
+    if @post.assessment
+      @rubrics = @post.rubric
+      @rubrics_grid = initialize_grid @rubrics
+    end
     @scores = @post.scores
-    @rubrics_grid = initialize_grid @rubrics
   end
 
   # GET /users/1/posts/new
