@@ -59,6 +59,16 @@
 
 <div class='post-sidebar'>
   <% if current_user.teacher? || current_user.admin? %>
-    <%= render 'rubrics/index' %>
+    <div class='post-scores'>
+      <% @post&.assessment&.strands&.each do |strand| %>
+        <%= render 'scores/mini_form', strand: strand,
+                                       student: @post.user,
+                                       assessment: @post.assessment
+        %>
+      <% end %>
+    </div>
+    <div class='post-rubric'>
+      <%= render 'rubrics/index' %>
+    </div>
   <% end %>
 </div>
