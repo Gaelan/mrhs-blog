@@ -74,6 +74,14 @@ module HomeTeacherHelper
     "<span class=\"#{last} status\"></span>".html_safe
   end
 
+  def unclassified_posts(uid)
+    how_many = Post.where(user: uid, assessment: nil).count
+    if how_many > 0
+      css = 'red-border'
+    end
+    "<span class=\"status unclassified-posts #{css}\"><span class=\"count\">#{how_many}</span></span>".html_safe
+  end
+
   def format_status(pi)
     annunicator_style = ' status'
     css = ''

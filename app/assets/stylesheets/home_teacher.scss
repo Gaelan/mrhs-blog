@@ -24,6 +24,19 @@
     margin-right: 5px;
   }
 
+  .unclassified-posts {
+    color: white;
+
+    &.red-border {
+      border: 2px solid red;
+      color: black;
+    }
+
+    .count {
+      padding: 0 0 3px 5px;
+    }
+  }
+
   .class-title {
     background-color: gray;
     margin-bottom: 4px;
