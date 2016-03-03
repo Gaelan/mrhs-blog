@@ -4,6 +4,7 @@
     <li class="active"><a href="#tab1" data-toggle="tab">Overview</a></li>
     <li><a href="#tab2" data-toggle="tab">Assessments</a></li>
     <li><a href="#tab3" data-toggle="tab">Unit Plans</a></li>
+    <li><a href="#tab4" data-toggle="tab">Resources</a></li>
   </ul>
   <div class="tab-content">
     <div id="tab1" class="tab-pane active">
@@ -13,6 +14,9 @@
       <%= render 'assessment_view' %>
     </div>
     <div id="tab3" class="tab-pane">
+      <%= render 'unit_view' %>
+    </div>
+    <div id="tab4" class="tab-pane">
       <%= render 'unit_view' %>
     </div>
   </div>
