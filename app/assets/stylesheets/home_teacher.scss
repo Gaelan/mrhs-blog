@@ -4,21 +4,42 @@
 
 // Asessment status annunicator colors, order is significant.
 
-.published { background-color: green; }
-.started { background-color: yellow; }
-.empty { background-color: orange; }
-.not-started { background-color: red; }
-.scored { background-color: blue; }
+.home-teacher {
+  .published { background-color: green; }
+  .started { background-color: yellow; }
+  .empty { background-color: orange; }
+  .not-started { background-color: red; }
+  .scored { background-color: blue; }
 
-// Last seen colors.
-.today { background-color: green; }
-.last-three-days { background-color: yellow; }
-.long-time-ago { background-color: red; }
+  // Last seen colors.
+  .today { background-color: green; }
+  .last-three-days { background-color: yellow; }
+  .long-time-ago { background-color: red; }
 
-.status {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  display: inline-block;
-  margin-right: 5px;
+  .status {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+  }
+
+  .class-title {
+    background-color: gray;
+    margin-bottom: 4px;
+
+    a {
+      font-size: bigger;
+      display: inline-block;
+      padding: 10px 0px 6px 8px;
+    }
+
+    a:link, a:visited {
+      color: white;
+    }
+
+    a:hover, a:active {
+      color: red;
+    }
+  }
 }
