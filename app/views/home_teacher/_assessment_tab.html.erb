@@ -1,0 +1,23 @@
+<%
+ # app/views/home_teacher/_assessment_tab.html.erb
+ %>
+<div class='home-teacher'>
+<% @periods.each do |p| %>
+
+  <div class='class-title'>
+    <a href=#<%= "S#{p[:session]}P#{p[:period]}" %> data-toggle='collapse'>
+      <%= "S#{p[:session]}P#{p[:period]}: #{p[:courses].map do |c| c[:title] end.join ' & '}" %>
+    </a>
+  </div>
+
+  <div id=<%= "S#{p[:session]}P#{p[:period]}" %> class='collapse'>
+    <ul>
+      <% p[:courses].each do |c| %>
+        <li><%= "#{c[:title]}" %></li>
+
+      <% end %>
+    </ul>
+  </div>
+
+<% end %>
+</div>
