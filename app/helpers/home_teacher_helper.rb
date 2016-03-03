@@ -53,19 +53,26 @@ module HomeTeacherHelper
   end
 
   def assessment_status(aid, post)
-    # binding.pry
+    # TODO: better computation of post status (add need-help?).
+    # TODO: also look for images.
+    # TODO: requirement checking.
     status = []
     if post.published
       status << 'published'
       if Score.where(user: post.user, assessment: aid).count > 0
         status << 'scored'
       end
+    else
+      status << 'unpublished'
+      unless post.body.blank? && post.title.blank?
+        status << 'started'
+      else
+        status << 'not-started'
+      end
     end
     if post.body.blank?
       status << 'empty'
     end
-
-    # binding.pry
     status.join(' ')
   end
 
