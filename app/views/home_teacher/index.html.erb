@@ -15,7 +15,8 @@
               <% c[:students].each do |s| %>
                 <tr>
                   <td><%= link_to s[:name], "/home_student/show/#{s[:id]}" %></td>
-                  <td></td>
+                  <td><%= last_seen(s[:id]) %></td>
+                  <td><%=  %></td>
                   <td><%= assessment_overview(s[:id], c[:assessments]) %></td>
                 </tr>
               <% end %>
