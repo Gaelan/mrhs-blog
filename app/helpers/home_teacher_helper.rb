@@ -33,7 +33,7 @@ module HomeTeacherHelper
       # binding.pry
       [{
         pid: post_or_posts[0].id,
-        title: post_or_posts[0].title,
+        title: (sanitize post_or_posts[0].title),
         status: assessment_status(aid, post_or_posts[0])
       }]
     else
@@ -42,7 +42,11 @@ module HomeTeacherHelper
       #      default and figure out a way to show a select list if clicked or
       #      some similar scheme.
       post_or_posts.map do |p|
-        {pid: p.id, title: p.title, status: assessment_status(aid, p) }
+        {
+          pid: p.id,
+          title: (sanitize p.title),
+          status: assessment_status(aid, p)
+        }
       end
       # binding.pry
     end
