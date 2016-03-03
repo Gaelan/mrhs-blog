@@ -1,37 +1,19 @@
-<%
- # app/views/home_teacher/index.html.erb
- %>
-<div class='home-teacher'>
-<% @periods.each do |p| %>
 
-  <div class='class-title'>
-    <a href=#<%= "S#{p[:session]}P#{p[:period]}" %> data-toggle='collapse'>
-      <%= "S#{p[:session]}P#{p[:period]}: #{p[:courses].map do |c| c[:title] end.join ' & '}" %>
-    </a>
+<div class="tabbable"> <!-- Only required for left/right tabs -->
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#tab1" data-toggle="tab">Overview</a></li>
+    <li><a href="#tab2" data-toggle="tab">Assessments</a></li>
+    <li><a href="#tab3" data-toggle="tab">Unit Plans</a></li>
+  </ul>
+  <div class="tab-content">
+    <div id="tab1" class="tab-pane active">
+      <%= render 'overview' %>
+    </div>
+    <div id="tab2" class="tab-pane">
+      <%= render 'assessment_view' %>
+    </div>
+    <div id="tab3" class="tab-pane">
+      <%= render 'unit_view' %>
+    </div>
   </div>
-
-  <div id=<%= "S#{p[:session]}P#{p[:period]}" %> class='collapse'>
-    <ul>
-      <% p[:courses].each do |c| %>
-        <li><%= "#{c[:title]}" %></li>
-          <table class='table'>
-            <tbody>
-              <% c[:students].each do |s| %>
-                <tr>
-                  <td><%= link_to s[:name], "/home_student/show/#{s[:id]}" %></td>
-                  <td>
-                    <%= last_seen(s[:id]) %>
-                    <%= unclassified_posts(s[:id]) %>
-                  </td>
-                  <td><%# TODO: display overall objective scores. %></td>
-                  <td><%= assessment_overview(s[:id], c[:assessments]) %></td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-      <% end %>
-    </ul>
-  </div>
-
-<% end %>
 </div>
