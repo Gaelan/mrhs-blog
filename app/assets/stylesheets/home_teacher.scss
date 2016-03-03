@@ -2,8 +2,23 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.scored { background-color: blue; }
-.submitted { background-color: green; }
+// Asessment status annunicator colors, order is significant.
+
+.published { background-color: green; }
 .started { background-color: yellow; }
 .empty { background-color: orange; }
 .not-started { background-color: red; }
+.scored { background-color: blue; }
+
+// Last seen colors.
+.today { background-color: green; }
+.last-three-days { background-color: yellow; }
+.long-time-ago { background-color: red; }
+
+.status {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px;
+}
