@@ -56,6 +56,7 @@ module HomeTeacherHelper
     # TODO: better computation of post status (add need-help?).
     # TODO: also look for images.
     # TODO: requirement checking.
+    # TODO: start on base of not-started or not-started/started switch?
     status = []
     if post.published
       status << 'published'
