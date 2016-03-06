@@ -28,13 +28,18 @@ RSpec.describe User, type: :model do
   end
 
   describe 'validations' do
-    it 'fail with duplicate e-mail address' do
+    it 'fails without an e-mail address' do
+      user = User.create given_name: 'Here', family_name: 'First'
+      expect(user).not_to be_valid
+    end
+
+    it 'fails with duplicate e-mail address' do
       user1 = User.create given_name: 'Here', family_name: 'First', email: 'hf@example.com'
       user2 = User.new given_name: 'Dopple', family_name: 'Ganger', email: 'hf@example.com'
       expect(user2).not_to be_valid
     end
 
-    it 'succeed with a unique e-mail address' do
+    it 'succeeds with a unique e-mail address' do
       user1 = User.create given_name: 'Here', family_name: 'First', email: 'hf@example.com'
       user2 = User.new given_name: 'Dopple', family_name: 'Ganger', email: 'dg@example.com'
       expect(user2).to be_valid

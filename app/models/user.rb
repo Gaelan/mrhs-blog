@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
 
   validates :given_name, presence: true
   validates :family_name, presence: true
-  validates :email, uniqueness: true  # XXX: contraint on database too?
+  validates :email, presence: true, uniqueness: true  # XXX: contraint on database too?
 
   # XXX - what happens if validation fails on first login
   # TODO: validate e-mail (should be a district address, g.highlineschools.org)
