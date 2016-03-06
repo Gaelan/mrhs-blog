@@ -43,7 +43,8 @@ class HomeTeacherController < ApplicationController
     Enrollment.where(section_id: section).map do |s|
       {
         id: s.student_id,
-        name: @students.where(id: s.student_id)[0].name
+        given_name: @students.where(id: s.student_id)[0].given_name,
+        family_name: @students.where(id: s.student_id)[0].family_name
       }
     end.sort { |l, r| l[:name] <=> r[:name] }
   end

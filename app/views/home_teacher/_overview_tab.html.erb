@@ -14,18 +14,19 @@
     <ul>
       <% p[:courses].each do |c| %>
         <li><%= "#{c[:title]}" %></li>
-          <table class='table'>
+          <table class='table' data-toggle='table'>
+            <thead>
+              <tr>
+                <th data-sortable='true'>First</th>
+                <th data-sortable='true'>Last</th>
+                <th data-sortable='true'>Last Activity</th>
+                <th data-sortable='false'>Objective Summary</th>
+                <th data-sortable='false'>Assessments</th>
+              </tr>
+            </thead>
             <tbody>
               <% c[:students].each do |s| %>
-                <tr>
-                  <td><%= link_to s[:name], "/home_student/show/#{s[:id]}" %></td>
-                  <td>
-                    <%= last_seen(s[:id]) %>
-                    <%= unclassified_posts(s[:id]) %>
-                  </td>
-                  <td><%# TODO: display overall objective scores. %></td>
-                  <td><%= assessment_overview(s[:id], c[:assessments]) %></td>
-                </tr>
+                <%= render 'overview_student_detail', course: c, student: s %>
               <% end %>
             </tbody>
           </table>
