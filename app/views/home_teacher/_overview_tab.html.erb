@@ -1,0 +1,37 @@
+<%
+ # app/views/home_teacher/_overview_tab.html.erb
+ %>
+<div class='home-teacher'>
+<% @periods.each do |p| %>
+
+  <div class='class-title'>
+    <a href=#<%= "S#{p[:session]}P#{p[:period]}" %> data-toggle='collapse'>
+      <%= "S#{p[:session]}P#{p[:period]}: #{p[:courses].map do |c| c[:title] end.join ' & '}" %>
+    </a>
+  </div>
+
+  <div id=<%= "S#{p[:session]}P#{p[:period]}" %> class='collapse'>
+    <ul>
+      <% p[:courses].each do |c| %>
+        <li><%= "#{c[:title]}" %></li>
+          <table class='table'>
+            <tbody>
+              <% c[:students].each do |s| %>
+                <tr>
+                  <td><%= link_to s[:name], "/home_student/show/#{s[:id]}" %></td>
+                  <td>
+                    <%= last_seen(s[:id]) %>
+                    <%= unclassified_posts(s[:id]) %>
+                  </td>
+                  <td><%# TODO: display overall objective scores. %></td>
+                  <td><%= assessment_overview(s[:id], c[:assessments]) %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+      <% end %>
+    </ul>
+  </div>
+
+<% end %>
+</div>

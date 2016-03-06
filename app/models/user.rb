@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
 
   # Predicates for user activity.
   def active_today?
-    self && self.last_active_time.today?
+    self.last_active_time&.today?
   end
 
   # Black magic to automagically create a <ROLENAME>? function for each role.

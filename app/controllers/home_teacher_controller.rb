@@ -49,6 +49,9 @@ class HomeTeacherController < ApplicationController
   end
 
   def get_assessments(section)
-    Assessment.where(section_id: section).map &:id
+    Assessment
+      .where(section_id: section)
+      .order(due_date: :desc)
+      .map &:id
   end
 end

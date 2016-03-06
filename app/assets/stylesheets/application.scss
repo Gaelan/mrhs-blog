@@ -15,6 +15,12 @@
  * directory. It is generally better to create a new file per style scope.
  */
 
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "font-awesome-sprockets";
+@import "font-awesome";
+@import "wice_grid";
+
 @import "assessments";
 @import "comments";
 @import "courses";
@@ -29,12 +35,6 @@
 @import "tasks";
 @import "units";
 @import "users";
-
-@import "bootstrap-sprockets";
-@import "bootstrap";
-@import "font-awesome-sprockets";
-@import "font-awesome";
-@import "wice_grid";
 
 .clear { clear: both; }
 
