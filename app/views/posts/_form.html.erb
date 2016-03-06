@@ -14,18 +14,13 @@
         <%= render 'assessment_picker', f: f %>
         <div class='post-instructions collapsible'>
           <% if @post.assessment_id %>
-            <button class='btn btn-info <%= @post.body == nil ? '' : 'collapsed' %>''
-                type='button' data-toggle='collapse' data-target='#instructions'>
-                Instructions
-            </button>
-            <div id='instructions' class='collapse <%= @post.body == nil ? 'in' : '' %>'>
-              <p>
-                <%= markdown Assessment.find(@post.assessment_id).tasks[0].body %>
-              </p>
-            </div>
+            <%= render 'tasks/task_instructions',
+              collapse: @post.body == nil ? false : true,
+              task: @post.assessment.tasks[0]
+            %>
           <% else %>
           <p>Instructions will be visible here if you select the assessment and
-          click on the Create Post button. That will save the post, then if you
+          click on the Save Post button. That will save the post, then if you
           come back to edit it, the instructions will appear here.</p>
           <% end %>
         </div>
