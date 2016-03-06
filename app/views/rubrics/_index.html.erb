@@ -39,18 +39,18 @@ grid(@rubrics_grid) do |g|
   g.column do |t|
     markdown t.criterion
   end
+  if policy(Rubric).edit?
+    g.column do |t|
+      link_to 'Edit', edit_rubric_path(t)
+    end
+  end
+  if policy(Rubric).create?
+    g.column do |t|
+      # To create a new rubric item using this one as the defaults
+      link_to 'Clone', new_rubric_path(:base_rubric_id => t.id)
+    end
+  end
   unless params[:controller] == 'posts'
-    if policy(Rubric).edit?
-      g.column do |t|
-        link_to 'Edit', edit_rubric_path(t)
-      end
-    end
-    if policy(Rubric).create?
-      g.column do |t|
-        # To create a new rubric item using this one as the defaults
-        link_to 'Clone', new_rubric_path(:base_rubric_id => t.id)
-      end
-    end
     if policy(Rubric).destroy?
       g.column do |t|
         link_to 'Delete', t, method: :delete,
