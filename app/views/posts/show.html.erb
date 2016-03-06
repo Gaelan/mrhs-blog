@@ -59,6 +59,12 @@
 
 <div class='post-sidebar'>
   <% if current_user.teacher? || current_user.admin? %>
+    <div class='post-instructions'>
+      <%= render 'tasks/task_instructions',
+        collapse: true,
+        task: @post.assessment.tasks[0]
+      %>
+    </div>
     <div class='post-rubric'>
       <%= render 'rubrics/index' %>
     </div>

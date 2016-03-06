@@ -1,0 +1,20 @@
+<%
+ # app/views/tasks/_task_instructions.html.erb
+ #
+ # Render the instructions for a task, with an edit button for privilaged users.
+ #
+ # TODO: pass collapsed/not-collapsed state.
+ # XXX: ensure that id is unique.
+ %>
+<div class='task-instructions collapsible'>
+  <button class='btn btn-info <%= collapse ? 'collapsed' : '' %>'
+      type='button' data-toggle='collapse' data-target='#instructions'>
+      Instructions
+  </button>
+  <div id='instructions' class='collapse <%= collapse ? 'collapsed' : '' %>'>
+    <p>
+      <%= markdown Task.find(task).body %>
+    </p>
+    <%= if policy(task).edit? then link_to 'Edit', edit_task_path(task) end %>
+  </div>
+</div>
