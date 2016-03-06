@@ -133,6 +133,14 @@ class PostsController < ApplicationController
   # only allow the white list through.
   def post_params
     params.require(:post).permit(:published, :title, :body, :assessment_id,
-                                 images_attributes: [:id, :file, :caption, :maker, :src, :_destroy])
+                                 images_attributes: [
+                                   :id,
+                                   :file,
+                                   :file_remote_url,
+                                   :caption,
+                                   :maker,
+                                   :src,
+                                   :_destroy
+                                 ])
   end
 end
