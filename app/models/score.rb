@@ -14,4 +14,8 @@ class Score < ActiveRecord::Base
 
   scope :dropped, -> { where(drop: true) }
   scope :active, -> { where(drop: false) }
+
+  def self.for(opts)
+    create_with(drop: false).find_or_initialize_by opts
+  end
 end

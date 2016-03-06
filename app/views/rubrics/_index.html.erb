@@ -4,6 +4,7 @@
  # Expects:
  # - @rubrics - array of Rubric
  # - @rubrics_grid - result of Wice Grid initialize_grid @rubrics
+ # - @post - the post that these rubrics are being used to grade, if any
  %>
 <% params.inspect %>
 
@@ -34,7 +35,7 @@ grid(@rubrics_grid) do |g|
     end
   end
   g.column do |t|
-    t.band
+    render 'rubrics/band', band: t.band, strand: t.strand, user: @post&.user, assessment: @post&.assessment
   end
   g.column do |t|
     markdown t.criterion
