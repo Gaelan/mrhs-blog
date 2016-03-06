@@ -1,15 +1,15 @@
 <% if assessment && band =~ /\A\d+\z/ %>
-<%= render "scores/mini_form", strand: strand,
-                               student: user,
-                               assessment: assessment,
-                               num: band.to_i %>
-<% elsif assessment && band =~ /\A\d+-\d+\z/ %>
-<% band.split('-').each do |num_string| %>
   <%= render "scores/mini_form", strand: strand,
                                  student: user,
                                  assessment: assessment,
-                                 num: num_string.to_i %>
-<% end %>
+                                 num: band.to_i %>
+<% elsif assessment && band =~ /\A\d+-\d+\z/ %>
+  <% band.split('-').each do |num_string| %>
+    <%= render "scores/mini_form", strand: strand,
+                                   student: user,
+                                   assessment: assessment,
+                                   num: num_string.to_i %>
+  <% end %>
 <% else %>
-<%= band %>
+  <%= band %>
 <% end %>
