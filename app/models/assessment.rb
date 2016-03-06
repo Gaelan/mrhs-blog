@@ -20,6 +20,8 @@ class Assessment < ActiveRecord::Base
   end
 
   # rubric - return the rubric for this assessment
+  #
+  # XXX: this shouldn't be here - rubrics can exist on many levels...
   def rubric
     strand_ids = strands.map &:id
     rubrics = []
