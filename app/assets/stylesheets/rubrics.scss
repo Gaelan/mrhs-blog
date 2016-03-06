@@ -1,3 +1,26 @@
 // Place all the styles related to the Rubrics controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+$btn-color-01:   #ea332d;
+$btn-color-23:   #fefe74;
+$btn-color-45:   #abfa71;
+$btn-color-678:  #5cc754;
+
+.btn-score {
+  &.score-0, &.score-1 {
+    @include button-variant(#fff, $btn-color-01, lighten($btn-color-01, 5%));
+  }
+
+  &.score-2, &.score-3 {
+    @include button-variant(#000, $btn-color-23, lighten($btn-color-23, 5%));
+  }
+
+  &.score-4, &.score-5 {
+    @include button-variant(#000, $btn-color-45, lighten($btn-color-45, 5%));
+  }
+
+  &.score-6, &.score-7, &.score-8 {
+    @include button-variant(#fff, $btn-color-678, lighten($btn-color-678, 5%));
+  }
+}

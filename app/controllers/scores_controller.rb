@@ -50,6 +50,7 @@ class ScoresController < ApplicationController
   # PATCH/PUT /scores/1.json
   def update
     authorize @score
+    
     respond_to do |format|
       if @score.update(score_params)
         format.html { redirect_to :back, notice: 'Score was successfully updated.' }
