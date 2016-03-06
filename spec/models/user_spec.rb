@@ -27,7 +27,7 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '#email' do
+  describe 'validations' do
     it 'fail with duplicate e-mail address' do
       user1 = User.create given_name: 'Here', family_name: 'First', email: 'hf@example.com'
       user2 = User.new given_name: 'Dopple', family_name: 'Ganger', email: 'hf@example.com'
