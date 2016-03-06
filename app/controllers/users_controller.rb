@@ -30,7 +30,7 @@ class UsersController < ApplicationController
 
   def become
     authorize User
-    logger.debug 'hi'
+    # logger.debug 'hi'
     sign_in_and_redirect User.find(params[:user][:id])
   end
 
