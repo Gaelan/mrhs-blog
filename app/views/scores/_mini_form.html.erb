@@ -1,14 +1,14 @@
 <div class='score-mini-form'>
   <%# XXX: setting drop here is asking for trouble. Set in model? %>
-  <% score = Score.create_with(drop: false).find_or_create_by(strand: strand,
-                                     user: student,
-                                     assessment: assessment) %>
+  <% score = Score.for(strand: strand, user: student, assessment: assessment) %>
+  <% score.score = num %>
+
   <%= simple_form_for score, horizontal_form do |f| %>
-    <%= f.input :score, label: strand.to_s(:short), input_html: { min: 0, max: 8 } %>
-    <%= f.submit %>
+    <%= f.submit num, class: "btn #{if !score.changed? then "btn-score score-#{num}" else "btn-default" end }" %>
 
     <%= f.input :strand_id, as: :hidden %>
     <%= f.input :user_id, as: :hidden %>
     <%= f.input :assessment_id, as: :hidden %>
+    <%= f.input :score, as: :hidden %>
   <% end %>
 </div>
