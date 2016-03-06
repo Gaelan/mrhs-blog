@@ -217,7 +217,12 @@ ActiveRecord::Schema.define(version: 20160305234039) do
     t.string   "name"
     t.datetime "last_active_time"
     t.text     "given_name"
+    t.text     "given_name_phonetic"
     t.text     "family_name"
+    t.text     "family_name_phonetic"
+    t.boolean  "check_name"
+    t.text     "preferred_name"
+    t.integer  "student_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
