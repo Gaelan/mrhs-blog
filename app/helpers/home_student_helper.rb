@@ -24,4 +24,21 @@ module HomeStudentHelper
       'red'
     end
   end
+
+  # Determine whether we should edit or create a post (assessment).
+  #
+  def new_or_edit(user, assessment)
+    if Post.where(user_id: user.id, assessment_id: assessment.id).any?
+      # TODO: show if post is published or scored?
+      post_or_posts = Post.where(user_id: user.id, assessment_id: assessment.id)
+      if post_or_posts.count == 1
+        edit_user_post_path(user_id: user.id, id: post_or_posts[0].id)
+      else
+        # TODO: need to do something better if there are more than one post.
+        '/'   # Return to student home.
+      end
+    else
+      new_user_post_path(user_id: user.id, assessment_id: assessment.id)
+    end
+  end
 end
