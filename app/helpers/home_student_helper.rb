@@ -6,7 +6,10 @@ module HomeStudentHelper
   # TODO: other sanity checks, nil bodies, no photos, small photos.
   # TODO: be explicit about what you find in sanity checks. Hover?
   def annunciator(a)
-    if Post.where(user_id: @user.id, assessment_id: a.id, published: true).any?
+    if Score.where(user_id: @user.id, assessment_id: a.id).any?
+      # Assessment has been scored.
+      'blue'
+    elsif Post.where(user_id: @user.id, assessment_id: a.id, published: true).any?
       # There is at least one published post against this assessment.
       'green'
     elsif Post.where(user_id: @user.id, assessment_id: a.id).any?
