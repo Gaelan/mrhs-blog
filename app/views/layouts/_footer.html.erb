@@ -14,7 +14,7 @@
           <%= render 'layouts/su' %>
         <% end %>
       </div>
-      <% if current_user.teacher? || current_user.admin? %>
+      <% if user_signed_in? && (current_user.teacher? || current_user.admin?) %>
         <div>
           <button id='footnote-button' class='btn btn-info' type='button'
             data-toggle='collapse' data-target='#footnotes'>
