@@ -46,6 +46,7 @@ class UnitsController < ApplicationController
   # PATCH/PUT /units/1
   # PATCH/PUT /units/1.json
   def update
+    binding.pry
     respond_to do |format|
       if @unit.update(unit_params)
         format.html { redirect_to @unit, notice: 'Unit was successfully updated.' }
@@ -76,7 +77,7 @@ class UnitsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def unit_params
-    params.require(:unit).permit(:title, :soi, :duration,
+    params.require(:unit).permit(:title, :soi, :duration, :notes, :summative_assessment,
                                  task_ids: [])
   end
 end

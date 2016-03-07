@@ -61,7 +61,8 @@ gem 'high_voltage', '~> 2.4.0', :git => 'git://github.com/thoughtbot/high_voltag
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'pry-byebug'
-  gem 'rspec-rails', '~> 3.0'
+  gem 'rspec-rails', '3.5.0.beta1'
+  gem 'rails-controller-testing'
 end
 
 gem 'pry-rails'

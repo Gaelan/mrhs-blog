@@ -1,4 +1,11 @@
-<%# TODO: implement real & effective UID so you can switch back. %>
+<%
+ # app/views/layouts/_footer.html.erb
+ #
+ # Global page footer.
+ #
+ # TODO: implement real & effective UID so you can switch back.
+ # TODO: helpter for Footnote display.
+ %>
 <footer class='footer'>
   <% if user_signed_in? || Rails.env.development? %>
     <div class='container'>
@@ -7,15 +14,17 @@
           <%= render 'layouts/su' %>
         <% end %>
       </div>
-      <div>
-        <button id='footnote-button' class='btn btn-info' type='button'
-          data-toggle='collapse' data-target='#footnotes'>
-          Footnotes
-        </button>
-      </div>
+      <% if current_user.teacher? || current_user.admin? %>
+        <div>
+          <button id='footnote-button' class='btn btn-info' type='button'
+            data-toggle='collapse' data-target='#footnotes'>
+            Footnotes
+          </button>
+        </div>
+      <% end %>
     </div>
   <% end %>
   <div id='footnotes' class='collapse'>
-    <div id='footnotes_holder'></div>
+    <div id='footnotes_holder' <%= current_user.teacher? ? '' : 'style="display: none;"'></div>
   </div>
 </footer>
