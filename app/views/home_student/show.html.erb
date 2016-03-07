@@ -18,7 +18,10 @@
     <ul>
       <% @assessments.order(due_date: :desc).each do |a| %>
         <li class='student-status <%= annunciator(a) %>'><span class='student-status'>
-          <%= link_to a.title, task_path(a.tasks[0], assessment_id: a.id) %><br>
+          <%= link_to a.title,
+                new_user_post_path(user_id: current_user.id,
+                                   assessment_id: a.id)
+          %><br>
           Due: <%= a.due_date.to_date.to_s(:long) %>
         <span></li>
       <% end %>
