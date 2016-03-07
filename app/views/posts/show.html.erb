@@ -58,6 +58,7 @@
 </div>
 
 <div class='post-sidebar'>
+  <% if @post.assessment %>
   <% if current_user.teacher? || current_user.admin? || current_user == @post.user %>
     <div class='post-instructions'>
       <%= render 'layouts/collapsible_wrapper',
@@ -77,5 +78,6 @@
         target: 'rubric'
       %>
     </div>
+  <% end %>
   <% end %>
 </div>
