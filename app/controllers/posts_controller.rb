@@ -71,8 +71,10 @@ class PostsController < ApplicationController
     respond_to do |format|
       if @post.save
         format.html do
-          redirect_to [@user, @post],
-                      notice: 'Post was successfully created.'
+          # redirect_to [@user, @post],
+          #             notice: 'Post was successfully created.'
+          # TODO: figure out what notice isn't being displayed.
+          redirect_to '/', notice: 'Post was successfully created.'
         end
         format.json { render :show, status: :created, location: @post }
       else
@@ -93,8 +95,9 @@ class PostsController < ApplicationController
     respond_to do |format|
       if @post.update(post_params)
         format.html do
-          redirect_to [@user, @post],
-                      notice: 'Post was successfully updated.'
+          # redirect_to [@user, @post],
+          #             notice: 'Post was successfully updated.'
+          redirect_to '/', notice: 'Post was successfully updated.'
         end
         format.json { render :show, status: :ok, location: @post }
       else
