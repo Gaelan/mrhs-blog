@@ -19,13 +19,11 @@ class HomeTeacherController < ApplicationController
         courses: get_courses(s.session, s.period)
       }
     end.uniq
-    # binding.pry
   end
 
   private
 
   def get_courses(session, period)
-    # binding.pry
     @sections.select do |section|
       section.session == session && section.period == period
     end.map do |c|

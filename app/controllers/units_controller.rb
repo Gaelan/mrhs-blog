@@ -46,7 +46,6 @@ class UnitsController < ApplicationController
   # PATCH/PUT /units/1
   # PATCH/PUT /units/1.json
   def update
-    binding.pry
     respond_to do |format|
       if @unit.update(unit_params)
         format.html { redirect_to @unit, notice: 'Unit was successfully updated.' }
