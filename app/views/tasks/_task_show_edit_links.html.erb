@@ -1,0 +1,27 @@
+<% if policy(@task).edit? %>
+  <%= link_to 'Edit', edit_task_path(@task) %> |
+<% end %>
+<% if policy(@task).destroy? %>
+  <%= link_to 'Delete', [@user, @task], method: :delete,
+    data: { confirm: 'Are you sure?' } %> |
+<% end %>
+<% unless current_user.teacher? || current_user.admin? %>
+  <% post = Post.where(user_id: current_user.id, assessment_id: params[:assessment_id]) %>
+  <% if post.count == 0 %>
+    <%= link_to 'Get Started',
+      new_user_post_path(user_id: current_user.id,
+                         assessment_id: params[:assessment_id]) %>
+  <% elsif post.count == 1 %>
+    <% if post.published == true %>
+      <% link_text = 'Revise Post' %>
+    <% else %>
+      <% link_text = 'Finish & Publish' %>
+    <% end %>
+    <%= link_to link_text,
+      edit_user_post_path(current_user.id, post.ids[0]) %>
+  <% else %>
+    <%# TODO: deal with multiples – provide select list. %>
+    <%= link_to 'More than one post – Return to list', '/' %>
+  <% end %> |
+<% end %>
+<%= link_to 'Back', :back %>

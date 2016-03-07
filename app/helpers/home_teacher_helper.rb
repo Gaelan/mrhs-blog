@@ -11,7 +11,6 @@ module HomeTeacherHelper
   def assessment_overview(uid, aids)
     posts = Post.where(user: uid, assessment: aids)
     post_info = aids.map do |a|
-      # binding.pry
       {
         uid: uid,
         aid: a,
@@ -20,7 +19,6 @@ module HomeTeacherHelper
         scores: []
       }
     end
-    # binding.pry
     format_status(post_info)
   end
 
@@ -30,7 +28,6 @@ module HomeTeacherHelper
     when 0
       [{ pid: nil, title: nil, status: nil }]
     when 1
-      # binding.pry
       [{
         pid: post_or_posts[0].id,
         title: (sanitize post_or_posts[0].title),
@@ -48,7 +45,6 @@ module HomeTeacherHelper
           status: assessment_status(aid, p)
         }
       end
-      # binding.pry
     end
   end
 
@@ -104,7 +100,6 @@ module HomeTeacherHelper
         href = user_post_path(info[:uid], info[:posts][0][:pid])
       end
       title = "#{info[:a_title]}\n#{info[:posts][0][:title]}".html_safe
-      # binding.pry
       "<a href=\"#{href}\" title=\"#{title}\" class=\"#{css}\">&nbsp;</a>"
     end.join.html_safe
     status

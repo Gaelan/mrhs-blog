@@ -23,10 +23,8 @@ class Post < ActiveRecord::Base
     # Score.where(user_id: user_id,
     #             assessment_id: assessment.id,
     #             strand_id: assessment.strands[0].id)
-    # binding.pry
   end
 
   def strands
-    # binding.pry
   end
 end
