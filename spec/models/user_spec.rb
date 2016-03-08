@@ -7,7 +7,7 @@ RSpec.describe User, type: :model do
   end
 
   it 'knows its role in society' do
-    user = User.create! given_name: 'Dennis', family_name: 'Ritchie', email: 'dmr@bell-labs.com'
+    user = Fabricate(:user)
     user.roles.create role: :admin # Make the user an admin.
     expect(user).to be_admin # RSpec for "assert that user.admin? is true"
   end
@@ -22,8 +22,8 @@ RSpec.describe User, type: :model do
       expect(user.name).to eq 'Fureigh'
     end
     it 'handles people with preferred names' do
-       user = User.new given_name: 'John', family_name: 'Hall', preferred_name: 'Mad Dog'
-       expect(user.name).to eq 'Mad Dog Hall'
+      user = User.new given_name: 'John', family_name: 'Hall', preferred_name: 'Mad Dog'
+      expect(user.name).to eq 'Mad Dog Hall'
     end
   end
 
