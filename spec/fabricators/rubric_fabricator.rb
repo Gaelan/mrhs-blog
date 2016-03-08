@@ -1,5 +1,5 @@
 Fabricator(:rubric) do
   band '7-8'
-  criterion 'Do good work.'
+  criterion 'Do excellent work.'
   level :unit
 end
