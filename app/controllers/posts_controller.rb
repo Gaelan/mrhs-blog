@@ -54,6 +54,8 @@ class PostsController < ApplicationController
       # Coming here from a 'Get Started' link, so we know which prompt
       # the student wants to work on.
       @post.assessment_id = params[:assessment_id]
+      @rubrics = @post.rubric
+      @rubrics_grid = initialize_grid @rubrics
     end
   end
 
