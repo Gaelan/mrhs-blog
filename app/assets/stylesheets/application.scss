@@ -17,6 +17,7 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "bootstrap-table";
 @import "font-awesome-sprockets";
 @import "font-awesome";
 @import "wice_grid";
@@ -35,6 +36,24 @@
 @import "tasks";
 @import "units";
 @import "users";
+
+/*
+** Common Layout.
+*/
+
+.main {
+  float: left;
+  width: 60%;
+}
+
+.sidebar {
+  float: left;
+  width: 30%;
+  margin-left: 20px;
+  border-left: 1px solid gray;
+  padding-left: 10px;
+  font-size: 80%;
+}
 
 .clear { clear: both; }
 

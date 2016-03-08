@@ -5,6 +5,7 @@ class Rubric < ActiveRecord::Base
   validates :band, presence: true
   validates :criterion, presence: true
   validates :level, presence: true
+  validates :task_id, value: nil
 
   enum level: %i( authority school subject unit project task )
 end

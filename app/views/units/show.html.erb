@@ -1,13 +1,18 @@
 <h1> <%= @unit.title %> </h1>
 
 <p>
-  <strong>Statement of Inquiry:</strong>
-  <%= @unit.soi %>
+  <strong>Duration:</strong>
+  <%= @unit.duration %> hours
 </p>
 
 <p>
-  <strong>Duration:</strong>
-  <%= @unit.duration %> hours
+  <strong>Statement of Inquiry:</strong>
+  <%= markdown @unit.soi %>
+</p>
+
+<p>
+  <strong>Notes:</strong>
+  <%= markdown @unit.notes %>
 </p>
 
 <h2>Tasks</h2>

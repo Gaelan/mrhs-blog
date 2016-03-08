@@ -19,13 +19,11 @@ class HomeTeacherController < ApplicationController
         courses: get_courses(s.session, s.period)
       }
     end.uniq
-    # binding.pry
   end
 
   private
 
   def get_courses(session, period)
-    # binding.pry
     @sections.select do |section|
       section.session == session && section.period == period
     end.map do |c|
@@ -43,9 +41,16 @@ class HomeTeacherController < ApplicationController
     Enrollment.where(section_id: section).map do |s|
       {
         id: s.student_id,
-        name: @students.where(id: s.student_id)[0].name
+        given_name: @students.where(id: s.student_id)[0].given_name,
+        family_name: @students.where(id: s.student_id)[0].family_name
       }
-    end.sort { |l, r| l[:name] <=> r[:name] }
+    end.sort { |l, r|
+      unless l[:family_name] == r[:family_name]
+        l[:family_name] <=> r[:family_name]
+      else
+        l[:given_name] <=> r[:given_name]
+      end
+      }
   end
 
   def get_assessments(section)

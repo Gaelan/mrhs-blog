@@ -21,6 +21,8 @@ gem 'coffee-rails', '~> 4.1.0'
 # CSS type stuff
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'rails_bootstrap_navbar'
+# Bootstrap Table for Rails
+gem 'bootstrap-table-rails', '~> 1.10.0'
 # Fork for Rails 5 support. Consider PRing soon.
 gem 'wice_grid', github: 'Gaelan/wice_grid', branch: 'rails5-fix'
 gem 'font-awesome-sass', '~> 4.3'
@@ -59,7 +61,8 @@ gem 'high_voltage', '~> 2.4.0', :git => 'git://github.com/thoughtbot/high_voltag
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'pry-byebug'
-  gem 'rspec-rails', '~> 3.0'
+  gem 'rspec-rails', '3.5.0.beta1'
+  gem 'rails-controller-testing'
 end
 
 gem 'pry-rails'

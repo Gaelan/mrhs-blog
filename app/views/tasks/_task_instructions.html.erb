@@ -1,0 +1,14 @@
+<%
+ # app/views/tasks/_task_instructions.html.erb
+ #
+ # Render the instructions for a task, with an edit button for privilaged users.
+ #
+ %>
+
+<% if task %>
+  <p>
+    <%# binding.pry %>
+    <%= if task then markdown Task.find(task).body end %>
+  </p>
+  <%= if policy(task).edit? then link_to 'Edit', edit_task_path(task) end %>
+<% end %>
