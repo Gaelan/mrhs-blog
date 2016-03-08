@@ -62,6 +62,11 @@ class PostsController < ApplicationController
   # GET /users/1/posts/1/edit
   def edit
     authorize @post
+    if @post.assessment
+      # XXX: this was causing a 500 when assessment was nil. Fix in model.
+      @rubrics = @post.rubric
+      @rubrics_grid = initialize_grid @rubrics
+    end
   end
 
   # POST /users/1/posts
