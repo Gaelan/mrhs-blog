@@ -5,7 +5,10 @@
  #
  %>
 
-<p>
-  <%= markdown Task.find(task).body %>
-</p>
-<%= if policy(task).edit? then link_to 'Edit', edit_task_path(task) end %>
+<% if task %>
+  <p>
+    <%# binding.pry %>
+    <%= if task then task markdown Task.find(task).body end %>
+  </p>
+  <%= if policy(task).edit? then link_to 'Edit', edit_task_path(task) end %>
+<% end %>
