@@ -1,3 +1,7 @@
+<%
+ # app/views/posts/_form.html.erb
+ %>
+
 <%= simple_form_for [@user, @post], horizontal_form do |f| %>
     <div class="row">
       <div class="col-sm-7">
@@ -14,18 +18,16 @@
         <%= render 'assessment_picker', f: f %>
         <div class='post-instructions collapsible'>
           <% if @post.assessment_id %>
-            <button class='btn btn-info <%= @post.body == nil ? '' : 'collapsed' %>''
-                type='button' data-toggle='collapse' data-target='#instructions'>
-                Instructions
-            </button>
-            <div id='instructions' class='collapse <%= @post.body == nil ? 'in' : '' %>'>
-              <p>
-                <%= markdown Assessment.find(@post.assessment_id).tasks[0].body %>
-              </p>
-            </div>
+            <%= render 'layouts/collapsible_wrapper',
+              label: 'Instructions',
+              partial: 'tasks/task_instructions',
+              collapse: @post.body == nil ? false : true,
+              params: { task: @post.assessment.tasks[0] },
+              target: 'instructions'
+            %>
           <% else %>
           <p>Instructions will be visible here if you select the assessment and
-          click on the Create Post button. That will save the post, then if you
+          click on the Save Post button. That will save the post, then if you
           come back to edit it, the instructions will appear here.</p>
           <% end %>
         </div>
@@ -35,7 +37,8 @@
               <%= render 'image_fields', f: image_form %>
           <% end %>
           <div>
-            <%= link_to_add_association 'add an image', f, :images, class: 'list-group-item list-group-item-success' %>
+            <%= link_to_add_association 'add an image', f,
+                  :images, class: 'list-group-item list-group-item-success' %>
           </div>
         </div>
       </div>

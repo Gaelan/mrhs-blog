@@ -21,6 +21,8 @@ gem 'coffee-rails', '~> 4.1.0'
 # CSS type stuff
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'rails_bootstrap_navbar'
+# Bootstrap Table for Rails
+gem 'bootstrap-table-rails', '~> 1.10.0'
 # Fork for Rails 5 support. Consider PRing soon.
 gem 'wice_grid', github: 'Gaelan/wice_grid', branch: 'rails5-fix'
 gem 'font-awesome-sass', '~> 4.3'
@@ -63,6 +65,7 @@ group :development, :test do
 
   gem 'fabrication'
   gem 'ffaker'
+  gem 'rails-controller-testing'
 end
 
 gem 'pry-rails'

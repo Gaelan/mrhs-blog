@@ -2,7 +2,40 @@
   <% if f.object.file.exists? %>
     <%= image_tag f.object.file.url, width: "200px" %>
   <% else %>
-    <%= f.input :file, as: :file %>
+    <div>
+      <% upload_id = "upload_#{f.object.object_id}" %>
+      <% url_id = "url_#{f.object.object_id}" %>
+
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active">
+          <a href="#<%= upload_id %>"
+             aria-controls="<%= upload_id %>"
+             role="tab"
+             data-toggle="tab">
+            Upload
+          </a>
+        </li>
+        <li role="presentation">
+          <a href="#<%= url_id %>"
+             aria-controls="<%= url_id %>"
+             role="tab"
+             data-toggle="tab">
+            URL
+          </a>
+        </li>
+      </ul>
+
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="<%= upload_id %>">
+          <%= f.input :file, as: :file %>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="<%= url_id %>">
+          <%= f.input :file_remote_url, label: "URL" %>
+        </div>
+      </div>
+  </div>
   <% end %>
   <%= f.input :caption, as: :text, html: {rows: 4} %>
   <%= f.input :maker, label: "Photographer" %>

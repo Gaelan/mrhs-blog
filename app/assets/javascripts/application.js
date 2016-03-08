@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap-sprockets
+//= require bootstrap-table
 //= require cocoon
 //= require wice_grid
 //= require_tree .

@@ -58,9 +58,26 @@
 </div>
 
 <div class='post-sidebar'>
-  <% if current_user.teacher? || current_user.admin? %>
-    <div class='post-rubric'>
-      <%= render 'rubrics/index' %>
+  <% if @post.assessment %>
+  <% if current_user.teacher? || current_user.admin? || current_user == @post.user %>
+    <div class='post-instructions'>
+      <%= render 'layouts/collapsible_wrapper',
+        label: 'Instructions',
+        partial: 'tasks/task_instructions',
+        params: { task: @post.assessment.tasks[0] },
+        collapse: true,
+        target: 'instructions'
+      %>
     </div>
+    <div class='post-rubric'>
+      <%= render 'layouts/collapsible_wrapper',
+        label: 'Rubric',
+        partial: 'rubrics/index',
+        params: {},
+        collapse: true,
+        target: 'rubric'
+      %>
+    </div>
+  <% end %>
   <% end %>
 </div>
