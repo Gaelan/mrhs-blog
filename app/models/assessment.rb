@@ -41,4 +41,29 @@ class Assessment < ActiveRecord::Base
                  # strand.number: :asc,
                  band: :asc)
   end
+
+  def to_s
+    title
+  end
+
+  # scoreable - return an array of Post that are ready to be scored (marked
+  #             published if the due date is not passed, or that are not empty
+  #             if the due date has passed).
+  #
+  #             If passed 'autoscore: true' then a score will be created for
+  #             missing assessments and assessments that are empty.
+  #
+  # TODO: do better checking on autoscore.
+  # TODO: pass autoscore as a block that returns a score.
+  # TODO: default autoscore methods (return 0 if body is empty & no images).
+  #
+  def scoreable(autoscore = false)
+    # binding.pry
+    Post.where(assessment: id)
+  end
+
+  # updated - assessment has changed since most recent Score.
+  #
+  def updatated
+  end
 end
