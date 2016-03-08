@@ -1,4 +1,4 @@
-<%= navbar fixed: :top do %>
+<%= navbar fixed: :top, class: Rails.env.development? && 'navbar-inverse' do %>
   <%= navbar_header brand: 'MRHS Photo', brand_link: '/' %>
   <%= navbar_collapse do %>
     <%= navbar_group do %>
