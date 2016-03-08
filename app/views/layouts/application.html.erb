@@ -3,27 +3,32 @@
 <head>
   <title>MRHS Photo</title>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'application',
+    media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application',
+    'data-turbolinks-track' => true %>
+
   <%= csrf_meta_tags %>
 </head>
 
 <body>
 
-<%= render 'layouts/navbar' %>
+  <%= render 'layouts/navbar' %>
 
-<div class='container'>
-  <% flash.each do |name, msg| %>
-    <%= content_tag :div, msg, class: "alert alert-info" %>
-  <% end %>
+  <div class='container'>
 
-  <%= yield %>
+    <% flash.each do |name, msg| %>
+      <%= content_tag :div, msg, class: "alert alert-info" %>
+    <% end %>
 
-</div>
+    <%= yield %>
 
-<%= render 'layouts/footer' %>
+  </div>
+
+  <%= render 'layouts/footer' %>
 
 </body>
 </html>
