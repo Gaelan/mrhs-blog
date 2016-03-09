@@ -97,7 +97,7 @@ class PostsController < ApplicationController
   # PATCH/PUT /users/1/posts/1.json
   def update
     authorize @post
-    if params[:body] == nil
+    if params[:body].nil?
       # Edit deleted post body, set it to nil.
       @post.body = nil
     end
