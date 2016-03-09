@@ -61,6 +61,7 @@ class PostsController < ApplicationController
 
   # GET /users/1/posts/1/edit
   def edit
+    store_location
     authorize @post
     if @post.assessment
       # XXX: this was causing a 500 when assessment was nil. Fix in model.
@@ -78,6 +79,7 @@ class PostsController < ApplicationController
     respond_to do |format|
       if @post.save
         format.html do
+          # TODO: use redirect_back_or_default (or modify it to work).
           # redirect_to [@user, @post],
           #             notice: 'Post was successfully created.'
           # TODO: figure out what notice isn't being displayed.
@@ -102,6 +104,7 @@ class PostsController < ApplicationController
     respond_to do |format|
       if @post.update(post_params)
         format.html do
+          # TODO: use redirect_back_or_default (or modify it to work).
           # redirect_to [@user, @post],
           #             notice: 'Post was successfully updated.'
           redirect_to '/', notice: 'Post was successfully updated.'

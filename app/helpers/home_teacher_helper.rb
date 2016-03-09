@@ -61,15 +61,13 @@ module HomeTeacherHelper
       end
     else
       status << 'unpublished'
-      unless post.body.blank? && post.title.blank?
-        status << 'started'
-      else
-        status << 'not-started'
+      status << unless post.body.blank? && post.title.blank?
+                  'started'
+                else
+                  'not-started'
       end
     end
-    if post.body.blank?
-      status << 'empty'
-    end
+    status << 'empty' if post.body.blank?
     status.join(' ')
   end
 
@@ -80,9 +78,7 @@ module HomeTeacherHelper
 
   def unclassified_posts(uid)
     how_many = Post.where(user: uid, assessment: nil).count
-    if how_many > 0
-      css = 'red-border'
-    end
+    css = 'red-border' if how_many > 0
     "<span class=\"status unclassified-posts #{css}\"><span class=\"count\">#{how_many}</span></span>".html_safe
   end
 
@@ -92,7 +88,7 @@ module HomeTeacherHelper
     href = ''
     title = ''
     status = pi.map do |info|
-      if info[:posts][0][:pid] == nil
+      if info[:posts][0][:pid].nil?
         href = '#'
         css = 'not-started' + annunicator_style
       else

@@ -28,9 +28,7 @@ class TasksController < ApplicationController
                     .order(objective_id: :asc) # XXX: hack, should be objective.group
     strand_ids = @strands.map &:id
     @strands_grid = initialize_grid @strands
-    strand_ids = @strands.map do |s|
-      s.id
-    end
+    strand_ids = @strands.map(&:id)
     # Find applicable Rubrics
     @rubrics = []
     rubric_candidates = Rubric.where(strand_id: strand_ids)
@@ -45,10 +43,10 @@ class TasksController < ApplicationController
     # TODO: figure out why this hack is necessary
     @rubrics_hack = Rubric.where(id: (@rubrics.map &:id))
                           .order(
-                             strand_id: :asc, # XXX - Hack, should be...
-                             # strand.objective.group: :asc,
-                             # strand.number: :asc,
-                             band: :asc)
+                            strand_id: :asc, # XXX - Hack, should be...
+                            # strand.objective.group: :asc,
+                            # strand.number: :asc,
+                            band: :asc)
     @rubrics_grid = initialize_grid @rubrics_hack
   end
 
@@ -60,6 +58,7 @@ class TasksController < ApplicationController
 
   # GET /tasks/1/edit
   def edit
+    store_location
     authorize @task
   end
 
@@ -71,7 +70,7 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to @task, notice: 'Task was successfully created.' }
+        format.html { redirect_back_or_default(notice: 'Task was successfully created.') }
         format.json { render :show, status: :created, location: @task }
       else
         format.html { render :new }
@@ -86,7 +85,7 @@ class TasksController < ApplicationController
     authorize @task
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to @task, notice: 'Task was successfully updated.' }
+        format.html { redirect_back_or_default(notice: 'Task was successfully updated.') }
         format.json { render :show, status: :ok, location: @task }
       else
         format.html { render :edit }

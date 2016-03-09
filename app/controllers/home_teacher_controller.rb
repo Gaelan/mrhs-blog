@@ -44,13 +44,13 @@ class HomeTeacherController < ApplicationController
         given_name: @students.where(id: s.student_id)[0].given_name,
         family_name: @students.where(id: s.student_id)[0].family_name
       }
-    end.sort { |l, r|
+    end.sort do |l, r|
       unless l[:family_name] == r[:family_name]
         l[:family_name] <=> r[:family_name]
       else
         l[:given_name] <=> r[:given_name]
       end
-      }
+    end
   end
 
   def get_assessments(section)

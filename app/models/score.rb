@@ -8,7 +8,7 @@ class Score < ActiveRecord::Base
 
   validates :assessment, presence: true
   # TODO: can we validate that score is within the range of the assessment?
-  validates :score, :inclusion => { :in => 0..8 }, allow_nil: true
+  validates :score, inclusion: { in: 0..8 }, allow_nil: true
   validates :strand, presence: true
   validates :user, presence: true
 
