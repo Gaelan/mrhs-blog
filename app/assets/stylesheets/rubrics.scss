@@ -7,7 +7,11 @@ $btn-color-23:   #fefe74;
 $btn-color-45:   #abfa71;
 $btn-color-678:  #5cc754;
 
-.btn-score {
+.btn-score:not(.current) {
+  @extend .btn-default;
+}
+
+.btn-score.current {
   &.score-0, &.score-1 {
     @include button-variant(#fff, $btn-color-01, lighten($btn-color-01, 5%));
   }

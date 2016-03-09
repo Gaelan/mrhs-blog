@@ -39,6 +39,7 @@ class ScoresController < ApplicationController
       if @score.save
         format.html { redirect_to :back, notice: 'Score was successfully created.' }
         format.json { render :show, status: :created, location: @score }
+        format.js { render :update_rubric }
       else
         format.html { render :new }
         format.json { render json: @score.errors, status: :unprocessable_entity }
@@ -50,11 +51,12 @@ class ScoresController < ApplicationController
   # PATCH/PUT /scores/1.json
   def update
     authorize @score
-    
+
     respond_to do |format|
       if @score.update(score_params)
         format.html { redirect_to :back, notice: 'Score was successfully updated.' }
         format.json { render :show, status: :ok, location: @score }
+        format.js { render :update_rubric }
       else
         format.html { render :edit }
         format.json { render json: @score.errors, status: :unprocessable_entity }
