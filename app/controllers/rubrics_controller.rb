@@ -29,6 +29,8 @@ class RubricsController < ApplicationController
   def new
     @rubric = Rubric.new
     authorize @rubric
+    store_location
+
     if params[:task_id]
       # Creating a new rubric for a Task.
       @rubric.level = :task
@@ -53,6 +55,7 @@ class RubricsController < ApplicationController
   # GET /rubrics/1/edit
   def edit
     authorize @rubric
+    store_location
   end
 
   # POST /rubrics
@@ -63,7 +66,7 @@ class RubricsController < ApplicationController
 
     respond_to do |format|
       if @rubric.save
-        format.html { redirect_to @rubric, notice: 'Rubric was successfully created.' }
+        format.html { redirect_back_or_default notice: 'Rubric was successfully created.' }
         format.json { render :show, status: :created, location: @rubric }
       else
         format.html { render :new }
@@ -78,7 +81,7 @@ class RubricsController < ApplicationController
     authorize @rubric
     respond_to do |format|
       if @rubric.update(rubric_params)
-        format.html { redirect_to @rubric, notice: 'Rubric was successfully updated.' }
+        format.html { redirect_back_or_default notice: 'Rubric was successfully updated.' }
         format.json { render :show, status: :ok, location: @rubric }
       else
         format.html { render :edit }

@@ -41,10 +41,11 @@ class ApplicationController < ActionController::Base
   # Functions for managing redirection on edits.
   def store_location
     session[:return_to] = request.referrer
+    binding.pry
   end
 
   def redirect_back_or_default(default = root_path, notice: '')
-    # binding.pry
+    binding.pry
     # TODO: think about a better name
     # TODO: figure out why notice doesn't appear some times (on new objective, works on edit)
     redirect_to (session.delete(:return_to) || default), notice: notice
