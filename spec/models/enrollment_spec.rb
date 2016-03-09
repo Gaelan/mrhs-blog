@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Enrollment, :type => :model do
+RSpec.describe Enrollment, type: :model do
   describe 'validation' do
     it 'fails without a section' do
       enrollment = Fabricate.build(:enrollment, section: nil)

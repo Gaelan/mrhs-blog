@@ -38,8 +38,8 @@ module AssessmentsHelper
     # TODO: configurable see_full message
     see_full = 'See the full description on the class blog: http://mrhs-photo-blog.heroku.com.'
     body = markdown (truncate assessment.tasks[0].body,
-                       length: 400, omission: '',
-                       separator: "\r\n\r\n")
+                              length: 400, omission: '',
+                              separator: "\r\n\r\n")
     "#{assessment.tasks[0].title}: #{body} #{see_full}"
   end
 
@@ -50,9 +50,7 @@ module AssessmentsHelper
   #
   def mogrify(str, nchars)
     newstr = str.gsub(/ */, '')
-    if newstr.length >= nchars
-      newstr.gsub!(/[a-z]*/, '')
-    end
+    newstr.gsub!(/[a-z]*/, '') if newstr.length >= nchars
     newstr
   end
 end

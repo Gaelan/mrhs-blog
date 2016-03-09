@@ -10,15 +10,15 @@ class Strand < ActiveRecord::Base
   has_many :scores
 
   def to_s(format = :long)
-    case format
-    when :short
-      suffix = ''
-    when :long
-      suffix = ': ' + label
-    when :full
-      suffix = ': ' + description
-    else
-      suffix = ': strand.to_s called with unknown format'
+    suffix = case format
+             when :short
+               ''
+             when :long
+               ': ' + label
+             when :full
+               ': ' + description
+             else
+               ': strand.to_s called with unknown format'
     end
     objective.group + number.to_s + suffix
   end

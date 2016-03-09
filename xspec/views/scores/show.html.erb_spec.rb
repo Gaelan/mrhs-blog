@@ -1,18 +1,18 @@
 require 'rails_helper'
 
-RSpec.describe "scores/show", :type => :view do
+RSpec.describe 'scores/show', type: :view do
   before(:each) do
     @score = assign(:score, Score.create!(
-      :score => 1,
-      :drop => false,
-      :note => "MyText",
-      :user => nil,
-      :assessment => nil,
-      :strand => nil
+                              score: 1,
+                              drop: false,
+                              note: 'MyText',
+                              user: nil,
+                              assessment: nil,
+                              strand: nil
     ))
   end
 
-  it "renders attributes in <p>" do
+  it 'renders attributes in <p>' do
     render
     expect(rendered).to match(/1/)
     expect(rendered).to match(/false/)
