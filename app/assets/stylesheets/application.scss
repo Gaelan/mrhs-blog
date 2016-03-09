@@ -15,24 +15,70 @@
  * directory. It is generally better to create a new file per style scope.
  */
 
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "bootstrap-table";
+@import "font-awesome-sprockets";
+@import "font-awesome";
+@import "wice_grid";
+
+@import "assessments";
 @import "comments";
 @import "courses";
 @import "home_student";
+@import "home_teacher";
 @import "objectives";
 @import "pages";
 @import "posts";
+@import "rubrics";
+@import "scores";
+@import "sections";
 @import "tasks";
+@import "units";
 @import "users";
 
-@import "bootstrap-sprockets";
-@import "bootstrap";
-@import "font-awesome-sprockets";
-@import "font-awesome";
+/*
+** Common Layout.
+*/
+
+.main {
+  float: left;
+  width: 60%;
+}
+
+.sidebar {
+  float: left;
+  width: 30%;
+  margin-left: 20px;
+  border-left: 1px solid gray;
+  padding-left: 10px;
+  font-size: 80%;
+}
 
 .clear { clear: both; }
 
 .timestamp-latest { font-weight: bold; }
 .timestamp-original {}
+
+/*
+ * Bootstrap Buttons
+ */
+.collapsible .btn:before {
+ content: "Hide ";
+}
+
+.collapsible .btn.collapsed:before {
+ content: "Show ";
+}
+
+.collapsible .btn:after {
+  font-family: "Glyphicons Halflings";
+  content: "\e114";
+}
+
+.collapsible .btn.collapsed:after {
+  content: "\e080";
+}
 
 /* Sticky footer styles
  * TODO: clean up footer, find a better way to manage the size.
@@ -43,7 +89,7 @@ html {
 }
 body {
   /* Margin bottom by footer height */
-  margin-bottom: 60px;
+  margin-bottom: 70px;
 }
 footer {
   position: absolute;
@@ -53,4 +99,12 @@ footer {
   /* Set the fixed height of the footer here */
   height: 60px;
   background-color: #f5f5f5;
+}
+
+#footer-become {
+  float: left;
+}
+
+#footnote-button {
+  float: right;
 }

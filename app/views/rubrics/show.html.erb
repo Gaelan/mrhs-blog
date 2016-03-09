@@ -1,0 +1,22 @@
+<p>
+  <strong>Strand:</strong>
+  <%= @rubric.strand %>
+</p>
+
+<p>
+  <strong>Level:</strong>
+  <%= @rubric.level %>
+</p>
+
+<p>
+  <strong>Band:</strong>
+  <%= @rubric.band %>
+</p>
+
+<p>
+  <strong>Criterion:</strong>
+  <%= markdown @rubric.criterion %>
+</p>
+
+<%= link_to 'Edit', edit_rubric_path(@rubric) %> |
+<%= link_to 'Back', :back %>

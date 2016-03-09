@@ -1,0 +1,13 @@
+<%= grid(@strands_grid) do |g|
+  g.column name: 'Strand' do |t|
+    t.objective.group + t.number.to_s
+  end
+  g.column name: 'Description' do  |t|
+    markdown t.description
+  end
+  if policy(Objective).edit?
+    g.column name: '' do |t|
+      link_to 'Edit', edit_objective_path(t.objective_id)
+    end
+  end
+end -%>

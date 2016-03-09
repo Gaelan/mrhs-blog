@@ -7,13 +7,13 @@ class PostsController < ApplicationController
 
   # GET /users/1/posts
   # GET /users/1/posts.json
-  def user_index
-    authorize Post
-    # @posts = policy_scope @user.posts
-    # posts = policy_scope @user.posts
-    @posts = policy_scope @user.posts.order(created_at: :desc)
-    @posts_grid = initialize_grid @posts
-  end
+  # def user_index
+  #   authorize Post
+  #   # @posts = policy_scope @user.posts
+  #   # posts = policy_scope @user.posts
+  #   @posts = policy_scope @user.posts.order(created_at: :desc)
+  #   @posts_grid = initialize_grid @posts
+  # end
 
   # GET /posts
   # GET /users/1/posts
@@ -38,18 +38,36 @@ class PostsController < ApplicationController
   # GET /users/1/posts/1.json
   def show
     authorize @post
+    if @post.assessment
+      # XXX: this was causing a 500 when assessment was nil. Fix in model.
+      @rubrics = @post.rubric
+      @rubrics_grid = initialize_grid @rubrics
+    end
+    @scores = @post.scores
   end
 
   # GET /users/1/posts/new
   def new
     @post = @user.posts.build
     authorize @post
+    if params[:assessment_id]
+      # Coming here from a 'Get Started' link, so we know which prompt
+      # the student wants to work on.
+      @post.assessment_id = params[:assessment_id]
+      @rubrics = @post.rubric
+      @rubrics_grid = initialize_grid @rubrics
+    end
   end
 
   # GET /users/1/posts/1/edit
   def edit
     store_location
     authorize @post
+    if @post.assessment
+      # XXX: this was causing a 500 when assessment was nil. Fix in model.
+      @rubrics = @post.rubric
+      @rubrics_grid = initialize_grid @rubrics
+    end
   end
 
   # POST /users/1/posts
@@ -62,8 +80,10 @@ class PostsController < ApplicationController
       if @post.save
         format.html do
           # TODO: use redirect_back_or_default (or modify it to work).
-          redirect_to [@user, @post],
-                      notice: 'Post was successfully created.'
+          # redirect_to [@user, @post],
+          #             notice: 'Post was successfully created.'
+          # TODO: figure out what notice isn't being displayed.
+          redirect_to '/', notice: 'Post was successfully created.'
         end
         format.json { render :show, status: :created, location: @post }
       else
@@ -77,12 +97,17 @@ class PostsController < ApplicationController
   # PATCH/PUT /users/1/posts/1.json
   def update
     authorize @post
+    if params[:body] == nil
+      # Edit deleted post body, set it to nil.
+      @post.body = nil
+    end
     respond_to do |format|
       if @post.update(post_params)
         format.html do
           # TODO: use redirect_back_or_default (or modify it to work).
-          redirect_to [@user, @post],
-                      notice: 'Post was successfully updated.'
+          # redirect_to [@user, @post],
+          #             notice: 'Post was successfully updated.'
+          redirect_to '/', notice: 'Post was successfully updated.'
         end
         format.json { render :show, status: :ok, location: @post }
       else
@@ -121,6 +146,14 @@ class PostsController < ApplicationController
   # only allow the white list through.
   def post_params
     params.require(:post).permit(:published, :title, :body, :assessment_id,
-                                 images_attributes: [:id, :file, :caption, :maker, :src, :_destroy])
+                                 images_attributes: [
+                                   :id,
+                                   :file,
+                                   :file_remote_url,
+                                   :caption,
+                                   :maker,
+                                   :src,
+                                   :_destroy
+                                 ])
   end
 end

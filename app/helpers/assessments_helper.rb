@@ -10,10 +10,10 @@ module AssessmentsHelper
   def illuminate_assessment_name(assessment)
     assessment.strands.map do |strand|
       limit = 24  # Max characters in assignment name.
-      sn = strand.to_s
+      sn = strand.to_s(format = :short)
       unit = 1    # TODO: use real unit numbers.
       f = assessment.formative? ? 'F' : ''
-      num = Strand.find(strand).assessments.where(
+      num = Strand.find(strand.id).assessments.where(
         'section_id = ? AND due_date < ?',
         assessment.section_id, assessment.due_date
       ).count + 1
@@ -36,7 +36,6 @@ module AssessmentsHelper
     # TODO: dynamic link
     # TODO: translation
     # TODO: configurable see_full message
-    # binding.pry
     see_full = 'See the full description on the class blog: http://mrhs-photo-blog.heroku.com.'
     body = markdown (truncate assessment.tasks[0].body,
                        length: 400, omission: '',

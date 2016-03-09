@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160222025658) do
+ActiveRecord::Schema.define(version: 20160306170750) do
 
   create_table "assessment_tasks", force: :cascade do |t|
     t.integer  "assessment_id"
@@ -114,6 +114,35 @@ ActiveRecord::Schema.define(version: 20160222025658) do
     t.index ["user_id"], name: "index_roles_on_user_id"
   end
 
+  create_table "rubrics", force: :cascade do |t|
+    t.integer  "level"
+    t.integer  "task_id"
+    t.string   "band"
+    t.text     "criterion"
+    t.integer  "strand_id"
+    t.string   "rubricable_type"
+    t.integer  "rubricable_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["rubricable_type", "rubricable_id"], name: "index_rubrics_on_rubricable_type_and_rubricable_id"
+    t.index ["strand_id"], name: "index_rubrics_on_strand_id"
+    t.index ["task_id"], name: "index_rubrics_on_task_id"
+  end
+
+  create_table "scores", force: :cascade do |t|
+    t.integer  "score"
+    t.boolean  "drop"
+    t.text     "note"
+    t.integer  "user_id"
+    t.integer  "assessment_id"
+    t.integer  "strand_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["assessment_id"], name: "index_scores_on_assessment_id"
+    t.index ["strand_id"], name: "index_scores_on_strand_id"
+    t.index ["user_id"], name: "index_scores_on_user_id"
+  end
+
   create_table "sections", force: :cascade do |t|
     t.string   "name"
     t.integer  "year"
@@ -166,8 +195,10 @@ ActiveRecord::Schema.define(version: 20160222025658) do
     t.string   "title"
     t.text     "soi"
     t.integer  "duration"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.text     "notes"
+    t.integer  "summative_assessment"
   end
 
   create_table "users", force: :cascade do |t|
@@ -187,6 +218,13 @@ ActiveRecord::Schema.define(version: 20160222025658) do
     t.string   "uid"
     t.string   "name"
     t.datetime "last_active_time"
+    t.text     "given_name"
+    t.text     "given_name_phonetic"
+    t.text     "family_name"
+    t.text     "family_name_phonetic"
+    t.boolean  "check_name"
+    t.text     "preferred_name"
+    t.integer  "student_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

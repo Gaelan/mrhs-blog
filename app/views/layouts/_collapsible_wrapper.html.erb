@@ -1,0 +1,25 @@
+<%
+ # app/views/layouts/_collapsible_wrapper.html.erb
+ #
+ # A Bootstrap wrapper for a block of HTML.
+ #
+ # Expects:
+ # - label: the text to use for the show/hide link.
+ # - collapse: boolean for the initial state of the block.
+ # - partial: the name of the partial to render.
+ # - params: parameters for the partial.
+ # - target: name for the id/data-target pair.
+ #
+ # TODO: create id/data-target pair if not passed in.
+ # TODO: use for all collapse code.
+ %>
+
+<div class='collapsible collapsible-wrapper'>
+  <button class='btn btn-info <%= collapse ? 'collapsed' : '' %>'
+     type='button' data-toggle='collapse' data-target='#<%= target %>'>
+     <%= label %>
+  </button>
+  <div id='<%= target %>' class='collapse <%= collapse ? '' : 'in' %>'>
+    <%= render partial, params %>
+ </div>
+</div>

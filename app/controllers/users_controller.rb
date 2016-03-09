@@ -1,6 +1,6 @@
 #
 class UsersController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: :become # policy checks for admin
   after_action  :verify_authorized
 
   def index
@@ -30,6 +30,7 @@ class UsersController < ApplicationController
 
   def become
     authorize User
+    # logger.debug 'hi'
     sign_in_and_redirect User.find(params[:user][:id])
   end
 

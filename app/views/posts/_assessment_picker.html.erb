@@ -1,0 +1,13 @@
+ <%
+  # TODO: might be more than one enrollment.
+  # TODO: make this into a helper.
+  %>
+<div class='assessment-picker'>
+  <% enrollment = Enrollment.where(student_id: current_user.id)[0] %>
+  <% if enrollment then section = enrollment.section_id %>
+    <%= f.association :assessment,
+      collection: Assessment.where(section_id: section) %>
+  <% else %>
+    <h3>You don't appear to be enrolled in a class!!</h3>
+  <% end %>
+</div>

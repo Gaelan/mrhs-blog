@@ -1,4 +1,9 @@
+<%
+ # app/views/posts/show.html.erb
+ %>
+
 <div class='post'>
+
   <div class='post-header'>
     <h1><%= @post.title %></h1>
     <p>
@@ -13,6 +18,7 @@
       <% end %>
     </p>
   </div>
+
   <div class='post-images'>
     <% @post.images.each do |image| %>
       <figure>
@@ -34,6 +40,7 @@
       <%= markdown @post.body %>
     </p>
   </div>
+
   <div class='post-links'>
     <hr>
     <%= link_to 'Edit', [:edit, @user, @post] %> |
@@ -47,4 +54,30 @@
   <div class='post-new-comment'>
     <%= render 'new_comment' %>
   </div>
+
+</div>
+
+<div class='post-sidebar'>
+  <% if @post.assessment %>
+  <% if current_user.teacher? || current_user.admin? || current_user == @post.user %>
+    <div class='post-instructions'>
+      <%= render 'layouts/collapsible_wrapper',
+        label: 'Instructions',
+        partial: 'tasks/task_instructions',
+        params: { task: @post.assessment.tasks[0] },
+        collapse: true,
+        target: 'instructions'
+      %>
+    </div>
+    <div class='post-rubric'>
+      <%= render 'layouts/collapsible_wrapper',
+        label: 'Rubric',
+        partial: 'rubrics/index',
+        params: {},
+        collapse: true,
+        target: 'rubric'
+      %>
+    </div>
+  <% end %>
+  <% end %>
 </div>

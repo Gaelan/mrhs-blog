@@ -1,0 +1,58 @@
+// Place all the styles related to the HomeTeacher controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+// Asessment status annunicator colors, order is significant.
+
+.home-teacher {
+  .published { background-color: green; }
+  .started { background-color: yellow; }
+  .empty { background-color: orange; }
+  .not-started { background-color: red; }
+  .scored { background-color: blue; }
+
+  // Last seen colors.
+  .today { background-color: green; }
+  .last-three-days { background-color: yellow; }
+  .long-time-ago { background-color: red; }
+
+  .status {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+  }
+
+  .unclassified-posts {
+    color: white;
+
+    &.red-border {
+      border: 2px solid red;
+      color: black;
+    }
+
+    .count {
+      padding: 0 0 3px 5px;
+    }
+  }
+
+  .class-title {
+    background-color: gray;
+    margin-bottom: 4px;
+
+    a {
+      font-size: bigger;
+      display: inline-block;
+      padding: 10px 0px 6px 8px;
+    }
+
+    a:link, a:visited {
+      color: white;
+    }
+
+    a:hover, a:active {
+      color: red;
+    }
+  }
+}

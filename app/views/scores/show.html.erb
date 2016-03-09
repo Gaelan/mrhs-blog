@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Score:</strong>
+  <%= @score.score %>
+</p>
+
+<p>
+  <strong>Drop:</strong>
+  <%= @score.drop %>
+</p>
+
+<p>
+  <strong>Note:</strong>
+  <%= @score.note %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @score.user %>
+</p>
+
+<p>
+  <strong>Assessment:</strong>
+  <%= @score.assessment %>
+</p>
+
+<p>
+  <strong>Strand:</strong>
+  <%= @score.strand %>
+</p>
+
+<%= link_to 'Edit', edit_score_path(@score) %> |
+<%= link_to 'Back', scores_path %>

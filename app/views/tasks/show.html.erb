@@ -1,14 +1,30 @@
-<div class='task-container'>
+<%
+ # app/views/tasks/show.html.erb
+ %>
+
+<div class='main task-container'>
+  <div class='task-show-edit-links'>
+    <%= render 'task_show_edit_links' %>
+  </div>
+
+  <br>
+
   <%= render 'display_task' %>
+
+  <div class='task-show-edit-links'>
+    <%= render 'task_show_edit_links' %>
+  </div>
 </div>
 
-<div class='clear task-show-edit-links'>
-  <% if policy(@task).edit? %>
-    <%= link_to 'Edit', edit_task_path(@task) %> |
+<div class='sidebar task-sidebar'>
+  <% if current_user.teacher? %>
+    <div class='objectives-container'>
+      <h4>Strands</h4>
+      <%= render 'objectives/strands_index' %>
+    </div>
+    <div class='rubric-container'>
+      <h4>Rubric</h4>
+      <%= render 'rubrics/index' %>
+    </div>
   <% end %>
-  <% if policy(@task).destroy? %>
-    <%= link_to 'Delete', [@user, @task], method: :delete,
-      data: { confirm: 'Are you sure?' } %> |
-  <% end %>
-  <%= link_to 'Back', :back %>
 </div>

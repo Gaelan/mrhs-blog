@@ -14,8 +14,6 @@ class TasksController < ApplicationController
     # if enrollment then section = enrollment.section_id
     #   assessments = Assessment.where(section_id: section)
     # end
-    #
-    # binding.pry
 
     @tasks = policy_scope Task.all
     @tasks_grid = initialize_grid @tasks
@@ -26,6 +24,32 @@ class TasksController < ApplicationController
   def show
     @task = Task.find(params[:id])
     authorize @task
+    @strands = @task.strands
+                    .order(objective_id: :asc) # XXX: hack, should be objective.group
+    strand_ids = @strands.map &:id
+    @strands_grid = initialize_grid @strands
+    strand_ids = @strands.map do |s|
+      s.id
+    end
+    # Find applicable Rubrics
+    @rubrics = []
+    rubric_candidates = Rubric.where(strand_id: strand_ids)
+    strand_ids.each do |sid|
+      strand_rubrics = rubric_candidates.select { |r| r.strand_id == sid }
+      bands = strand_rubrics.map &:band
+      bands.each do |band|
+        band_max = strand_rubrics.select { |r| r.band == band }.max_by &:level
+        @rubrics += [band_max]
+      end
+    end
+    # TODO: figure out why this hack is necessary
+    @rubrics_hack = Rubric.where(id: (@rubrics.map &:id))
+                          .order(
+                             strand_id: :asc, # XXX - Hack, should be...
+                             # strand.objective.group: :asc,
+                             # strand.number: :asc,
+                             band: :asc)
+    @rubrics_grid = initialize_grid @rubrics_hack
   end
 
   # GET /tasks/new
@@ -77,6 +101,10 @@ class TasksController < ApplicationController
   def destroy
     authorize @task
     @task.destroy
+    # XXX - Leaves orphan assessments, which breaks the assessment view.
+    # TODO: Decide policy on removing tasks. Delete associated assessments?
+    #       What about work posted against those assessments. We could just mark
+    #       the task as "deleted."
     respond_to do |format|
       format.html { redirect_to tasks_url, notice: 'Task was successfully destroyed.' }
       format.json { head :no_content }

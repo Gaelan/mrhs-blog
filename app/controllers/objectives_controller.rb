@@ -3,11 +3,15 @@
 # TODO: use Pundit
 #
 class ObjectivesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_objective, only: [:show, :edit, :update, :destroy]
+
+  after_action :verify_authorized
 
   # GET /objectives
   # GET /objectives.json
   def index
+    authorize Objective
     @objectives = Objective.all.order(group: :asc)
     @objectives_grid = initialize_grid @objectives, per_page: 32
   end
@@ -15,22 +19,26 @@ class ObjectivesController < ApplicationController
   # GET /objectives/1
   # GET /objectives/1.json
   def show
+    authorize @objective
   end
 
   # GET /objectives/new
   def new
     @objective = Objective.new
+    authorize @objective
   end
 
   # GET /objectives/1/edit
   def edit
     store_location
+    authorize @objective
   end
 
   # POST /objectives
   # POST /objectives.json
   def create
     @objective = Objective.new(objective_params)
+    authorize @objective
 
     respond_to do |format|
       if @objective.save
@@ -46,6 +54,7 @@ class ObjectivesController < ApplicationController
   # PATCH/PUT /objectives/1
   # PATCH/PUT /objectives/1.json
   def update
+    authorize @objective
     respond_to do |format|
       if @objective.update(objective_params)
         format.html { redirect_back_or_default(notice: 'Objective was successfully updated.') }
@@ -60,6 +69,7 @@ class ObjectivesController < ApplicationController
   # DELETE /objectives/1
   # DELETE /objectives/1.json
   def destroy
+    authorize @objective
     @objective.destroy
     respond_to do |format|
       format.html do

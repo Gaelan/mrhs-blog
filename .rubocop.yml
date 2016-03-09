@@ -1,3 +1,5 @@
+inherit_from: .rubocop_todo.yml
+
 AllCops:
   Include:
     - Rakefile
@@ -7,12 +9,10 @@ AllCops:
 Rails:
   Enabled: true
 
-# Editor handles this. Rubocop complains too much.
-TrailingWhitespace:
-  Enabled: false
-
 Metrics/LineLength:
   Enabled: false
-
 Style/Documentation:
+  Enabled: false
+Style/TrailingWhitespace:
+  # Editor handles this. Rubocop complains too much.
   Enabled: false

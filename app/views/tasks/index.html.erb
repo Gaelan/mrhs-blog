@@ -10,7 +10,7 @@
   end
   g.column name: "Objectives" do  |t|
     objectives = t.strands.map do |s|
-      (link_to s.label, s.objective) + '<br>'.html_safe
+      (link_to s, s.objective) + '<br>'.html_safe
     end.join('').html_safe
   end
 end -%>

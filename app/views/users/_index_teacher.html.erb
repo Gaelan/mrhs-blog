@@ -11,29 +11,9 @@
     link_to text, edit_user_path(user.id)
   end
   grid.column name: "Last Active" do  |user|
-    if user.last_active_time
-      status = user.active_today? ? 'success' : 'danger'
-      [time_ago_in_words(user.last_active_time) + ' ago', {class: status}]
-    else
-      ["Never", {class: 'danger'}]
-    end
+    last_active(user)
   end
-  grid.column name: "Published Posts" do  |user|
-    if user.posts.published.count == 0
-      [user.posts.published.count, {class: 'danger'}]
-    else
-      user.posts.published.count
-    end
-  end
-  grid.column name: "Unpublished Posts" do  |user|
-    if user.posts.unpublished.count == 0 &&
-        user.posts.published.count == 0
-      [user.posts.unpublished.count, {class: 'danger'}]
-    else
-      user.posts.unpublished.count
-    end
-  end
-  grid.column name: "Total Posts" do  |user|
-    user.posts.count
+  grid.column name: "Posts" do  |user|
+    post_count(user)
   end
 end -%>

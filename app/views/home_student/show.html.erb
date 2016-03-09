@@ -1,23 +1,29 @@
-<% if current_user %>
-  <div id='student-status-main'>
+<%
+ # app/views/home_student.html.erb
+ #
+ # TODO: figure out why we need to guard on current_user
+ %>
+
+ <% if current_user %>
+  <div id='student-status-main' class='main student-status'>
     <h1><%= @user.name %></h1>
     <h2>Posts</h2>
       <%= render 'post_nav_links' %>
       <br><br>
       <%= render 'posts/post_index' %>
+      <%= render 'post_nav_links' %>
   </div>
-  <div id='student-status'>
+  <div id='student-status' class='sidebar'>
     <h2><%= Course.find(@user.sections[0].course_id).title %></h2>
     <ul>
-      <% @assessments.each do |a| %>
+      <% @assessments.order(due_date: :desc).each do |a| %>
         <li class='student-status <%= annunciator(a) %>'><span class='student-status'>
-          <%= link_to a.title, task_path(a.tasks[0]) %><br>
+          <%= link_to a.title,
+            new_or_edit(current_user, a)
+          %><br>
           Due: <%= a.due_date.to_date.to_s(:long) %>
         <span></li>
       <% end %>
     </ul>
-  </div>
-  <div class='clear student-status nav-links'>
-    <%= render 'post_nav_links' %>
   </div>
 <% end %>

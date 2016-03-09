@@ -21,6 +21,8 @@ gem 'coffee-rails', '~> 4.1.0'
 # CSS type stuff
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'rails_bootstrap_navbar'
+# Bootstrap Table for Rails
+gem 'bootstrap-table-rails', '~> 1.10.0'
 # Fork for Rails 5 support. Consider PRing soon.
 gem 'wice_grid', github: 'Gaelan/wice_grid', branch: 'rails5-fix'
 gem 'font-awesome-sass', '~> 4.3'
@@ -45,10 +47,10 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 # File management
-gem 'paperclip', :git => "git://github.com/thoughtbot/paperclip.git"
+gem 'paperclip', git: 'git://github.com/thoughtbot/paperclip.git'
 gem 'cocoon'
 gem 'simple_form'
-gem 'high_voltage', '~> 2.4.0', :git => 'git://github.com/thoughtbot/high_voltage.git'
+gem 'high_voltage', '~> 2.4.0', git: 'git://github.com/thoughtbot/high_voltage.git'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -57,12 +59,17 @@ gem 'high_voltage', '~> 2.4.0', :git => 'git://github.com/thoughtbot/high_voltag
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  # Call 'binding.pry' anywhere in the code to stop execution and get a debugger console
   gem 'pry-byebug'
-  gem 'rspec-rails', '~> 3.0'
+  gem 'rspec-rails', '3.5.0.beta1'
+
+  gem 'fabrication'
+  gem 'ffaker'
+  gem 'rails-controller-testing'
 end
 
 gem 'pry-rails'
+gem 'rails-footnotes', '~> 4.0'
 
 gem 'raygun4ruby'
 

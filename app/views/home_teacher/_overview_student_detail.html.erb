@@ -1,0 +1,13 @@
+<%
+ # app/views/home_teacher/_overview_student_detail.html.erb
+ %>
+<tr>
+  <td><%= link_to student[:given_name], "/home_student/show/#{student[:id]}" %></td>
+  <td><%= link_to student[:family_name], "/home_student/show/#{student[:id]}" %></td>
+  <td>
+    <%= last_seen(student[:id]) %>
+    <%= unclassified_posts(student[:id]) %>
+  </td>
+  <td><%# TODO: display overall objective scores. %></td>
+  <td><%= assessment_overview(student[:id], course[:assessments]) %></td>
+</tr>
