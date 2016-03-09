@@ -19,7 +19,7 @@
      type='button' data-toggle='collapse' data-target='#<%= target %>'>
      <%= label %>
   </button>
-  <div id='<%= target %>' class='collapse <%= collapse ? 'collapsed' : '' %>'>
+  <div id='<%= target %>' class='collapse <%= collapse ? '' : 'in' %>'>
     <%= render partial, params %>
  </div>
 </div>

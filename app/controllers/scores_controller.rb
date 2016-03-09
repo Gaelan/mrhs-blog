@@ -76,18 +76,19 @@ class ScoresController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_score
-      @score = Score.find(params[:id])
-    end
 
-    # TODO: do we need set_user?
-    def set_user
-      @user = params[:user_id] ? User.find(params[:user_id]) : current_user
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_score
+    @score = Score.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def score_params
-      params.require(:score).permit(:score, :drop, :note, :user_id, :assessment_id, :strand_id)
-    end
+  # TODO: do we need set_user?
+  def set_user
+    @user = params[:user_id] ? User.find(params[:user_id]) : current_user
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def score_params
+    params.require(:score).permit(:score, :drop, :note, :user_id, :assessment_id, :strand_id)
+  end
 end

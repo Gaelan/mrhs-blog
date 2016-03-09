@@ -1,3 +1,4 @@
+#
 class ApplicationController < ActionController::Base
   include Pundit
   before_action :update_active_time
@@ -35,5 +36,16 @@ class ApplicationController < ActionController::Base
   def load_attributes_from_request(object)
     # permitted_attributes comes from Pundit.
     object.attributes = permitted_attributes object
+  end
+
+  # Functions for managing redirection on edits.
+  def store_location
+    session[:return_to] = request.referrer
+  end
+
+  def redirect_back_or_default(default = root_path, notice: '')
+    # TODO: think about a better name
+    # TODO: figure out why notice doesn't appear some times (on new objective, works on edit)
+    redirect_to (session.delete(:return_to) || default), notice: notice
   end
 end

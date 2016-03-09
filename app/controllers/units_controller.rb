@@ -1,4 +1,5 @@
 #
+# TODO: setup Pundit
 class UnitsController < ApplicationController
   before_action :set_unit, only: [:show, :edit, :update, :destroy]
 
@@ -25,6 +26,7 @@ class UnitsController < ApplicationController
 
   # GET /units/1/edit
   def edit
+    store_location
   end
 
   # POST /units
@@ -48,6 +50,7 @@ class UnitsController < ApplicationController
   def update
     respond_to do |format|
       if @unit.update(unit_params)
+        # TODO: redirect_back_or_default?
         format.html { redirect_to @unit, notice: 'Unit was successfully updated.' }
         format.json { render :show, status: :ok, location: @unit }
       else

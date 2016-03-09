@@ -25,6 +25,14 @@
               params: { task: @post.assessment.tasks[0] },
               target: 'instructions'
             %>
+            <div class='post-rubric'>
+              <%= render 'layouts/collapsible_wrapper',
+                label: 'Rubric',
+                partial: 'rubrics/index',
+                params: {},
+                collapse: true,
+                target: 'rubric'
+              %>
           <% else %>
           <p>Instructions will be visible here if you select the assessment and
           click on the Save Post button. That will save the post, then if you
