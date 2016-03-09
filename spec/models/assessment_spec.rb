@@ -71,5 +71,5 @@ RSpec.describe Assessment, type: :model do
 
   pending "test rubric and rubric? method in #{__FILE__}"
   pending "test to_s method in #{__FILE__}"
-  pending "test updated? method in #{__FILE__}""
+  pending "test updated? method in #{__FILE__}"
 end
