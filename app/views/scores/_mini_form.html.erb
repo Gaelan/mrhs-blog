@@ -3,8 +3,12 @@
   <% score = Score.for(strand: strand, user: student, assessment: assessment) %>
   <% score.score = num %>
 
-  <%= simple_form_for score, horizontal_form do |f| %>
-    <%= f.submit num, class: "btn #{if !score.changed? then "btn-score score-#{num}" else "btn-default" end }" %>
+<%= simple_form_for score, horizontal_form.merge(remote: true) do |f| %>
+    <%= f.submit num,
+                class: "btn btn-score score-#{num} #{ if !score.changed? then "current" end }",
+                "data-strand" => strand.id,
+                "data-num" => num
+    %>
 
     <%= f.input :strand_id, as: :hidden %>
     <%= f.input :user_id, as: :hidden %>
