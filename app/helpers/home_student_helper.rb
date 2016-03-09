@@ -5,6 +5,7 @@ module HomeStudentHelper
   #
   # TODO: other sanity checks, nil bodies, no photos, small photos.
   # TODO: be explicit about what you find in sanity checks. Hover?
+  # XXX - we set a class on this somewhere else too... with descriptive names like empty and published.
   def annunciator(a)
     if Score.where(user_id: @user.id, assessment_id: a.id).any?
       # Assessment has been scored.
