@@ -35,7 +35,7 @@ module HomeStudentHelper
         edit_user_post_path(user_id: user.id, id: post_or_posts[0].id)
       else
         # TODO: need to do something better if there are more than one post.
-        '/'   # Return to student home.
+        '/' # Return to student home.
       end
     else
       new_user_post_path(user_id: user.id, assessment_id: assessment.id)

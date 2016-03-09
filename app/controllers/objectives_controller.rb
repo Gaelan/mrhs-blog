@@ -1,3 +1,6 @@
+# app/controllers/objectives_controller.rb
+#
+# TODO: use Pundit
 #
 class ObjectivesController < ApplicationController
   before_action :authenticate_user!
@@ -27,6 +30,7 @@ class ObjectivesController < ApplicationController
 
   # GET /objectives/1/edit
   def edit
+    store_location
     authorize @objective
   end
 
@@ -38,7 +42,7 @@ class ObjectivesController < ApplicationController
 
     respond_to do |format|
       if @objective.save
-        format.html { redirect_to @objective, notice: 'Objective was successfully created.' }
+        format.html { redirect_back_or_default(notice: 'Objective was successfully created.') }
         format.json { render :show, status: :created, location: @objective }
       else
         format.html { render :new }
@@ -53,7 +57,7 @@ class ObjectivesController < ApplicationController
     authorize @objective
     respond_to do |format|
       if @objective.update(objective_params)
-        format.html { redirect_to @objective, notice: 'Objective was successfully updated.' }
+        format.html { redirect_back_or_default(notice: 'Objective was successfully updated.') }
         format.json { render :show, status: :ok, location: @objective }
       else
         format.html { render :edit }

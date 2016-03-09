@@ -16,7 +16,7 @@ class Assessment < ActiveRecord::Base
 
   # rubric?
   def rubric?
-    true  # XXX - make it so, check if a rubric is defined for this object.
+    true # XXX - make it so, check if a rubric is defined for this object.
   end
 
   # rubric - return the rubric for this assessment
@@ -36,10 +36,10 @@ class Assessment < ActiveRecord::Base
     end
     hack = Rubric.where(id: (rubrics.map &:id))
                  .order(
-                 strand_id: :asc, # XXX - Hack, should be...
-                 # strand.objective.group: :asc,
-                 # strand.number: :asc,
-                 band: :asc)
+                   strand_id: :asc, # XXX - Hack, should be...
+                   # strand.objective.group: :asc,
+                   # strand.number: :asc,
+                   band: :asc)
   end
 
   def to_s

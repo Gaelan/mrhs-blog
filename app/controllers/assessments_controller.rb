@@ -35,6 +35,7 @@ class AssessmentsController < ApplicationController
 
   # GET /assessments/1/edit
   def edit
+    store_location
     authorize @assessment
   end
 
@@ -53,8 +54,7 @@ class AssessmentsController < ApplicationController
     respond_to do |format|
       if @assessment.save
         format.html do
-          redirect_to @assessment,
-                      notice: 'Assessment was successfully created.'
+          redirect_back_or_default(notice: 'Assessment was successfully created.')
         end
         format.json { render :show, status: :created, location: @assessment }
       else
@@ -74,15 +74,13 @@ class AssessmentsController < ApplicationController
     respond_to do |format|
       if @assessment.update(assessment_params)
         format.html do
-          redirect_to @assessment,
-                      notice: 'Assessment was successfully updated.'
+          redirect_back_or_default(notice: 'Assessment was successfully updated.')
         end
         format.json { render :show, status: :ok, location: @assessment }
       else
         format.html { render :edit }
         format.json do
-          render json: @assessment.errors,
-                 status: :unprocessable_entity
+          render json: @assessment.errors, status: :unprocessable_entity
         end
       end
     end
