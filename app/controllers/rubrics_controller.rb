@@ -34,6 +34,7 @@ class RubricsController < ApplicationController
     if params[:task_id]
       # Creating a new rubric for a Task.
       @rubric.level = :task
+      @rubric.rubricable = Task.find(params[:task_id])
       # Use the Stands set by the Task.
       @strands = Task.find(params[:task_id]).strands
       # Check for existing rubrics for this objective and pick the ones that
@@ -61,6 +62,7 @@ class RubricsController < ApplicationController
   # POST /rubrics
   # POST /rubrics.json
   def create
+    binding.pry
     @rubric = Rubric.new(rubric_params)
     authorize @rubric
 
@@ -73,6 +75,7 @@ class RubricsController < ApplicationController
         format.json { render json: @rubric.errors, status: :unprocessable_entity }
       end
     end
+    binding.pry
   end
 
   # PATCH/PUT /rubrics/1
@@ -110,6 +113,7 @@ class RubricsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def rubric_params
-    params.require(:rubric).permit(:level, :band, :criterion, :strand_id, :base_rubric_id)
+    params.require(:rubric).permit(:level, :band, :criterion, :strand_id,
+                                   :rubricable, :base_rubric_id)
   end
 end

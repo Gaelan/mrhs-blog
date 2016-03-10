@@ -47,7 +47,7 @@ grid(@rubrics_grid) do |g|
   if policy(Rubric).create?
     g.column do |t|
       # To create a new rubric item using this one as the defaults
-      link_to 'Clone', new_rubric_path(:base_rubric_id => t.id)
+      link_to 'Clone', new_rubric_path(base_rubric_id: t.id, task_id: @task)
     end
   end
   unless params[:controller] == 'posts'

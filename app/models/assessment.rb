@@ -29,7 +29,7 @@ class Assessment < ActiveRecord::Base
     strand_ids.each do |sid|
       strand_rubrics = candidates.select { |r| r.strand_id == sid }
       bands = strand_rubrics.map &:band
-      bands.each do |band|
+      bands.uniq.each do |band|
         band_max = strand_rubrics.select { |r| r.band == band }.max_by &:level
         rubrics += [band_max]
       end
