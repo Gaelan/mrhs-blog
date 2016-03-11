@@ -13,7 +13,7 @@ class Rubric < ActiveRecord::Base
     # If a Rubric is created in the context of a :level (e.g., a Task),
     # :rubricable will be set to the object. If the user changes :level in the
     # course of the edit, set rubricable to nil.
-    unless level.casecmp(rubricable_type) == 0
+    unless rubricable_type && level.casecmp(rubricable_type) == 0
       self.rubricable = nil
     end
   end
