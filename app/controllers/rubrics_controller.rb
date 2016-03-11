@@ -31,14 +31,13 @@ class RubricsController < ApplicationController
     authorize @rubric
     store_location
 
+    # XXX - need to set contexts for a Unit or Project rubric as well, others?
     if params[:task_id]
       # Creating a new rubric for a Task.
       @rubric.level = :task
+      @rubric.rubricable = Task.find(params[:task_id])
       # Use the Stands set by the Task.
       @strands = Task.find(params[:task_id]).strands
-      # Check for existing rubrics for this objective and pick the ones that
-      # are the closest fit (others at the Task level, otherwise the closest
-      # ones above).
     end
     if params[:base_rubric_id]
       # Creating a new rubric based on a, presumably, "higher" level one.
@@ -63,6 +62,7 @@ class RubricsController < ApplicationController
   def create
     @rubric = Rubric.new(rubric_params)
     authorize @rubric
+    @rubric.verify_level
 
     respond_to do |format|
       if @rubric.save
@@ -79,6 +79,7 @@ class RubricsController < ApplicationController
   # PATCH/PUT /rubrics/1.json
   def update
     authorize @rubric
+    @rubric.verify_level
     respond_to do |format|
       if @rubric.update(rubric_params)
         format.html { redirect_back_or_default notice: 'Rubric was successfully updated.' }
@@ -110,6 +111,7 @@ class RubricsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def rubric_params
-    params.require(:rubric).permit(:level, :band, :criterion, :strand_id, :base_rubric_id)
+    params.require(:rubric).permit(:level, :band, :criterion, :strand_id,
+                                   :rubricable_id, :rubricable_type, :base_rubric_id)
   end
 end

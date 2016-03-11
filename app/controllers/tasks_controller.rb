@@ -31,7 +31,11 @@ class TasksController < ApplicationController
     strand_ids = @strands.map(&:id)
     # Find applicable Rubrics
     @rubrics = []
-    rubric_candidates = Rubric.where(strand_id: strand_ids)
+    rubric_candidates = Rubric
+                        .where(
+                          strand_id: strand_ids,
+                          rubricable: [[@task], nil]
+                        )
     strand_ids.each do |sid|
       strand_rubrics = rubric_candidates.select { |r| r.strand_id == sid }
       bands = strand_rubrics.map &:band

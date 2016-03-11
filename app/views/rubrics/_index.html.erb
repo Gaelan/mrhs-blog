@@ -16,21 +16,19 @@ grid(@rubrics_grid) do |g|
       last_strand = t.strand.to_s(:short)
       content_tag(:tr,
         content_tag(:td,
-                    t.strand.to_s(:full),
+                    (markdown t.strand.to_s(:full)),
                     colspan: number_of_columns
         )
       )
     end
   end
 
-  # if current_user.teacher? || current_user.admin?
-  if false == true
+  if current_user.teacher? || current_user.admin?
     g.column name: 'Level' do |t|
       t.level
     end
-
-    g.column name: 'Strand' do |t|
-      t.strand.to_s(:short)
+    g.column name: 'Rubricable' do |t|
+      t.rubricable
     end
   end
   g.column do |t|
@@ -47,7 +45,7 @@ grid(@rubrics_grid) do |g|
   if policy(Rubric).create?
     g.column do |t|
       # To create a new rubric item using this one as the defaults
-      link_to 'Clone', new_rubric_path(:base_rubric_id => t.id)
+      link_to 'Clone', new_rubric_path(base_rubric_id: t.id, task_id: @task)
     end
   end
   unless params[:controller] == 'posts'

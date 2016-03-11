@@ -25,11 +25,15 @@ class Assessment < ActiveRecord::Base
   def rubric
     strand_ids = strands.map &:id
     rubrics = []
-    candidates = Rubric.where(strand_id: strand_ids)
+    rubric_candidates = Rubric
+                        .where(
+                          strand_id: strand_ids,
+                          rubricable: [[@task], nil]
+                        )
     strand_ids.each do |sid|
-      strand_rubrics = candidates.select { |r| r.strand_id == sid }
+      strand_rubrics = rubric_candidates.select { |r| r.strand_id == sid }
       bands = strand_rubrics.map &:band
-      bands.each do |band|
+      bands.uniq.each do |band|
         band_max = strand_rubrics.select { |r| r.band == band }.max_by &:level
         rubrics += [band_max]
       end
@@ -58,7 +62,6 @@ class Assessment < ActiveRecord::Base
   # TODO: default autoscore methods (return 0 if body is empty & no images).
   #
   def scoreable(autoscore = false)
-    # binding.pry
     Post.where(assessment: id)
   end
 
