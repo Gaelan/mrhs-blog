@@ -2,13 +2,15 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
+    <%= f.association :strand,
+                      include_blank: '--- Select Objective Strand ---' %>
+
     <%= f.input :level, as: :radio_buttons,
                 item_wrapper_class: :inline,
                 collection: Rubric.levels.keys,
                 selected: :corroborated %>
 
-    <%= f.association :strand,
-                      include_blank: '--- Select Objective Strand ---' %>
+    <%= f.input :rubricable, collection: Task.all %>
 
     <%# TODO: set bands dynamically %>
     <%= f.input :band, as: :radio_buttons,

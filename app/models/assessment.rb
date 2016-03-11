@@ -25,9 +25,13 @@ class Assessment < ActiveRecord::Base
   def rubric
     strand_ids = strands.map &:id
     rubrics = []
-    candidates = Rubric.where(strand_id: strand_ids)
+    rubric_candidates = Rubric
+                        .where(
+                          strand_id: strand_ids,
+                          rubricable: [[@task], nil]
+                        )
     strand_ids.each do |sid|
-      strand_rubrics = candidates.select { |r| r.strand_id == sid }
+      strand_rubrics = rubric_candidates.select { |r| r.strand_id == sid }
       bands = strand_rubrics.map &:band
       bands.uniq.each do |band|
         band_max = strand_rubrics.select { |r| r.band == band }.max_by &:level

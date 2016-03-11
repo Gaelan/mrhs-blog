@@ -31,15 +31,13 @@ class RubricsController < ApplicationController
     authorize @rubric
     store_location
 
+    # XXX - need to set contexts for a Unit or Project rubric as well, others?
     if params[:task_id]
       # Creating a new rubric for a Task.
       @rubric.level = :task
       @rubric.rubricable = Task.find(params[:task_id])
       # Use the Stands set by the Task.
       @strands = Task.find(params[:task_id]).strands
-      # Check for existing rubrics for this objective and pick the ones that
-      # are the closest fit (others at the Task level, otherwise the closest
-      # ones above).
     end
     if params[:base_rubric_id]
       # Creating a new rubric based on a, presumably, "higher" level one.

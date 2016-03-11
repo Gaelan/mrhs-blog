@@ -17,4 +17,8 @@ class Task < ActiveRecord::Base
   has_many :rubrics, as: :rubricable
 
   has_many :scores, through: :assessments
+
+  def to_s
+    title
+  end
 end
