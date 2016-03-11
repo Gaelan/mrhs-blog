@@ -23,9 +23,9 @@ grid(@rubrics_grid) do |g|
     end
   end
 
-  if params[:controller] == 'rubrics' && params[:action] == 'index' &&
-    (current_user.teacher? || current_user.admin?)
-    binding.pry
+  if params[:controller] == 'rubrics' &&
+      params[:action] == 'index' &&
+      (current_user.teacher? || current_user.admin?)
     g.column name: 'Level' do |t|
       t.level
     end
