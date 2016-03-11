@@ -58,7 +58,6 @@ class Assessment < ActiveRecord::Base
   # TODO: default autoscore methods (return 0 if body is empty & no images).
   #
   def scoreable(autoscore = false)
-    # binding.pry
     Post.where(assessment: id)
   end
 

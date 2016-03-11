@@ -51,6 +51,7 @@ class RubricsController < ApplicationController
       @rubric.band = @base_rubric.band
       @rubric.criterion = @base_rubric.criterion
     end
+    binding.pry
   end
 
   # GET /rubrics/1/edit
@@ -62,9 +63,10 @@ class RubricsController < ApplicationController
   # POST /rubrics
   # POST /rubrics.json
   def create
-    binding.pry
     @rubric = Rubric.new(rubric_params)
     authorize @rubric
+    @rubric.verify_level
+    binding.pry
 
     respond_to do |format|
       if @rubric.save
@@ -75,13 +77,14 @@ class RubricsController < ApplicationController
         format.json { render json: @rubric.errors, status: :unprocessable_entity }
       end
     end
-    binding.pry
   end
 
   # PATCH/PUT /rubrics/1
   # PATCH/PUT /rubrics/1.json
   def update
     authorize @rubric
+    @rubric.verify_level
+    binding.pry
     respond_to do |format|
       if @rubric.update(rubric_params)
         format.html { redirect_back_or_default notice: 'Rubric was successfully updated.' }
@@ -114,6 +117,6 @@ class RubricsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def rubric_params
     params.require(:rubric).permit(:level, :band, :criterion, :strand_id,
-                                   :rubricable, :base_rubric_id)
+                                   :rubricable_id, :rubricable_type, :base_rubric_id)
   end
 end

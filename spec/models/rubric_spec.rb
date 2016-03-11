@@ -22,4 +22,29 @@ RSpec.describe Rubric, type: :model do
       expect(rubric).to be_valid
     end
   end
+
+  describe 'verify_level' do
+    it 'sets rubricable to nil if level does not match rubricable' do
+      task = Task.create
+      rubric = Fabricate.build(:rubric,
+                               level: :unit,
+                               rubricable: task
+                              #  rubricable_type: Task,
+                              #  rubricable_id: 1
+                              )
+      rubric.verify_level
+      expect(rubric.rubricable).to be_nil
+    end
+    it 'preserves rubricable when level matches rubricable' do
+      task = Task.create
+      rubric = Fabricate.build(:rubric,
+                               level: :task,
+                               rubricable: task
+                              #  rubricable_type: Task,
+                              #  rubricable_id: 1
+                              )
+      rubric.verify_level
+      expect(rubric.rubricable).not_to be_nil # XXX - should equal task
+    end
+  end
 end
