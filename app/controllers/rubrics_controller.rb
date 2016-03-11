@@ -79,6 +79,11 @@ class RubricsController < ApplicationController
   # PATCH/PUT /rubrics/1.json
   def update
     authorize @rubric
+    # XXX - call rubric_params?
+    if params[:rubric][:rubricable]
+      params[:rubric][:rubricable_id] = params[:rubric][:rubricable]
+      params[:rubric][:rubricable_type] = Task.name
+    end
     @rubric.verify_level
     respond_to do |format|
       if @rubric.update(rubric_params)
