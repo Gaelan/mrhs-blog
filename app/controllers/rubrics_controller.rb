@@ -51,7 +51,6 @@ class RubricsController < ApplicationController
       @rubric.band = @base_rubric.band
       @rubric.criterion = @base_rubric.criterion
     end
-    binding.pry
   end
 
   # GET /rubrics/1/edit
@@ -66,7 +65,6 @@ class RubricsController < ApplicationController
     @rubric = Rubric.new(rubric_params)
     authorize @rubric
     @rubric.verify_level
-    binding.pry
 
     respond_to do |format|
       if @rubric.save
@@ -84,7 +82,6 @@ class RubricsController < ApplicationController
   def update
     authorize @rubric
     @rubric.verify_level
-    binding.pry
     respond_to do |format|
       if @rubric.update(rubric_params)
         format.html { redirect_back_or_default notice: 'Rubric was successfully updated.' }
