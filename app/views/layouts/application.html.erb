@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>MRHS Photo</title>
+  <title><%= (content_for :title).nil? ? 'MRHS Photo' : (yield :title) %></title>
 
   <meta name="viewport"
     content="width=device-width, initial-scale=1, shrink-to-fit=no">
