@@ -6,6 +6,9 @@
 
  <% if current_user %>
   <div id='student-status-main' class='main student-status'>
+    <% unless current_user.name == @user.name %>
+      <% title @user.name %>
+    <% end %>
     <h1><%= @user.name %></h1>
     <h2>Posts</h2>
       <%= render 'post_nav_links' %>

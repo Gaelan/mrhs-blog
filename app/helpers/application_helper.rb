@@ -48,4 +48,13 @@ module ApplicationHelper
       "<span class='timestamp-latest'>#{latest}</span> <span class='timestamp-original'>(original: #{original})</span>".html_safe
     end
   end
+
+  # Dynamically set page title (tab text)
+  def title(part_one, part_two = 'MRHS Photo')
+    if part_one.to_s == part_two
+      content_for :title, part_one.to_s
+    else
+      content_for :title, "#{part_one} | #{part_two}"
+    end
+  end
 end
