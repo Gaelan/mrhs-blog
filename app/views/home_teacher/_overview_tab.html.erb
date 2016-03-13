@@ -15,13 +15,23 @@
       <% p[:courses].each do |c| %>
         <li><%= "#{c[:title]}" %></li>
           <table class='table' data-toggle='table'>
+            <%= column_group c %>
             <thead>
               <tr>
-                <th data-sortable='true' data-sorter='nameSorter'>First</th>
-                <th data-sortable='true' data-sorter='nameSorter'>Last</th>
-                <th data-sortable='true'>Last Activity</th>
-                <th data-sortable='false'>Objective Summary</th>
-                <th data-sortable='false'>Assessments</th>
+                <th data-sortable='true' data-sorter='nameSorter' rowspan='2'>First</th>
+                <th data-sortable='true' data-sorter='nameSorter' rowspan='2'>Last</th>
+                <th data-sortable='true' rowspan='2'>Last Activity</th>
+                <th data-sortable='false' colspan='4'>Objective Summary</th>
+                <th data-sortable='false' colspan='<%= number_of_assessments(c) %>'>
+                  Assessments
+                </th>
+              </tr>
+              <tr>
+                <th data-sortable='true'>A</th>
+                <th data-sortable='true'>B</th>
+                <th data-sortable='true'>C</th>
+                <th data-sortable='true'>D</th>
+                <%= assessment_th c %>
               </tr>
             </thead>
             <tbody>

@@ -18,11 +18,11 @@
   <div class='container-fluid'>
     <%= render 'layouts/navbar' %>
 
-    <div id='main-content' class='container-fluid'>
+    <% flash.each do |name, msg| %>
+      <%= content_tag :div, msg, class: "alert alert-info" %>
+    <% end %>
 
-      <% flash.each do |name, msg| %>
-        <%= content_tag :div, msg, class: "alert alert-info" %>
-      <% end %>
+    <div id='main-content'>
 
       <%= yield %>
 

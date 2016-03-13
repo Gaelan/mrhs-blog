@@ -4,18 +4,18 @@
 
 <%= simple_form_for [@user, @post], horizontal_form do |f| %>
     <div class="row">
-      <div class="col-sm-7">
+      <div class="col-md-7">
         <%= f.input :title %>
         <%= f.input :body, as: :text, input_html: {rows: 16} %>
         <div class="row">
-          <div class='col-sm-offset-3 col-sm-9'>
+          <div class='col-md-offset-3 col-md-4'>
             <%= f.button :submit, class: 'btn-primary' %>
           </div>
         </div>
       </div>
-      <div class="col-sm-5">
-        <%= f.input :published, inline_label: 'Publish' %>
+      <div class="col-md-5">
         <%= render 'assessment_picker', f: f %>
+        <%= f.input :published, inline_label: 'Publish' %>
         <div class='post-instructions collapsible'>
           <% if @post.assessment_id %>
             <%= render 'layouts/collapsible_wrapper',
@@ -25,7 +25,7 @@
               params: { task: @post.assessment.tasks[0] },
               target: 'instructions'
             %>
-            <div class='post-rubric'>
+            <div class='post-rubric collapsible'>
               <%= render 'layouts/collapsible_wrapper',
                 label: 'Rubric',
                 partial: 'rubrics/index',
@@ -39,15 +39,15 @@
           come back to edit it, the instructions will appear here.</p>
           <% end %>
         </div>
-        <h3>Images</h3>
-        <div class="list-group images">
-          <%= f.simple_fields_for :images do |image_form| %>
-              <%= render 'image_fields', f: image_form %>
-          <% end %>
-          <div>
-            <%= link_to_add_association 'add an image', f,
-                  :images, class: 'list-group-item list-group-item-success' %>
-          </div>
+        <br><br><br>
+        <div class='post-images collapsible'>
+          <%= render 'layouts/collapsible_wrapper',
+            label: 'Images',
+            partial: 'post_images',
+            params: { f: f },
+            collapse: true,
+            target: 'images'
+          %>
         </div>
       </div>
     </div>

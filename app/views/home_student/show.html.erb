@@ -5,28 +5,32 @@
  %>
 
  <% if current_user %>
-  <div id='student-status-main' class='main student-status'>
-    <% unless current_user.name == @user.name %>
-      <% title @user.name %>
-    <% end %>
-    <h1><%= @user.name %></h1>
-    <h2>Posts</h2>
-      <%= render 'post_nav_links' %>
-      <br><br>
-      <%= render 'posts/post_index' %>
-      <%= render 'post_nav_links' %>
-  </div>
-  <div id='student-status' class='sidebar'>
-    <h2><%= Course.find(@user.sections[0].course_id).title %></h2>
-    <ul>
-      <% @assessments.order(due_date: :desc).each do |a| %>
-        <li class='student-status <%= annunciator(a) %>'><span class='student-status'>
-          <%= link_to a.title,
-            new_or_edit(current_user, a)
-          %><br>
-          Due: <%= a.due_date.to_date.to_s(:long) %>
-        <span></li>
-      <% end %>
-    </ul>
-  </div>
+ <div class='row'>
+   <div id='student-status-main' class='main student-status col-md-8'>
+     <% unless current_user.name == @user.name %>
+       <% title @user.name %>
+     <% end %>
+     <h1><%= @user.name %></h1>
+       <%= render 'post_nav_links' %>
+       <br><br>
+       <%= render 'posts/post_index' %>
+       <%= render 'post_nav_links' %>
+   </div>
+
+   <div id='student-status' class='sidebar col-md-4'>
+     <h2><%= Course.find(@user.sections[0].course_id).title %></h2>
+     <ul>
+       <% @assessments.order(due_date: :desc).each do |a| %>
+         <li class='student-status <%= annunciator(a) %>'>
+           <span class='student-status'>
+             <%= link_to a.title,
+               new_or_edit(current_user, a)
+             %><br>
+             Due: <%= a.due_date.to_date.to_s(:long) %>
+           <span>
+          </li>
+       <% end %>
+     </ul>
+   </div>
+</div>
 <% end %>

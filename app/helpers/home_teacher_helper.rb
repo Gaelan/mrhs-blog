@@ -22,6 +22,79 @@ module HomeTeacherHelper
     format_status(post_info)
   end
 
+  def assessment_th(course)
+    open_th = '<th data-sortable=\'true\'>'
+    close_th = '</th>'
+
+    th = []
+    course[:assessments].map do |aid|
+      th_content = "<a href='/score/#{aid}' class='btn btn-xs btn-info'>S</a>"
+      th << "#{open_th}#{th_content}#{close_th}"
+    end
+    th.join("\n").html_safe
+  end
+
+  def number_of_assessments(course)
+    Assessment.where(section_id: course[:section]).count
+  end
+
+  def column_group(course)
+    fn = calculate_first_name_width(course)
+    ln = calculate_last_name_width(course)
+    la = calculate_last_active_width(course)
+    obj = calculate_objective_width(course)
+    assessment = calculate_assessment_width(course)
+    colgroup = []
+    colgroup << '<colgroup>'
+    colgroup << "  <col style='width: #{fn}%;'>"
+    colgroup << "  <col style='width: #{ln}%;'>"
+    colgroup << "  <col style='width: #{la}%;'>"
+    colgroup << "  <col style='width: #{obj}%;'>"
+    colgroup << "  <col style='width: #{obj}%;'>"
+    colgroup << "  <col style='width: #{obj}%;'>"
+    colgroup << "  <col style='width: #{obj}%;'>"
+    for i in 1..(number_of_assessments(course)) do
+      colgroup << "  <col style='width: #{assessment}%;'>"
+    end
+    colgroup << '</colgroup>'
+    colgroup.join("\n").html_safe
+  end
+
+  def calculate_first_name_width(course)
+    na = number_of_assessments(course)
+    units = na + 4 + 3 + 6 # assessments + objectives + last_activity + names
+    3.0 / units * 100
+  end
+
+  def calculate_last_name_width(course)
+    na = number_of_assessments(course)
+    units = na + 4 + 3 + 6 # assessments + objectives + last_activity + names
+    3.0 / units * 100
+  end
+
+  def calculate_last_active_width(course)
+    na = number_of_assessments(course)
+    units = na + 4 + 3 + 6 # assessments + objectives + last_activity + names
+    3.0 / units * 100
+  end
+
+  def calculate_objective_width(course)
+    na = number_of_assessments(course)
+    units = na + 4 + 3 + 6 # assessments + objectives + last_activity + names
+    1.0 / units * 100
+  end
+
+  def calculate_assessment_width(course)
+    na = number_of_assessments(course)
+    units = na + 4 + 3 + 6 # assessments + objectives + last_activity + names
+    # 1.0 / units * 100
+    4.0
+  end
+
+  def objective_summary(uid, course)
+    '<td></td><td></td><td></td><td></td>'.html_safe
+  end
+
   def posts_for_assessment(aid, posts)
     post_or_posts = posts.where(assessment: aid)
     case post_or_posts.count
@@ -96,7 +169,8 @@ module HomeTeacherHelper
         href = user_post_path(info[:uid], info[:posts][0][:pid])
       end
       title = "#{info[:a_title]}\n#{info[:posts][0][:title]}".html_safe
-      "<a href=\"#{href}\" title=\"#{title}\" class=\"#{css}\">&nbsp;</a>"
+
+      "<td><a href=\"#{href}\" title=\"#{title}\" class=\"#{css}\">&nbsp;</a></td>"
     end.join.html_safe
     status
   end
