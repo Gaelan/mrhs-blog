@@ -8,6 +8,6 @@
     <%= last_seen(student[:id]) %>
     <%= unclassified_posts(student[:id]) %>
   </td>
-  <td><%# TODO: display overall objective scores. %></td>
-  <td><%= assessment_overview(student[:id], course[:assessments]) %></td>
+  <%= objective_summary(student[:id], course) %>
+  <%= assessment_overview(student[:id], course[:assessments]) %>
 </tr>
