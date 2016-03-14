@@ -10,6 +10,15 @@
   .empty { background-color: orange; }
   .not-started { background-color: red; }
   .scored { background-color: blue; }
+  .partially-scored { background-color: deepskyblue; }
+  .not-started .scored {
+    background-color: red;
+    border: 4px solid blue;
+  }
+  .scored-missing {
+    background-color: red;
+    border: 6px solid blue;
+  }
 
   // Last seen colors.
   .today { background-color: green; }

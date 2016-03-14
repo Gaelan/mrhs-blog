@@ -26,4 +26,8 @@ class ScorePolicy < ApplicationPolicy
   def index?
     allowed?
   end
+
+  def bulk?
+    user.teacher?
+  end
 end

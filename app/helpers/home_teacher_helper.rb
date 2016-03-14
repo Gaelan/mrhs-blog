@@ -6,7 +6,7 @@ module HomeTeacherHelper
   # - aid: Assessment.id
   # - a_title: Assessment.title
   # - post: array of hashes { pid: Post.id, title: Post.title, status: CSS class names [] }
-  # - scores: array of hashes { stand: Strand.id, rubric: Rubric.id, score: Score.id, value: Score.score }
+  # - scores: array of Score hashes
 
   def assessment_overview(uid, aids)
     posts = Post.where(user: uid, assessment: aids)
@@ -16,10 +16,14 @@ module HomeTeacherHelper
         aid: a,
         a_title: Assessment.find(a).title,
         posts: posts_for_assessment(a, posts),
-        scores: []
+        scores: student_scores_for_assessment(uid, a)
       }
     end
     format_status(post_info)
+  end
+
+  def student_scores_for_assessment(uid, a)
+    scores = Score.where(user: uid, assessment: a)
   end
 
   def assessment_th(course)
@@ -131,7 +135,12 @@ module HomeTeacherHelper
     if post.published
       status << 'published'
       if Score.where(user: post.user, assessment: aid).count > 0
-        status << 'scored'
+        if Score.where(user: post.user, assessment: aid).count ==
+          Assessment.find(aid).strands.count
+            status << 'scored'
+        else
+          status << 'partially-scored'
+        end
       end
     else
       status << 'unpublished'
@@ -163,8 +172,14 @@ module HomeTeacherHelper
     title = ''
     status = pi.map do |info|
       if info[:posts][0][:pid].nil?
-        href = '#'
-        css = 'not-started' + annunicator_style
+        if info[:scores].empty?
+          href = '#'
+          css = 'not-started' + annunicator_style
+        else
+          # Assignment not turned in, scored as 0 (persumably).
+          href = '#'  # Make this a popover explaining how to reassess.
+          css = 'scored-missing' + annunicator_style
+        end
       else
         css = info[:posts][0][:status] + annunicator_style
         href = user_post_path(info[:uid], info[:posts][0][:pid])

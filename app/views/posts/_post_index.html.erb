@@ -18,7 +18,7 @@
         <%= link_to p.title, [@user, p] %>
       </h1>
       <div class="post-index-item-body-attribution">
-        <% if @all_posts %>
+        <% unless @one_user %>
           <span class='post-index-item-body-author'><%= p.user.name %>,</span>
         <% end %>
         <%= timestamp(p) %>
@@ -26,7 +26,9 @@
           <span class='unpublished-post'>(unpublished)</span>
         <% end %>
       </div>
-      <p class="post-index-item-body-text"><%= markdown p.body %></p>
+      <p class="post-index-item-body-text">
+        <%= markdown (truncate p.body, length: 512, separator: ' ') %>
+      </p>
     </div>
   </div>
   <br class="clear">

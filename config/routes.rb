@@ -26,6 +26,7 @@ Rails.application.routes.draw do
 
   resources :assessments do
     get 'score', on: :member
+    # post 'post_scores', on: :member
   end
   resources :comments, only: [:create, :update]
   resources :courses do
@@ -34,7 +35,9 @@ Rails.application.routes.draw do
   resources :objectives
   resources :posts, only: [:index]
   resources :rubrics
-  resources :scores
+  resources :scores do
+    post 'bulk', on: :member
+  end
   resources :sections, only: :index do
     resources :users, only: [:index]
   end

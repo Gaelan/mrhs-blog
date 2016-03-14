@@ -75,6 +75,35 @@ class ScoresController < ApplicationController
     end
   end
 
+  # Post scores for missing assignments.
+  #
+  # TODO: what is the right way to do this? Seems like scores should be posted
+  #       through the Score controller...
+  def bulk
+    authorize Score
+
+    scores = params[:missing].map do |uid|
+      Assessment.find(params[:id]).strands.map do |s|
+        {
+          score: 0,
+          drop: false,
+          user_id: uid,
+          assessment_id: params[:id],
+          strand_id: s.id,
+          note: 'Assignment not done.'
+        }
+      end
+    end
+
+    scores.map do |assessment|
+      assessment.map do |strand|
+        Score.create strand
+      end
+    end
+
+    redirect_to :back # Should take us back to the Assessment scoring page.
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
