@@ -24,7 +24,9 @@ Rails.application.routes.draw do
   # no ordering issues. Move routes with ordering requirements above this
   # comment and indicate the requirement in a comment.
 
-  resources :assessments
+  resources :assessments do
+    get 'score', on: :member
+  end
   resources :comments, only: [:create, :update]
   resources :courses do
     resources :rubrics

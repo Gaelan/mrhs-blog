@@ -25,4 +25,8 @@ class AssessmentPolicy < ApplicationPolicy
   def index?
     true
   end
+
+  def score?
+    user.teacher?
+  end
 end

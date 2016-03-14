@@ -28,7 +28,8 @@ module HomeTeacherHelper
 
     th = []
     course[:assessments].map do |aid|
-      th_content = "<a href='/score/#{aid}' class='btn btn-xs btn-info'>S</a>"
+      th_content =
+        "<a href='/assessments/#{aid}/score' class='btn btn-xs btn-info'>S</a>"
       th << "#{open_th}#{th_content}#{close_th}"
     end
     th.join("\n").html_safe
