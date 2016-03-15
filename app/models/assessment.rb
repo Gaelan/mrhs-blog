@@ -3,6 +3,10 @@
 class Assessment < ActiveRecord::Base
   validates :section, presence: true
   validates :tasks, presence: true
+  # XXX - until we only allow one Task on an Assessment.
+  validates :tasks, length: {
+    minimum: 1, maximum: 1, message: 'Only one Task allowed.'
+  }
 
   belongs_to :section
 

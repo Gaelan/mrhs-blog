@@ -64,7 +64,7 @@
       <%= render 'layouts/collapsible_wrapper',
         label: 'Instructions',
         partial: 'tasks/task_instructions',
-        params: { task: @post.assessment.tasks[0] },
+        params: { task: @post.assessment.task },
         collapse: true,
         target: 'instructions'
       %>
