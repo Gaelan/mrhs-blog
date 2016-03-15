@@ -40,7 +40,6 @@ class User < ActiveRecord::Base
   end
 
   def name
-    # TODO: support preferred_name
     unless given_name == ""  # Fureigh
       "#{preferred_name ? preferred_name : given_name} #{family_name}"
     else

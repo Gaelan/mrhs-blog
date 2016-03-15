@@ -1,0 +1,21 @@
+<%
+ # app/views/assessments/score.html.erb
+ #
+ # Expects:
+ # - @posts: an array of Post to be scored.
+ # - @missing: an array of User without a Post for this Assessment.
+ %>
+
+<div class='col-md-8'>
+  <%= render 'posts/post_index' %>
+</div>
+
+<div class='sidebar col-md-4'>
+  <h3>Missing &amp; Empty Posts</h3>
+  <%= form_tag bulk_score_path(params[:id]) do %>
+    <% @missing.map do |u| %>
+      <%= check_box_tag 'missing[]', u.id, true %> <%= label_tag u.name %><br>
+    <% end %>
+    <%= submit_tag 'Post Scores' %>
+  <% end %>
+</div>

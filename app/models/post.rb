@@ -11,7 +11,15 @@ class Post < ActiveRecord::Base
 
   has_many :comments, as: :commentable
   belongs_to :assessment
-  has_many :scores, through: :assessment
+  # XXX - the line below wasn't returning the right Scores, it wasn't using
+  #       :user_id to limit the results returned, so we were seeing all scores
+  #       against the assessment. The method below seems closer...
+  # has_many :scores, through: :assessment
+  has_many :strands, through: :assessment
+
+  def images?
+    images.count
+  end
 
   def rubric
     # XXX - what should we do here? Return empty array if assessment is nil?
@@ -20,11 +28,9 @@ class Post < ActiveRecord::Base
 
   #
   def scores
-    # Score.where(user_id: user_id,
-    #             assessment_id: assessment.id,
-    #             strand_id: assessment.strands[0].id)
-  end
-
-  def strands
+    Score.where(user_id: user_id,
+                assessment_id: assessment.id,
+                # strand_id: assessment.strands[0].id
+               )
   end
 end

@@ -3,7 +3,7 @@ class AssessmentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user
   before_action :set_assessment,
-                only: [:show, :edit, :update, :destroy]
+                only: [:show, :edit, :update, :destroy, :score]
 
   after_action :verify_authorized
 
@@ -28,9 +28,11 @@ class AssessmentsController < ApplicationController
   # GET /assessments/new
   def new
     @assessment = Assessment.new
+    authorize @assessment
+
     # TODO: make externally configurable.
     @assessment.value = 8
-    authorize @assessment
+    binding.pry
   end
 
   # GET /assessments/1/edit
@@ -95,7 +97,7 @@ class AssessmentsController < ApplicationController
     #       What should be done then? Block deletion, or prompt to replace with
     #       another assessment. At the very least we need to clean up any
     #       references to deleted assessments.
-  
+
     # Find and destroy AssessmentTask instances first.
     AssessmentTask.where(assessment_id: @assessment.id).each(&:destroy)
     @assessment.destroy
@@ -105,6 +107,57 @@ class AssessmentsController < ApplicationController
                     notice: 'Assessment was successfully destroyed.'
       end
       format.json { head :no_content }
+    end
+  end
+
+  # GET /assessments/:id/score
+  # GET /assessments/:id/score.json
+  #
+  # Retrieve a set of Posts to score.
+  #
+  def score
+    authorize @assessment
+    # XXX - what else needs to be authorized? Enrollment?
+
+    # binding.pry
+
+    if @assessment.due_date > Time.current
+      #
+      # Not due yet, only score published Posts.
+      #
+      posts = Post.where(assessment: params[:id], published: true)
+      strands = posts[0].strands.count
+      post_ids = posts.map &:id
+      posts.map do |p|
+        if p.scores.count == strands
+          # Post appears to have been previously scored.
+          post_ids.delete(p.id)
+        end
+      end
+      @posts = posts.where(id: post_ids)
+      @missing = []
+      # binding.pry
+    else
+      #
+      # Due date has passed, set up to score everything.
+      #
+      students = Enrollment.where(section: @assessment.section)
+      missing = students.map &:student_id
+      posts = Post.where(assessment: params[:id])
+      strands = Assessment.find(params[:id]).strands.count
+      post_ids = posts.map &:id
+      posts.map do |p|
+        if p.scores.count == strands
+          # Post appears to have been previously scored.
+          post_ids.delete(p.id)
+        end
+        missing.delete(p.user_id)
+      end
+      @posts = posts.where(id: post_ids)
+      # TODO: need to check that @missing doesn't contain assessments that have
+      #       already been scored.
+      @missing = User.where(id: missing)
+      # binding.pry
     end
   end
 
