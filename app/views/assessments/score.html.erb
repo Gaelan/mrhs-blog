@@ -6,6 +6,10 @@
  # - @missing: an array of User without a Post for this Assessment.
  %>
 
+<% unless @posts.empty? %>
+  <% title "Scoring #{@posts[0].assessment.title}" %>
+<% end %>
+
 <div class='col-md-8'>
   <%= render 'posts/post_index' %>
 </div>
