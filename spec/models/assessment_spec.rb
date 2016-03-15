@@ -16,8 +16,13 @@ RSpec.describe Assessment, type: :model do
       expect(assessment).not_to be_valid
     end
 
-    it 'succeeds with a section and tasks' do
+    it 'fails with a section and multiple tasks' do
       assessment = Fabricate.build(:assessment)
+      expect(assessment).not_to be_valid
+    end
+
+    it 'succeeds with a section and one task' do
+      assessment = Fabricate.build(:assessment, tasks: [Task.create])
       expect(assessment).to be_valid
     end
   end
