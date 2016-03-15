@@ -2,6 +2,9 @@
  # app/views/posts/show.html.erb
  %>
 
+<% title "#{@user.given_name[0]}#{@user.family_name[0]}: \
+  #{truncate @post.title, length: 16, omission: '...'}" %>
+
 <div class='post'>
 
   <div class='post-header'>
@@ -44,7 +47,7 @@
   <div class='post-links'>
     <hr>
     <%= link_to 'Edit', [:edit, @user, @post] %> |
-    <%= link_to 'Back', [@user, :posts] %>
+    <%= link_to 'Back', :back %>
   </div>
 
   <div class='post-comments'>
