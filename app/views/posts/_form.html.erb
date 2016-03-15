@@ -22,7 +22,7 @@
               label: 'Instructions',
               partial: 'tasks/task_instructions',
               collapse: @post.body == nil ? false : true,
-              params: { task: @post.assessment.tasks[0] },
+              params: { task: @post.assessment.task },
               target: 'instructions'
             %>
             <div class='post-rubric collapsible'>

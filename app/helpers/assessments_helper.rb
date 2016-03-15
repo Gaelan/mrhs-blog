@@ -19,7 +19,7 @@ module AssessmentsHelper
       ).count + 1
       illuminate_name = "#{sn}.#{unit}.#{f}#{num}."
 
-      short = mogrify(assessment.tasks[0].title, limit - illuminate_name.length)
+      short = mogrify(assessment.task.title, limit - illuminate_name.length)
 
       illuminate_name + short
     end.sort.join('<br>').html_safe
@@ -37,10 +37,10 @@ module AssessmentsHelper
     # TODO: translation
     # TODO: configurable see_full message
     see_full = 'See the full description on the class blog: http://mrhs-photo-blog.heroku.com.'
-    body = markdown (truncate assessment.tasks[0].body,
+    body = markdown (truncate assessment.task.body,
                               length: 400, omission: '',
                               separator: "\r\n\r\n")
-    "#{assessment.tasks[0].title}: #{body} #{see_full}"
+    "#{assessment.task.title}: #{body} #{see_full}"
   end
 
   # Shorten string:
