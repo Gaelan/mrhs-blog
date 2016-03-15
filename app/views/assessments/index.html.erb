@@ -16,7 +16,7 @@
   end
 
   g.column name: 'Task' do |c|
-    link_to c.tasks[0].title, task_path(c.tasks[0])
+    link_to c.task.title, task_path(c.task)
   end
 
   g.column name: 'Strands/GB Names' do |c|
