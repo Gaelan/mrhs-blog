@@ -28,7 +28,7 @@ class Assessment < ActiveRecord::Base
     rubric_candidates = Rubric
                         .where(
                           strand_id: strand_ids,
-                          rubricable: [[@task], nil]
+                          rubricable: [[task], nil]
                         )
     strand_ids.each do |sid|
       strand_rubrics = rubric_candidates.select { |r| r.strand_id == sid }
@@ -44,6 +44,12 @@ class Assessment < ActiveRecord::Base
                    # strand.objective.group: :asc,
                    # strand.number: :asc,
                    band: :asc)
+  end
+
+  # XXX - this should eventually go away. I don't think an assessment should
+  #       have more than one Task associated with it.
+  def task
+    tasks[0]
   end
 
   def to_s
