@@ -2,6 +2,11 @@
 class ApplicationController < ActionController::Base
   include Pundit
   before_action :update_active_time
+  before_action do
+    if Rails.env.development? || current_user && current_user.admin?
+      Rack::MiniProfiler.authorize_request
+    end
+  end
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
