@@ -32,7 +32,6 @@ class AssessmentsController < ApplicationController
 
     # TODO: make externally configurable.
     @assessment.value = 8
-    binding.pry
   end
 
   # GET /assessments/1/edit
@@ -119,45 +118,33 @@ class AssessmentsController < ApplicationController
     authorize @assessment
     # XXX - what else needs to be authorized? Enrollment?
 
-    # binding.pry
-
     if @assessment.due_date > Time.current
-      #
-      # Not due yet, only score published Posts.
-      #
-      posts = Post.where(assessment: params[:id], published: true)
-      strands = posts[0].strands.count
-      post_ids = posts.map &:id
-      posts.map do |p|
-        if p.scores.count == strands
-          # Post appears to have been previously scored.
-          post_ids.delete(p.id)
-        end
-      end
-      @posts = posts.where(id: post_ids)
-      @missing = []
-      # binding.pry
+      # Due date is still in the future, only score published posts.
+      @posts = Post.where(assessment: @assessment, published: true)
+      @missing = nil
     else
-      #
       # Due date has passed, set up to score everything.
-      #
-      students = Enrollment.where(section: @assessment.section)
-      missing = students.map &:student_id
-      posts = Post.where(assessment: params[:id])
-      strands = Assessment.find(params[:id]).strands.count
-      post_ids = posts.map &:id
-      posts.map do |p|
-        if p.scores.count == strands
-          # Post appears to have been previously scored.
-          post_ids.delete(p.id)
-        end
-        missing.delete(p.user_id)
+      @posts = Post.where(assessment: @assessment)
+      @missing = @assessment.section
+                            .students.order(family_name: :asc, given_name: :asc)
+    end
+
+    @posts.includes!(:user)
+          .order!('users.family_name ASC, users.given_name ASC')
+    strands = @assessment.strands.count
+
+    @posts = @posts.select do |p|
+      @missing.empty? || @missing -= [User.find(p.user_id)]
+
+      p.scores.count != strands
+    end
+
+    unless @missing.empty?
+      # Remove users with missing posts that have already been scored.
+      scores = Score.where(user: @missing, assessment: @assessment)
+      @missing.select! do |u|
+        scores.where(user: u).count != strands
       end
-      @posts = posts.where(id: post_ids)
-      # TODO: need to check that @missing doesn't contain assessments that have
-      #       already been scored.
-      @missing = User.where(id: missing)
-      # binding.pry
     end
   end
 
