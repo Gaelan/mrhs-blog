@@ -20,6 +20,13 @@
     <%= f.input :short_title %>
   </p>
 
+  <div class='objectives'>
+    <h3>Objectives</h3>
+
+    <div class="form-inputs">
+      <%= f.association :objectives, include_blank: true %>
+    </div>
+  </div>
 
   <div class='units'>
     <h3>Units</h3>
