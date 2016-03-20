@@ -32,7 +32,6 @@ class AssessmentsController < ApplicationController
 
     # TODO: make externally configurable.
     @assessment.value = 8
-    binding.pry
   end
 
   # GET /assessments/1/edit
@@ -119,8 +118,6 @@ class AssessmentsController < ApplicationController
     authorize @assessment
     # XXX - what else needs to be authorized? Enrollment?
 
-    # binding.pry
-
     if @assessment.due_date > Time.current
       #
       # Not due yet, only score published Posts.
@@ -136,7 +133,6 @@ class AssessmentsController < ApplicationController
       end
       @posts = posts.where(id: post_ids)
       @missing = []
-      # binding.pry
     else
       #
       # Due date has passed, set up to score everything.
@@ -153,11 +149,18 @@ class AssessmentsController < ApplicationController
         end
         missing.delete(p.user_id)
       end
-      @posts = posts.where(id: post_ids)
-      # TODO: need to check that @missing doesn't contain assessments that have
-      #       already been scored.
-      @missing = User.where(id: missing)
       # binding.pry
+      @posts = posts.where(id: post_ids).includes(:user).order('users.family_name ASC, users.given_name ASC')
+
+      unless missing.empty?
+        # If there are students with missing posts, check to see if they have
+        # already been scored.
+        scores = Score.where(user: missing, assessment: params[:id])
+        missing.select! do |u|
+          scores.where(user: u).count != strands
+        end
+      end
+      @missing = User.where(id: missing).order(family_name: :asc, given_name: :asc)
     end
   end
 
