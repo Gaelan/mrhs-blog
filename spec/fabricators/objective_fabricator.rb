@@ -1,0 +1,2 @@
+Fabricator(:objective) do
+end
