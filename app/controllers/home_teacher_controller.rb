@@ -31,18 +31,18 @@ class HomeTeacherController < ApplicationController
         course: c.course_id,
         title: Course.find(c.course_id).title,
         section: c.id,
-        students: get_students(c.id),
+        students: get_students(c),
         assessments: get_assessments(c.id)
       }
     end
   end
 
   def get_students(section)
-    Enrollment.where(section_id: section).map do |s|
+    section.students.map do |s|
       {
-        id: s.student_id,
-        given_name: @students.where(id: s.student_id)[0].given_name,
-        family_name: @students.where(id: s.student_id)[0].family_name
+        id: s.id,
+        given_name: s.given_name,
+        family_name: s.family_name
       }
     end.sort do |l, r|
       unless l[:family_name] == r[:family_name]
