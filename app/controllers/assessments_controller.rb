@@ -120,19 +120,20 @@ class AssessmentsController < ApplicationController
 
     if @assessment.due_date > Time.current
       # Due date is still in the future, only score published posts.
-      @posts = Post.where(assessment: params[:id], published: true)
+      @posts = Post.where(assessment: @assessment, published: true)
       @missing = nil
     else
       # Due date has passed, set up to score everything.
       @posts = Post.where(assessment: @assessment)
-      @missing = User.where(
-        id: (Enrollment.where(section: @assessment.section).map &:student_id))
-                     .order(family_name: :asc, given_name: :asc)
+      @missing = @assessment.section
+                            .students.order(family_name: :asc, given_name: :asc)
     end
 
-    strands = Assessment.find(@assessment).strands.count
+    @posts.includes!(:user)
+          .order!('users.family_name ASC, users.given_name ASC')
+    strands = @assessment.strands.count
 
-    @posts.select do |p|
+    @posts = @posts.select do |p|
       @missing.empty? || @missing -= [User.find(p.user_id)]
 
       p.scores.count != strands
@@ -145,8 +146,6 @@ class AssessmentsController < ApplicationController
         scores.where(user: u).count != strands
       end
     end
-
-    @posts.includes(:user).order('users.family_name ASC, users.given_name ASC')
   end
 
   private
