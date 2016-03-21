@@ -227,7 +227,7 @@ module HomeTeacherHelper
   end
 
   def posts_for_assessment(aid, posts)
-    post_or_posts = posts.where(assessment: aid)
+    post_or_posts = posts.find_all { |p| p.assessment == aid }
     case post_or_posts.count
     when 0
       [{ pid: nil, title: nil, status: nil }]
