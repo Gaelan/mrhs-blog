@@ -97,7 +97,131 @@ module HomeTeacherHelper
   end
 
   def objective_summary(uid, course)
-    '<td></td><td></td><td></td><td></td>'.html_safe
+    os = collect_objective_info(uid, course).map do |oi|
+      {
+        objective: summarize_objective(uid, oi)
+      }
+    end
+    format_objective_summary(os)
+  end
+
+  def collect_objective_info(uid, course)
+    Course.find(course[:course]).objectives.map do |o|
+      {
+        info: o,
+        strands: o.strands.map do |s|
+          {
+            info: s,
+            assessments: s.assessments.where(section: course[:section]).map do |a|
+              {
+                assessment: a,
+                scores: Score.where(user: uid, strand: s, assessment: a)
+              }
+            end
+          }
+        end
+      }
+    end
+  end
+
+  def format_objective_summary(os)
+    html = os.map do |o|
+      # For each objective.
+      score = 0.0
+      unless objective_has_assessments(o) == true
+        css_class = '\'not-assessed-yet\''
+        score = 'NA'
+        tooltip = "No assessments yet for this objective."
+      else
+        o[:objective][:strands].map do |s|
+          # For each strand.
+          unless s[:score][:roll_up_score].nil?
+            score += s[:score][:roll_up_score].to_f
+          end
+        end
+        css_class = case
+                    when score <= 1.0
+                      'limited-knowledge'
+                    when score <= 2.0
+                      'adequate-knowledge'
+                    when score <  6.0
+                      'substantial-knowledge'
+                    else
+                      'excellent-knowledge'
+                    end
+      end
+      "<td class=#{css_class}><strong>#{score}</strong></td>"
+    end.join.html_safe
+  end
+
+  def objective_has_assessments(o)
+    if o[:objective][:strands].map { |st| st[:score][:assessments] }.sum == 0
+      false
+    else
+      true
+    end
+  end
+
+  def summarize_objective(uid, objective)
+    {
+      info: objective[:info],
+      strands: objective[:strands].map do |s|
+        {
+          info: s[:info],
+          score: strand_score(uid, s)
+        }
+      end
+    }
+  end
+
+  def strand_score(uid, s)
+    {
+      assessments: s[:assessments].count,
+      posts: count_posts_for_strand(uid, s),
+      scores: times_assessed(s),
+      max_possible_score: max_possible_score(s),
+      raw_score: raw_score(s),
+      roll_up_method: 'roll_up_average',
+      roll_up_score: roll_up_average(s)
+    }
+  end
+
+  def count_posts_for_strand(uid, s)
+    # TODO: get an array of assessment_ids for this strand.
+    # Post.where(user: uid, assessment: [])
+    'Not calculated yet'
+  end
+
+  def times_assessed(s)
+    s[:assessments].sum { |a| a[:scores].count }
+  end
+
+  def max_possible_score(s)
+    if s[:assessments].count == 0
+      nil
+    else
+      s[:assessments].sum { |a| a[:assessment].value }
+    end
+  end
+
+  def raw_score(s)
+    if s == nil || s.empty? then binding.pry end
+    if s[:assessments].count == 0
+      # Not assessed yet.
+      nil
+    else
+      # Nil of not yet scored, else score value.
+      s[:assessments].sum { |a| a[:scores].empty? ? 0 : (a[:scores].sum &:score) }
+    end
+  end
+
+  def roll_up_average(s)
+    # TODO: should not be hard coding the MYP scale (8.0) here.
+    if times_assessed(s) == 0
+      nil
+    else
+      raw_score(s).to_f / max_possible_score(s).to_f * 8.0 # XXX
+    end
   end
 
   def posts_for_assessment(aid, posts)
