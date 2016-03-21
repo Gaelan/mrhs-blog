@@ -23,7 +23,7 @@ module HomeTeacherHelper
   end
 
   def student_scores_for_assessment(uid, a)
-    scores = Score.where(user: uid, assessment: a)
+    Score.where(user: uid, assessment: a)
   end
 
   def assessment_th(course)
@@ -90,8 +90,8 @@ module HomeTeacherHelper
   end
 
   def calculate_assessment_width(course)
-    na = number_of_assessments(course)
-    units = na + 4 + 3 + 6 # assessments + objectives + last_activity + names
+    # na = number_of_assessments(course)
+    # units = na + 4 + 3 + 6 # assessments + objectives + last_activity + names
     # 1.0 / units * 100
     4.0
   end
@@ -125,19 +125,22 @@ module HomeTeacherHelper
   end
 
   def format_objective_summary(os)
-    html = os.map do |o|
+    os.map do |o|
       # For each objective.
       score = 0.0
+      scored_strands = 0.0
       unless objective_has_assessments(o) == true
         css_class = '\'not-assessed-yet\''
         score = 'NA'
-        tooltip = "No assessments yet for this objective."
+        # tooltip = "No assessments yet for this objective."
       else
         o[:objective][:strands].map do |s|
           # For each strand.
           unless s[:score][:roll_up_score].nil?
             score += s[:score][:roll_up_score].to_f
+            scored_strands += 1
           end
+          scored_strands > 0 ? score = score / scored_strands : 0.0
         end
         css_class = case
                     when score <= 1.0
@@ -205,7 +208,6 @@ module HomeTeacherHelper
   end
 
   def raw_score(s)
-    if s == nil || s.empty? then binding.pry end
     if s[:assessments].count == 0
       # Not assessed yet.
       nil
@@ -301,7 +303,7 @@ module HomeTeacherHelper
           css = 'not-started' + annunicator_style
         else
           # Assignment not turned in, scored as 0 (persumably).
-          href = '#'  # Make this a popover explaining how to reassess.
+          href = '#' # Make this a popover explaining how to reassess.
           css = 'scored-missing' + annunicator_style
         end
       else
