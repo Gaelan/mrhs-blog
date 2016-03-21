@@ -140,7 +140,8 @@ module HomeTeacherHelper
             score += s[:score][:roll_up_score].to_f
             scored_strands += 1
           end
-          scored_strands > 0 ? score = score / scored_strands : 0.0
+          scored_strands > 0 ? score = (score / scored_strands).round(1) : 0.0
+
         end
         css_class = case
                     when score <= 1.0
