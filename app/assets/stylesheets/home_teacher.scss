@@ -20,6 +20,14 @@
     border: 6px solid blue;
   }
 
+  // Score colors.
+  .not-yet-assessed { background-color: gray; }
+  .limited-knowledge { background-color: red; }
+  .adequate-knowledge { background-color: yellow; }
+  .substantial-knowledge { background-color: lightgreen; }
+  .excellent-knowledge { background-color: green; }
+
+
   // Last seen colors.
   .today { background-color: green; }
   .last-three-days { background-color: yellow; }
