@@ -36,7 +36,9 @@
             </thead>
             <tbody>
               <% c[:students].each do |s| %>
-                <%= render 'overview_student_detail', course: c, student: s %>
+                <% cache overview_student_detail do %>
+                  <%= render 'overview_student_detail', course: c, student: s %>
+                <% end %>
               <% end %>
             </tbody>
           </table>
