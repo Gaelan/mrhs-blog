@@ -27,6 +27,7 @@ class ScoresController < ApplicationController
   # GET /scores/1/edit
   def edit
     authorize @score
+    expire_fragment @score.user.cache_key
   end
 
   # POST /scores
