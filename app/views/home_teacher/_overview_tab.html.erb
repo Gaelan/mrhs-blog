@@ -36,7 +36,7 @@
             </thead>
             <tbody>
               <% c[:students].each do |s| %>
-                <% cache s do %>
+                <% cache s.cache_key do %>
                   <%= render 'overview_student_detail', course: c, student: s %>
                 <% end %>
               <% end %>
