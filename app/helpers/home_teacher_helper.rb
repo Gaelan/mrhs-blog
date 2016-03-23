@@ -97,13 +97,13 @@ module HomeTeacherHelper
   end
 
   def objective_summary(uid, course)
-    # os = collect_objective_info(uid, course).map do |oi|
-    #   {
-    #     objective: summarize_objective(uid, oi)
-    #   }
-    # end
-    # format_objective_summary(os)
-    ('<td></td>' * 4).html_safe
+    os = collect_objective_info(uid, course).map do |oi|
+      {
+        objective: summarize_objective(uid, oi)
+      }
+    end
+    format_objective_summary(os)
+    # ('<td></td>' * 4).html_safe
   end
 
   def collect_objective_info(uid, course)
