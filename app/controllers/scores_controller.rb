@@ -34,6 +34,7 @@ class ScoresController < ApplicationController
   def create
     @score = Score.new(score_params)
     authorize @score
+    expire_fragment @score.user.cache_key
 
     respond_to do |format|
       if @score.save
