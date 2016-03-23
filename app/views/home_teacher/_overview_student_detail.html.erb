@@ -8,6 +8,10 @@
     <%= last_seen(student[:id]) %>
     <%= unclassified_posts(student[:id]) %>
   </td>
-  <%= objective_summary(student[:id], course) %>
-  <%= assessment_overview(student[:id], course[:assessments]) %>
+  <% cache objective_summary do %>
+    <%= objective_summary(student[:id], course) %>
+  <% end %>
+  <% cache assessment_overview do %>
+    <%= assessment_overview(student[:id], course[:assessments]) %>
+  <% end %>
 </tr>
