@@ -6,9 +6,6 @@ class Post < ActiveRecord::Base
   accepts_nested_attributes_for :images,
                                 allow_destroy: true,
                                 reject_if: :all_blank
-  scope :published, -> { where(published: true) }
-  scope :unpublished, -> { where(published: false) }
-
   has_many :comments, as: :commentable
   belongs_to :assessment
   # XXX - the line below wasn't returning the right Scores, it wasn't using
@@ -16,6 +13,11 @@ class Post < ActiveRecord::Base
   #       against the assessment. The method below seems closer...
   # has_many :scores, through: :assessment
   has_many :strands, through: :assessment
+
+  validates :assessment_id, presence: true
+
+  scope :published,   -> { where(published: true) }
+  scope :unpublished, -> { where(published: false) }
 
   def images?
     images.count
