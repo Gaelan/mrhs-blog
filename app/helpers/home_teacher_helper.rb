@@ -282,6 +282,11 @@ module HomeTeacherHelper
       end
     end
     status << 'empty' if post.body.blank?
+    # binding.pry
+    status << 'updated' if scores.select do |score|
+      post.assessment_id == score.assessment_id &&
+      post.updated_at > score.updated_at
+    end.count > 0
     status.join(' ')
   end
 
