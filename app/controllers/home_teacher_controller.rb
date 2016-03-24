@@ -8,14 +8,14 @@ class HomeTeacherController < ApplicationController
     authorize Section
     authorize User
 
-    @courses = policy_scope Course.all
+    @courses  = policy_scope Course.all
     @sections = policy_scope Section.all
-    @students = policy_scope User.all
+    @users = policy_scope User.all
 
     @periods = @sections.map do |s|
       {
         session: s.session,
-        period: s.period,
+        period:  s.period,
         courses: get_courses(s.session, s.period)
       }
     end.uniq
@@ -38,13 +38,7 @@ class HomeTeacherController < ApplicationController
   end
 
   def get_students(section)
-    section.students.map do |s|
-      {
-        id: s.id,
-        given_name: s.given_name,
-        family_name: s.family_name
-      }
-    end.sort do |l, r|
+    section.students.sort do |l, r|
       unless l[:family_name] == r[:family_name]
         l[:family_name] <=> r[:family_name]
       else
