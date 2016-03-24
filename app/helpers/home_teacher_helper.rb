@@ -17,7 +17,7 @@ module HomeTeacherHelper
         aid: a,
         a_title: Assessment.find(a).title,
         posts: posts_for_assessment(a, posts, scores),
-        scores: scores.where(assessment: a)
+        scores: scores.select { |score| score.assessment_id == a }
       }
     end
     format_status(post_info)
@@ -263,9 +263,12 @@ module HomeTeacherHelper
     status = []
     if post.published
       status << 'published'
-      if scores.where(user: post.user, assessment: aid).count > 0
-        if scores.where(user: post.user, assessment: aid).count ==
-          Assessment.find(aid).strands.count
+      if scores.select { |score|
+        score.user == post.user && score.assessment == aid
+      }.count > 0
+        if scores.select { |score|
+          score.user == post.user && score.assessment == aid
+        }.count == Assessment.find(aid).strands.count
             status << 'scored'
         else
           status << 'partially-scored'
