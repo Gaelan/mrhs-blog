@@ -16,14 +16,14 @@ module HomeTeacherHelper
         uid: uid,
         aid: a,
         a_title: Assessment.find(a).title,
-        posts: posts_for_assessment(a, posts),
+        posts: posts_for_assessment(a, posts, scores),
         scores: scores.where(assessment: a)
       }
     end
     format_status(post_info)
   end
 
-  def posts_for_assessment(aid, posts)
+  def posts_for_assessment(aid, posts, scores)
     post_or_posts = posts.find_all { |p| p.assessment_id == aid }
     case post_or_posts.count
     when 0
@@ -32,7 +32,7 @@ module HomeTeacherHelper
       [{
         pid: post_or_posts[0].id,
         title: (sanitize post_or_posts[0].title),
-        status: assessment_status(aid, post_or_posts[0])
+        status: assessment_status(aid, post_or_posts[0], scores)
       }]
     else
       # XXX: figure out how to handle multiple posts in annunicators.
@@ -43,7 +43,7 @@ module HomeTeacherHelper
         {
           pid: p.id,
           title: (sanitize p.title),
-          status: assessment_status(aid, p)
+          status: assessment_status(aid, p, scores)
         }
       end
     end
@@ -255,7 +255,7 @@ module HomeTeacherHelper
     end
   end
 
-  def assessment_status(aid, post)
+  def assessment_status(aid, post, scores)
     # TODO: better computation of post status (add need-help?).
     # TODO: also look for images.
     # TODO: requirement checking.
@@ -263,8 +263,8 @@ module HomeTeacherHelper
     status = []
     if post.published
       status << 'published'
-      if Score.where(user: post.user, assessment: aid).count > 0
-        if Score.where(user: post.user, assessment: aid).count ==
+      if scores.where(user: post.user, assessment: aid).count > 0
+        if scores.where(user: post.user, assessment: aid).count ==
           Assessment.find(aid).strands.count
             status << 'scored'
         else
