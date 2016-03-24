@@ -36,9 +36,9 @@
             </thead>
             <tbody>
               <% c[:students].each do |s| %>
-                <%# cache User.find(s[:id]).cache_key do %>
+                <% cache User.find(s[:id]).cache_key do %>
                   <%= render 'overview_student_detail', course: c, student: s %>
-                <%# end %>
+                <% end %>
               <% end %>
             </tbody>
           </table>
