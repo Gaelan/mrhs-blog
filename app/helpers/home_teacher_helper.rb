@@ -10,16 +10,43 @@ module HomeTeacherHelper
 
   def assessment_overview(uid, aids)
     posts = Post.where(user: uid, assessment: aids)
+    scores = Score.where(user: uid)
     post_info = aids.map do |a|
       {
         uid: uid,
         aid: a,
         a_title: Assessment.find(a).title,
         posts: posts_for_assessment(a, posts),
-        scores: student_scores_for_assessment(uid, a)
+        scores: scores.where(assessment: a)
       }
     end
     format_status(post_info)
+  end
+
+  def posts_for_assessment(aid, posts)
+    post_or_posts = posts.find_all { |p| p.assessment_id == aid }
+    case post_or_posts.count
+    when 0
+      [{ pid: nil, title: nil, status: nil }]
+    when 1
+      [{
+        pid: post_or_posts[0].id,
+        title: (sanitize post_or_posts[0].title),
+        status: assessment_status(aid, post_or_posts[0])
+      }]
+    else
+      # XXX: figure out how to handle multiple posts in annunicators.
+      #      Could do a decending date by mod time, to show the most recent by
+      #      default and figure out a way to show a select list if clicked or
+      #      some similar scheme.
+      post_or_posts.map do |p|
+        {
+          pid: p.id,
+          title: (sanitize p.title),
+          status: assessment_status(aid, p)
+        }
+      end
+    end
   end
 
   def student_scores_for_assessment(uid, a)
@@ -225,32 +252,6 @@ module HomeTeacherHelper
       nil
     else
       raw_score(s).to_f / max_possible_score(s).to_f * 8.0 # XXX
-    end
-  end
-
-  def posts_for_assessment(aid, posts)
-    post_or_posts = posts.find_all { |p| p.assessment_id == aid }
-    case post_or_posts.count
-    when 0
-      [{ pid: nil, title: nil, status: nil }]
-    when 1
-      [{
-        pid: post_or_posts[0].id,
-        title: (sanitize post_or_posts[0].title),
-        status: assessment_status(aid, post_or_posts[0])
-      }]
-    else
-      # XXX: figure out how to handle multiple posts in annunicators.
-      #      Could do a decending date by mod time, to show the most recent by
-      #      default and figure out a way to show a select list if clicked or
-      #      some similar scheme.
-      post_or_posts.map do |p|
-        {
-          pid: p.id,
-          title: (sanitize p.title),
-          status: assessment_status(aid, p)
-        }
-      end
     end
   end
 
