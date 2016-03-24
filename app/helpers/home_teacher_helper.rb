@@ -4,7 +4,7 @@ module HomeTeacherHelper
   #
   # Returns: an array of assessment info hashes
   # - aid: Assessment.id
-  # - a_title: Assessment.title
+  # - assessment: the Assessment
   # - post: array of hashes { pid: Post.id, title: Post.title, status: CSS class names [] }
   # - scores: array of Score hashes
 
@@ -16,7 +16,6 @@ module HomeTeacherHelper
         uid: uid,
         aid: a,
         assessment: Assessment.find(a),
-        a_title: Assessment.find(a).title,
         posts: posts_for_assessment(a, posts, scores),
         scores: scores.select { |score| score.assessment_id == a }
       }
@@ -264,10 +263,10 @@ module HomeTeacherHelper
     if post.published
       status << 'published'
       if scores.select { |score|
-        score.user == post.user && score.assessment == aid
+        score.user == post.user && score.assessment_id == aid
       }.count > 0
         if scores.select { |score|
-          score.user == post.user && score.assessment == aid
+          score.user == post.user && score.assessment_id == aid
         }.count == Assessment.find(aid).strands.count
             status << 'scored'
         else
@@ -309,6 +308,7 @@ module HomeTeacherHelper
           css = 'not-started' + annunicator_style
         else
           # Assignment not turned in, scored as 0 (persumably).
+          # XXX - students don't get warned, can't create post.
           href = '#' # Make this a popover explaining how to reassess.
           css = 'scored-missing' + annunicator_style
         end
@@ -316,7 +316,7 @@ module HomeTeacherHelper
         css = info[:posts][0][:status] + annunicator_style
         href = user_post_path(info[:uid], info[:posts][0][:pid])
       end
-      title = "#{info[:a_title]}\n#{info[:posts][0][:title]}".html_safe
+      title = "#{info[:assessment].title}\n#{info[:posts][0][:title]}".html_safe
 
       "<td><a href=\"#{href}\" title=\"#{title}\" class=\"#{css}\">&nbsp;</a></td>"
     end.join.html_safe
