@@ -15,6 +15,7 @@ module HomeTeacherHelper
       {
         uid: uid,
         aid: a,
+        assessment: Assessment.find(a),
         a_title: Assessment.find(a).title,
         posts: posts_for_assessment(a, posts, scores),
         scores: scores.select { |score| score.assessment_id == a }
@@ -47,10 +48,6 @@ module HomeTeacherHelper
         }
       end
     end
-  end
-
-  def student_scores_for_assessment(uid, a)
-    Score.where(user: uid, assessment: a)
   end
 
   def assessment_th(course)
@@ -134,6 +131,7 @@ module HomeTeacherHelper
   end
 
   def collect_objective_info(uid, course)
+    scores = Score.where(user: uid)
     Course.find(course[:course]).objectives.map do |o|
       {
         info: o,
@@ -143,7 +141,9 @@ module HomeTeacherHelper
             assessments: s.assessments.where(section: course[:section]).map do |a|
               {
                 assessment: a,
-                scores: Score.where(user: uid, strand: s, assessment: a)
+                scores: scores.select do |score|
+                  score.strand == s && score.assessment == a
+                end
               }
             end
           }
