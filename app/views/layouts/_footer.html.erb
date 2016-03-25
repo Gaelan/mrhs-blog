@@ -7,24 +7,13 @@
  # TODO: helpter for Footnote display.
  %>
 <footer class='footer'>
-  <% if user_signed_in? || Rails.env.development? %>
-    <div class='container-fluid'>
+  <div class="container-fluid">
+    <% if user_signed_in? || Rails.env.development? %>
       <div id='footer-become'>
         <% if policy(User).become? %>
           <%= render 'layouts/su' %>
         <% end %>
       </div>
-      <% if user_signed_in? && (current_user.teacher? || current_user.admin?) %>
-        <div>
-          <button id='footnote-button' class='btn btn-info' type='button'
-            data-toggle='collapse' data-target='#footnotes'>
-            Footnotes
-          </button>
-        </div>
-      <% end %>
-    </div>
-  <% end %>
-  <div id='footnotes' class='collapse'>
-    <div id='footnotes_holder' <%= current_user.teacher? ? '' : 'style="display: none;"'></div>
+    <% end %>
   </div>
 </footer>
