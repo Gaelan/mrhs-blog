@@ -284,8 +284,10 @@ module HomeTeacherHelper
     status << 'empty' if post.body.blank?
     # binding.pry
     status << 'updated' if scores.select do |score|
+      # Scoring will touch the Post so add 1 second to the score time so that
+      # we don't get false positives.
       post.assessment_id == score.assessment_id &&
-      post.updated_at > score.updated_at
+      post.updated_at > score.updated_at + 1.second
     end.count > 0
     status.join(' ')
   end
