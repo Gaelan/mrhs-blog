@@ -18,7 +18,7 @@ class AddGivenAndFamilyNamesToUser < ActiveRecord::Migration[5.0]
   end
 
   def down
-    remove_column :users, :given_name
+    remove_column :users, :given_name, :text
     remove_column :users, :given_name_phonetic, :text
     remove_column :users, :family_name, :text
     remove_column :users, :family_name_phonetic, :text
