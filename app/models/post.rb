@@ -1,7 +1,7 @@
 # Post model definition
 #
 class Post < ActiveRecord::Base
-  belongs_to :user
+  belongs_to :user, touch: true
   has_many :images
   accepts_nested_attributes_for :images,
                                 allow_destroy: true,
@@ -31,8 +31,7 @@ class Post < ActiveRecord::Base
   #
   def scores
     Score.where(user_id: user_id,
-                assessment_id: assessment.id,
-                # strand_id: assessment.strands[0].id
+                assessment_id: assessment.id
                )
   end
 end
