@@ -8,7 +8,8 @@ class Score < ActiveRecord::Base
   # time). Where should the default be set.
 
   validates :assessment, presence: true
-  validates :post, presence: true
+  # Can't require a post because we may be scoring missing work.
+  # validates :post, presence: true
   # TODO: can we validate that score is within the range of the assessment?
   validates :score, inclusion: { in: 0..8 }, allow_nil: true
   validates :strand, presence: true

@@ -27,7 +27,7 @@ class ScoresController < ApplicationController
   # GET /scores/1/edit
   def edit
     authorize @score
-    expire_fragment @score.user.cache_key
+    # expire_fragment @score.user.cache_key
   end
 
   # POST /scores
@@ -35,7 +35,7 @@ class ScoresController < ApplicationController
   def create
     @score = Score.new(score_params)
     authorize @score
-    expire_fragment @score.user.cache_key
+    # expire_fragment @score.user.cache_key
 
     respond_to do |format|
       if @score.save
@@ -79,8 +79,6 @@ class ScoresController < ApplicationController
 
   # Post scores for missing assignments.
   #
-  # TODO: what is the right way to do this? Seems like scores should be posted
-  #       through the Score controller...
   def bulk
     authorize Score
 
@@ -92,7 +90,8 @@ class ScoresController < ApplicationController
           user_id: uid,
           assessment_id: params[:id],
           strand_id: s.id,
-          note: 'Assignment not done.'
+          note: 'Assignment not done.',
+          post_id: nil
         }
       end
     end
@@ -120,6 +119,7 @@ class ScoresController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def score_params
-    params.require(:score).permit(:score, :drop, :note, :user_id, :assessment_id, :strand_id)
+    params.require(:score).permit(:score, :drop, :note,
+                                  :user_id, :assessment_id, :strand_id, :post_id)
   end
 end
