@@ -282,13 +282,15 @@ module HomeTeacherHelper
       end
     end
     status << 'empty' if post.body.blank?
-    # binding.pry
-    status << 'updated' if scores.select do |score|
-      # Scoring will touch the Post so add 1 second to the score time so that
-      # we don't get false positives.
-      post.assessment_id == score.assessment_id &&
-      post.updated_at > score.updated_at + 1.second
-    end.count > 0
+    # Scoring will touch the Post so add 1 second to the score time so that
+    # we don't get false positives. Make sure we are looking at the most recent
+    # score.
+    latest_score = scores.select do |score|
+      post == score.post
+    end.sort_by(&:updated_at).last
+    if latest_score
+      status << 'updated' if post.updated_at > latest_score.updated_at + 1.second
+    end
     status.join(' ')
   end
 
