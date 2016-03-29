@@ -28,3 +28,27 @@ $btn-color-678:  #5cc754;
     @include button-variant(#fff, $btn-color-678, lighten($btn-color-678, 5%));
   }
 }
+
+
+
+.label-score:not(.current) {
+  @extend .label-default;
+}
+
+.label-score.current {
+  &.score-0, &.score-1 {
+    @include label-variant($btn-color-01);
+  }
+
+  &.score-2, &.score-3 {
+    @include label-variant($btn-color-23);
+  }
+
+  &.score-4, &.score-5 {
+    @include label-variant($btn-color-45);
+  }
+
+  &.score-6, &.score-7, &.score-8 {
+    @include label-variant($btn-color-678);
+  }
+}
