@@ -1,3 +1,4 @@
+<% if current_user.teacher? %>
 <div class='score-mini-form'>
   <%# XXX: setting drop here is asking for trouble. Set in model? %>
   <% score = Score.for(
@@ -18,3 +19,8 @@
     <%= f.input :score, as: :hidden %>
   <% end %>
 </div>
+<% else %>
+<% score = Score.for(
+  post: @post, strand: strand, user: student, assessment: assessment) %>
+<span class='label label-score score-<%=num%> <% if score.score == num %> current <% end %>'> <%= num %> </span>
+<% end %>
