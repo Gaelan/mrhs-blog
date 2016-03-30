@@ -156,6 +156,9 @@ GEM
     method_source (0.8.2)
     mime-types (2.99)
     mimemagic (0.3.1)
+    mini_exiftool (2.5.1)
+    mini_exiftool_vendored (9.2.7.v1)
+      mini_exiftool (>= 1.6.0)
     mini_portile2 (2.0.0)
     minitest (5.8.4)
     multi_json (1.11.2)
@@ -336,6 +339,7 @@ DEPENDENCIES
   high_voltage (~> 2.4.0)!
   jbuilder (~> 2.0)
   jquery-rails
+  mini_exiftool_vendored
   omniauth
   omniauth-google-oauth2
   paperclip!

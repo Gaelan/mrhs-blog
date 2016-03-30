@@ -33,6 +33,12 @@
           <p class='post-image-link'>
             <% if image.src %><%= link_to 'Image Source', image.src %> <%end%>
           </p>
+          <p class='post-image-exif'>
+            <% exif = image_exif image %>
+            <%= @camera %><br>
+            <%= @exposure %><br>
+            <%= @capture %>
+          </p>
         </figcaption>
       </figure>
     <% end %>
